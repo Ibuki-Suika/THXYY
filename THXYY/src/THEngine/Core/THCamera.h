@@ -1,13 +1,13 @@
 #ifndef THCAMERA_H
 #define THCAMERA_H
 
-#include "../Common/THCommon.h"
-#include "../Math/THMathUtil.h"
-#include <Asset\THRenderTexture.h>
+#include <Common\THCommon.h>
+#include <Math\THMathUtil.h>
 
 namespace THEngine
 {
 	class Layer;
+	class RenderTexture;
 
 	class Camera : public EngineObject
 	{
@@ -38,10 +38,7 @@ namespace THEngine
 		inline void SetName(const String& name) { this->name = name; }
 		inline String& GetName() { return name; }
 
-		inline void SetRenderTexture(RenderTexture* renderTexture)
-		{
-			TH_SET(this->renderTexture, renderTexture);
-		}
+		void SetRenderTexture(RenderTexture* renderTexture);
 
 		inline void SetViewport(const RectInt& rect) { this->viewport = rect; }
 		inline const RectInt& GetViewport() const { return this->viewport; }

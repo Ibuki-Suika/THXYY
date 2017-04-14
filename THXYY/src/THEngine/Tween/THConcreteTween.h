@@ -2,10 +2,11 @@
 #define THCONCRETETWEEN_H
 
 #include "THTween.h"
+#include "THTweener.h"
+#include <Math\THVector.h>
 
 namespace THEngine
 {
-
 	class Delay : public TweenUnit
 	{
 	protected:

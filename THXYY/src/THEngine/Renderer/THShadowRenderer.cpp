@@ -1,10 +1,13 @@
 #include "THShadowRenderer.h"
+#include "THRenderQueue.h"
 #include <Platform\THApplication.h>
+#include <Platform\THSurface.h>
 #include <Asset\THAssetManager.h>
 #include <Asset\THShaderStock.h>
+#include <Asset\THFloatTexture.h>
 #include <Core\THGame.h>
+#include <Core\THCamera.h>
 #include <Util\THPicker.h>
-#include "THRenderQueue.h"
 #include <limits>
 
 #ifdef max

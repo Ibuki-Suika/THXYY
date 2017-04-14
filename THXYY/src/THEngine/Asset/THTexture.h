@@ -2,10 +2,11 @@
 #define THTEXTURE_H
 
 #include "THAssetImpl.h"
-#include "THImage.h"
 
 namespace THEngine
 {
+	class Image;
+
 	class TextureImpl : public AssetImpl
 	{
 	private:

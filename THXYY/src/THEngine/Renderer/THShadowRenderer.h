@@ -3,12 +3,15 @@
 
 #include "THRenderer.h"
 #include "THShadowMap.h"
-#include <Platform\THSurface.h>
+#include <Math\THMatrix.h>
+#include <Core\THRenderState.h>
 
 namespace THEngine
 {
 	class RenderQueue;
 	class ShadowMap;
+	class RenderTexture;
+	class Surface;
 
 	class ShadowRenderer : public Renderer
 	{

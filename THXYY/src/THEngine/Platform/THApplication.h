@@ -1,9 +1,8 @@
 #ifndef THAPPLICATION_H
 #define THAPPLICATION_H
 
-#include "../Common/THCommon.h"
+#include <Common\THCommon.h>
 #include <Core\THRenderState.h>
-#include <Asset\THShader.h>
 
 namespace THEngine
 {
@@ -120,14 +119,7 @@ namespace THEngine
 			device->BeginScene();
 		}
 
-		inline void EndRender()
-		{
-			if (renderState.shader)
-			{
-				renderState.shader->End();
-			}
-			device->EndScene();
-		}
+		void EndRender();
 
 		inline void Quit()
 		{

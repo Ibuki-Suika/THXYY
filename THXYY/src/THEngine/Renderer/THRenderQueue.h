@@ -1,7 +1,7 @@
 #ifndef THRENDERQUEUE_H
 #define THRENDERQUEUE_H
 
-#include "../Core/THGameObject.h"
+#include <Core\THGameObject.h>
 
 namespace THEngine
 {

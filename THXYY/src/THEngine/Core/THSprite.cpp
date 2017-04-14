@@ -1,6 +1,9 @@
 #include "THSprite.h"
 #include "THGame.h"
 #include <Math\THMath.h>
+#include <Asset\THTexture.h>
+#include <Renderer\THRenderPipeline.h>
+#include <Renderer\THSpriteRenderer.h>
 
 using namespace THEngine;
 
@@ -26,6 +29,11 @@ Sprite::Sprite()
 Sprite::~Sprite()
 {
 	TH_SAFE_RELEASE(this->texture);
+}
+
+void Sprite::SetTexture(Texture* texture)
+{
+	TH_SET(this->texture, texture);
 }
 
 void Sprite::SendToRenderQueue()

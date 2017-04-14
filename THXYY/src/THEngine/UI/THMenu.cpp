@@ -1,4 +1,6 @@
 #include "THMenu.h"
+#include "THEventSystem.h"
+#include <Platform\THSound.h>
 
 namespace THEngine
 {

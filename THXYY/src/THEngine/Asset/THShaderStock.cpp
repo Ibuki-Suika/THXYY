@@ -1,4 +1,5 @@
 #include "THShaderStock.h"
+#include "THAssetManager.h"
 #include <Core\THGame.h>
 
 namespace THEngine

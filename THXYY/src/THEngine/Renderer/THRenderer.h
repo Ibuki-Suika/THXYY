@@ -1,13 +1,12 @@
 #ifndef THRENDERER_H
 #define THRENDERER_H
 
-#include "../Common/THCommon.h"
-#include "THRenderQueue.h"
-#include "../Asset/THShader.h"
-
+#include <Common\THCommon.h>
 
 namespace THEngine
 {
+	class GameObject;
+
 	class Renderer : public Object
 	{
 	protected:

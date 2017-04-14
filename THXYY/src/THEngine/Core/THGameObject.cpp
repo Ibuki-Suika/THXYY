@@ -1,5 +1,6 @@
 #include "THGameObject.h"
 #include "THDataStack.h"
+#include <Tween\THTweenManager.h>
 
 namespace THEngine
 {
@@ -174,6 +175,11 @@ namespace THEngine
 	{
 		tween->Bind(this);
 		tweenManager->AddTween(tween);
+	}
+
+	void GameObject::KillTween(Tween* tween)
+	{
+		tweenManager->KillTween(tween);
 	}
 
 	void GameObject::ClearTweens()

@@ -1,5 +1,8 @@
 #include "THLayer.h"
 #include "THGame.h"
+#include "THDataStack.h"
+#include <Asset\THCubeMap.h>
+#include <Platform\THApplication.h>
 
 namespace THEngine
 {
@@ -126,6 +129,11 @@ namespace THEngine
 	void Layer::SetFirstCamera(Camera* camera)
 	{
 		SetCameraByIndex(camera, 0);
+	}
+
+	void Layer::SetSkyBox(CubeMap* skyBox)
+	{
+		TH_SET(this->skyBox, skyBox);
 	}
 
 	void Layer::Update()

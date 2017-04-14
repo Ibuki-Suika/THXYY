@@ -1,7 +1,7 @@
 #ifndef THSCENE_H
 #define THSCENE_H
 
-#include "../Common/THCommon.h"
+#include <Common\THCommon.h>
 #include "THLayer.h"
 
 namespace THEngine

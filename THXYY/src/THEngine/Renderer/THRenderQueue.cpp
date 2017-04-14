@@ -1,6 +1,7 @@
 #include "THRenderQueue.h"
 #include "THRenderer.h"
-#include "../Core/THGame.h"
+#include <Core\THGame.h>
+#include <Core\THSprite.h>
 #include <iostream>
 
 using namespace THEngine;

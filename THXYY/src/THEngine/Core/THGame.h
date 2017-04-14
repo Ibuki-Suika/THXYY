@@ -1,28 +1,24 @@
 #ifndef THGAME_H
 #define THGAME_H
 
-#include "../Common/THCommon.h"
-#include "../Platform/THApplication.h"
-#include "../Platform/THInput.h"
-#include "../Platform/THAudio.h"
-#include "THScene.h"
-#include "THFont.h"
-#include "THSprite.h"
-#include "THDataStack.h"
-#include "../Renderer/THSpriteRenderer.h"
-#include "../Renderer/THParticle3DRenderer.h"
-#include "../Renderer/THMeshRenderer.h"
-#include <Renderer\THRenderPipeline.h>
-#include <Renderer\THSkyBoxRenderer.h>
-#include "../Asset/THAssetManager.h"
-#include "../UI/THEventSystem.h"
+#include <Common\THCommon.h>
 #include <Platform\THCoreDumper.h>
-
 
 namespace THEngine
 {
+	class Application;
+	class Input;
+	class Audio;
+	class Scene;
+	class Font;
+	class Sprite;
+	class DataStack;
+	class RenderPipeline;
+	class AssetManager;
+	class EventSystem;
 	class Font;
 	class ShaderStock;
+	class RenderPipeline;
 
 	class Game : public EngineObject
 	{
@@ -69,9 +65,6 @@ namespace THEngine
 		void DrawFPS();
 
 	public:
-		using RenderQueueType = RenderPipeline::RenderQueueType;
-
-	public:
 		Game();
 		virtual ~Game();
 
@@ -85,10 +78,7 @@ namespace THEngine
 
 		void Shutdown();
 
-		inline void Quit()
-		{
-			app->Quit();
-		}
+		void Quit();
 
 		static Game* GetInstance();
 

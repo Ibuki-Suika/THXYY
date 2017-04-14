@@ -1,4 +1,5 @@
 #include "THFont.h"
+#include "THSprite.h"
 #include "../Asset/THAssetManager.h"
 #include <fstream>
 #include <sstream>

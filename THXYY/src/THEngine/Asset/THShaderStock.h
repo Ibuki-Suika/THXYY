@@ -1,11 +1,13 @@
 #ifndef TH_SHADER_STOCK_H
 #define TH_SHADER_STOCK_H
 
-#include "THShader.h"
+#include <Common\THCommon.h>
 
 namespace THEngine
 {
-	class ShaderStock : public Shader
+	class Shader;
+
+	class ShaderStock : public Object
 	{
 	private:
 		static ShaderStock* instance;
@@ -17,6 +19,8 @@ namespace THEngine
 
 	private:
 		ShaderStock();
+		ShaderStock(const ShaderStock&) = delete;
+		ShaderStock& operator= (const ShaderStock&) = delete;
 
 	public:
 		virtual ~ShaderStock();

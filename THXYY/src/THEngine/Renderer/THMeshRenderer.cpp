@@ -1,9 +1,13 @@
 #include "THMeshRenderer.h"
 #include "THShadowMap.h"
+#include "THRenderQueue.h"
 #include <Platform\THApplication.h>
 #include <Asset\THAssetManager.h>
 #include <Asset\THShaderStock.h>
+#include <Asset\THFloatTexture.h>
 #include <Core\THCamera.h>
+#include <Core\THEnvironment.h>
+#include <Core\3D\THMesh.h>
 
 namespace THEngine
 {

@@ -1,6 +1,9 @@
 #include "THAssetManager.h"
 #include "THImage.h"
-#include "../Core/THGame.h"
+#include "THRenderTexture.h"
+#include "THFloatTexture.h"
+#include <Core\THGame.h>
+#include <Platform\THApplication.h>
 
 namespace THEngine
 {

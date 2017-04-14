@@ -1,14 +1,15 @@
-#ifndef THMENU_H
-#define THMENU_H
+#ifndef TH_MENU_H
+#define TH_MENU_H
 
-#include "../Common/THCommon.h"
-#include "../Core/THLayer.h"
-#include "THEventSystem.h"
+#include <Common\THCommon.h>
+#include "THEvents.h"
 #include "THMenuItem.h"
-#include "../Platform/THSound.h"
+#include <Core\THLayer.h>
 
 namespace THEngine
 {
+	class Sound;
+
 	class Menu : public Layer, public IKeyDownListener
 	{
 	protected:

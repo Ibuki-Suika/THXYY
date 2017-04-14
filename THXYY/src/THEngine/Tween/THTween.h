@@ -1,12 +1,12 @@
 #ifndef THTWEEN_H
 #define THTWEEN_H
 
-#include "THTweener.h"
-#include <functional>
+#include <Common\THCommon.h>
 
 namespace THEngine
 {
 	class GameObject;
+	class Tweener;
 
 	class Tween : public Object
 	{

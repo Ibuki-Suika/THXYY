@@ -1,5 +1,8 @@
 #include "THParticle3D.h"
-#include "../Core/THGame.h"
+#include "THGame.h"
+#include <Asset\THTexture.h>
+#include <Renderer\THRenderPipeline.h>
+#include <Renderer\THParticle3DRenderer.h>
 
 namespace THEngine
 {

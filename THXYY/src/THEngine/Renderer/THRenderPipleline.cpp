@@ -1,6 +1,13 @@
 #include "THRenderPipeline.h"
 #include "THShadowRenderer.h"
-#include <Core/THGame.h>
+#include "THSpriteRenderer.h"
+#include "THParticle3DRenderer.h"
+#include "THMeshRenderer.h"
+#include "THSkyBoxRenderer.h"
+#include "THRenderQueue.h"
+#include <Core\THGame.h>
+#include <Core\THGameObject.h>
+#include <Platform\THApplication.h>
 
 namespace THEngine
 {

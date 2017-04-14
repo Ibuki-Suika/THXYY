@@ -1,5 +1,15 @@
 #include "THGame.h"
+#include "THFont.h"
+#include "THSprite.h"
+#include "THDataStack.h"
+#include "THScene.h"
+#include <Platform\THApplication.h>
+#include <Platform\THInput.h>
+#include <Platform\THAudio.h>
+#include <Renderer\THRenderPipeline.h>
+#include <Asset\THAssetManager.h>
 #include <Asset\THShaderStock.h>
+#include <UI\THEventSystem.h>
 
 using namespace THEngine;
 
@@ -182,6 +192,11 @@ int Game::Run()
 	int returnCode = app->GetReturnCode();
 	Shutdown();
 	return returnCode;
+}
+
+void Game::Quit()
+{
+	app->Quit();
 }
 
 void Game::OnEnterBackground()

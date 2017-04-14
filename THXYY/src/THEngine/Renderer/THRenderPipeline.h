@@ -2,16 +2,21 @@
 #define TH_RENDER_PIPELINE_H
 
 #include <Common\THCommon.h>
-#include "THSpriteRenderer.h"
-#include "THParticle3DRenderer.h"
-#include "THMeshRenderer.h"
-#include "THSkyBoxRenderer.h"
-#include "THShadowRenderer.h"
-#include "THRenderQueue.h"
 
 namespace THEngine
 {
+	class SpriteRenderer;
+	class Particle3DRenderer;
+	class MeshRenderer;
+	class SkyBoxRenderer;
+	class ShadowRenderer;
+	class RenderQueue;
+	class DirectionalLightRenderer;
 	class DirectionalLightShadowRenderer;
+	class SpriteRenderQueue;
+	class NormalRenderQueue;
+	class Light;
+	class GameObject;
 
 	class RenderPipeline : public Object
 	{

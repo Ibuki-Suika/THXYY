@@ -2,12 +2,11 @@
 #define THSPRITE_H
 
 #include "THGameObject.h"
-#include "../Asset/THTexture.h"
-#include "../Renderer/THRenderer.h"
 
 namespace THEngine
 {
 	class Renderer;
+	class Texture;
 
 	class Sprite : public GameObject
 	{
@@ -43,9 +42,8 @@ namespace THEngine
 		virtual void Update() override;
 		virtual void Draw() override;
 
-		inline void SetTexture(Texture* texture) { 
-			TH_SET(this->texture, texture);
-		}
+		void SetTexture(Texture* texture);
+
 		inline Texture* GetTexture() const
 		{
 			return this->texture;

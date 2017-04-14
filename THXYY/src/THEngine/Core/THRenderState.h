@@ -3,14 +3,15 @@
 
 #include <Common\THCommon.h>
 #include <Math\THMath.h>
-#include <Core\3D\THLight.h>
-#include "THEnvironment.h"
+#include "3D\THLight.h"
 
 namespace THEngine
 {
 	class RenderTexture;
 	class Surface;
 	class Camera;
+	class Environment;
+	struct Fog;
 
 	struct Viewport
 	{
@@ -53,19 +54,18 @@ namespace THEngine
 		RenderState();
 		virtual ~RenderState();
 
-		inline bool IsFogEnabled() { return this->environment->fogEnable; }
+		bool IsFogEnabled() const;
+		bool IsLightingEnabled() const;
 
-		inline bool IsLightingEnabled() { return this->environment->lightingEnable; }
-
-		inline const Fog& GetFog() const { return this->environment->fog; }
+		const Fog& GetFog() const;
 
 		inline const Matrix& GetWorldMatrix() { return this->world; }
 		inline const Matrix& GetProjectionMatrix() { return this->projection; }
 		inline const Matrix& GetViewMatrix() { return this->view; }
 		inline const Viewport& GetViewport() const { return this->viewport; }
 
-		inline const Vector4f& GetAmbientLight() const { return environment->ambientLight; }
-		inline LinkedList<Light*>* GetLights() const { return &environment->lights; }
+		const Vector4f& GetAmbientLight() const; 
+		LinkedList<Light*>* GetLights() const; 
 
 		inline Shader* GetCurrentShader() const { return this->shader; }
 

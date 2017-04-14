@@ -1,15 +1,16 @@
 #ifndef THASSETMANAGER
 #define THASSETMANAGER
 
-#include "../Common/THCommon.h"
+#include <Common\THCommon.h>
 #include "THShader.h"
 #include "THTexture.h"
-#include "THRenderTexture.h"
-#include "THFloatTexture.h"
 #include "THCubeMap.h"
 
 namespace THEngine
 {
+	class RenderTexture;
+	class FloatTexture;
+
 	class AssetManager : public Object
 	{
 	private:

@@ -3,7 +3,10 @@
 #include "THGame.h"
 #include <Asset\THAssetManager.h>
 #include <Asset\THCubeMap.h>
+#include <Asset\THRenderTexture.h>
 #include <Platform\THApplication.h>
+#include <Renderer\THRenderPipeline.h>
+#include <Renderer\THSkyBoxRenderer.h>
 
 namespace THEngine
 {
@@ -30,6 +33,11 @@ namespace THEngine
 	void Camera::Draw()
 	{
 
+	}
+	
+	void Camera::SetRenderTexture(RenderTexture* renderTexture)
+	{
+		TH_SET(this->renderTexture, renderTexture);
 	}
 
 	void Camera::SetupViewport(Layer* layer)

@@ -1,7 +1,7 @@
 #ifndef THAUDIO_H
 #define THAUDIO_H
 
-#include "../Common/THCommon.h"
+#include <Common\THCommon.h>
 #include <xaudio2.h>
 #include "THSound.h"
 

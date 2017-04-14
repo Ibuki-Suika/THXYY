@@ -1,5 +1,7 @@
 #include "THShader.h"
-#include "../Platform/THApplication.h"
+#include "THTexture.h"
+#include "THCubeMap.h"
+#include <Platform\THApplication.h>
 
 namespace THEngine
 {
@@ -36,6 +38,16 @@ namespace THEngine
 				THMessageBox((String)"无法打开文件:" + path);
 			}
 		}
+	}
+
+	void Shader::SetTexture(char* textureName, Texture* texture)
+	{
+		effect->SetTexture(textureName, texture->texImpl->texture);
+	}
+
+	void Shader::SetCubeMap(char* textureName, CubeMap* cubeMap)
+	{
+		effect->SetTexture(textureName, cubeMap->impl->cubeTexture);
 	}
 
 	void Shader::SetTechnique(char* technique)

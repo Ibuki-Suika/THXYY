@@ -1,16 +1,15 @@
 #ifndef THLAYER_H
 #define THLAYER_H
 
-#include "../Common/THCommon.h"
+#include <Common\THCommon.h>
 #include "THGameObject.h"
 #include "THCamera.h"
 #include "THEnvironment.h"
-#include <Asset\THCubeMap.h>
-#include "../Platform/THApplication.h"
-#include "3D\THLight.h"
 
 namespace THEngine
 {
+	class CubeMap;
+
 	class Layer : public EngineObject
 	{
 	protected:
@@ -72,7 +71,8 @@ namespace THEngine
 		
 		inline void SetFog(Fog fog) { this->environment.fog = fog; }
 
-		inline void SetSkyBox(CubeMap* skyBox) { TH_SET(this->skyBox, skyBox); }
+		void SetSkyBox(CubeMap* skyBox);
+
 		inline CubeMap* GetSkyBox() const { return skyBox; }
 
 		void DestroyObjectImmediately(GameObject* obj);

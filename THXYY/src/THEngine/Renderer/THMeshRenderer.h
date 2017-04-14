@@ -1,14 +1,16 @@
 #ifndef TH_MESH_RENDERER_H
 #define TH_MESH_RENDERER_H
 
-#include "../Core/3D/THMesh.h"
 #include "THRenderer.h"
-#include "../Asset/THShader.h"
 
 namespace THEngine
 {
 	class FloatTexture;
 	class ShadowMap;
+	class Mesh;
+	class Light;
+	struct Vector4f;
+	class RenderQueue;
 
 	class MeshRenderer : public Renderer
 	{

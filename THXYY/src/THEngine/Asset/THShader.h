@@ -1,14 +1,14 @@
 #ifndef THSHADER_H
 #define THSHADER_H
 
-#include "../Common/THCommon.h"
-#include "THTexture.h"
-#include "THCubeMap.h"
+#include <Common\THCommon.h>
 #include <Math\THMath.h>
 
 namespace THEngine
 {
 	class AssetManager;
+	class Texture;
+	class CubeMap;
 
 	class Shader : public Object
 	{
@@ -39,15 +39,9 @@ namespace THEngine
 
 		inline UINT GetPassNum() { return passNum; }
 
-		inline void SetTexture(char* textureName, Texture* texture)
-		{
-			effect->SetTexture(textureName, texture->texImpl->texture);
-		}
+		void SetTexture(char* textureName, Texture* texture);
 
-		inline void SetCubeMap(char* textureName, CubeMap* cubeMap)
-		{
-			effect->SetTexture(textureName, cubeMap->impl->cubeTexture);
-		}
+		void SetCubeMap(char* textureName, CubeMap* cubeMap);
 
 		inline void SetInt(char* name, int value)
 		{

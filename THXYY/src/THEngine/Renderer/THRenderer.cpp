@@ -3,6 +3,7 @@
 
 #include "THRenderer.h"
 #include <Platform\THApplication.h>
+#include <Core\THGameObject.h>>
 
 namespace THEngine
 {

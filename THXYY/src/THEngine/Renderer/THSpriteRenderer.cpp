@@ -1,6 +1,10 @@
 #include "THSpriteRenderer.h"
 #include <Core\THGame.h>
+#include <Core\THSprite.h>
 #include <Asset\THShaderStock.h>
+#include <Asset\THTexture.h>
+#include <Asset\THShader.h>
+#include <Platform\THApplication.h>
 
 using namespace THEngine;
 

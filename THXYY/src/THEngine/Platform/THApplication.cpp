@@ -1,6 +1,7 @@
 #include "THApplication.h"
-#include "../UI/THEventSystem.h"
-#include "../Asset/THAssetManager.h"
+#include <UI\THEventSystem.h>
+#include <Asset\THAssetManager.h>
+#include <Asset\THRenderTexture.h>
 #include "THSurface.h"
 
 namespace THEngine
@@ -385,6 +386,15 @@ namespace THEngine
 				returnCode = (int)msg.wParam;
 			}
 		}
+	}
+
+	void Application::EndRender()
+	{
+		if (renderState.shader)
+		{
+			renderState.shader->End();
+		}
+		device->EndScene();
 	}
 
 	void Application::InitRenderState()

@@ -1,7 +1,7 @@
 #ifndef THIMAGE_H
 #define THIMAGE_H
 
-#include "../Common/THCommon.h"
+#include <Common\THCommon.h>
 
 namespace THEngine
 {

@@ -1,15 +1,16 @@
 #ifndef THGAMEOBJECT_H
 #define THGAMEOBJECT_H
 
-#include "../Common/THCommon.h"
+#include <Common\THCommon.h>
 #include <Math\THMath.h>
-#include "../Tween/THTweenManager.h"
 #include "THRenderState.h"
 
 namespace THEngine
 {
 	class Layer;
 	class RenderQueue;
+	class TweenManager;
+	class Tween;
 
 	class GameObject : public EngineObject
 	{
@@ -75,10 +76,7 @@ namespace THEngine
 
 		void ClearTweens();
 
-		inline void KillTween(Tween* tween)
-		{
-			tweenManager->KillTween(tween);
-		}
+		void KillTween(Tween* tween);
 
 		inline void SetPosition(const Vector3f& position)
 		{

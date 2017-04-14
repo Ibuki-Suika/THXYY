@@ -1,4 +1,5 @@
 #include "THTween.h"
+#include "THTweener.h"
 
 namespace THEngine
 {

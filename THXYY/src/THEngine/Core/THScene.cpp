@@ -1,4 +1,5 @@
 #include "THScene.h"
+#include <Platform\THApplication.h>
 
 namespace THEngine
 {

@@ -1,5 +1,10 @@
 #include "THMesh.h"
-#include "../../Core/THGame.h"
+#include <Core\THGame.h>
+#include <Platform\THApplication.h>
+#include <Asset\THAssetManager.h>
+#include <Asset\THTexture.h>
+#include <Renderer\THRenderPipeline.h>
+#include <Renderer\THMeshRenderer.h>
 
 namespace THEngine
 {

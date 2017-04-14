@@ -1,11 +1,12 @@
 #ifndef THMESH_H
 #define THMESH_H
 
-#include "../THGameObject.h"
-#include "../../Asset/THTexture.h"
+#include <Core\THGameObject.h>
 
 namespace THEngine
 {
+	class Texture;
+
 	class Material
 	{
 	public:

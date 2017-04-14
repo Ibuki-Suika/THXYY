@@ -1,7 +1,10 @@
 #include "THSkyBoxRenderer.h"
 #include <Core\THLayer.h>
 #include <Core\THGame.h>
+#include <Core\THCamera.h>
 #include <Asset\THShaderStock.h>
+#include <Asset\THShader.h>
+#include <Platform\THApplication.h>
 
 namespace THEngine
 {

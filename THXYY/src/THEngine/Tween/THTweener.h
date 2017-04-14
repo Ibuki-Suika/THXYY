@@ -1,9 +1,7 @@
 #ifndef THTWEENER_H
 #define THTWEENER_H
 
-#include "../Common/THCommon.h"
-#include "../Math/THMathUtil.h"
-#include <Math\THVector.h>
+#include <Common\THCommon.h>
 
 namespace THEngine
 {

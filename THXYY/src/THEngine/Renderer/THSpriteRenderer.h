@@ -2,11 +2,11 @@
 #define THSPRITERENDERER_H
 
 #include "THRenderer.h"
-#include "../Core/THSprite.h"
 
 namespace THEngine
 {
 	class Application;
+	class Sprite;
 
 	class SpriteRenderer : public Renderer
 	{

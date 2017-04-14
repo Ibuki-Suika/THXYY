@@ -1,7 +1,7 @@
 #ifndef THSOUND_H
 #define THSOUND_H
 
-#include "../Common/THCommon.h"
+#include <Common\THCommon.h>
 #include <xaudio2.h>
 
 namespace THEngine

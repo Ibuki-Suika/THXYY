@@ -2,10 +2,12 @@
 #define TH_SKY_BOX_RENDERER_H
 
 #include "THRenderer.h"
-#include <Core\THCamera.h>
 
 namespace THEngine
 {
+	class Camera3D;
+	class Layer;
+
 	class SkyBoxRenderer : public Object
 	{
 	private:

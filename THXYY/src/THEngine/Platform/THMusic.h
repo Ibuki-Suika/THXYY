@@ -1,7 +1,7 @@
 #ifndef THMUSIC_H
 #define THMUSIC_H
 
-#include "../Common/THCommon.h"
+#include <Common\THCommon.h>
 #include "External\CWaveFile.h"
 #include <xaudio2.h>
 
