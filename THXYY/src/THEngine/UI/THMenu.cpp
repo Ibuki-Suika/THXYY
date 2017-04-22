@@ -19,6 +19,27 @@ namespace THEngine
 
 	}
 
+	void Menu::Update()
+	{
+		Layer::Update();
+
+		auto iter = this->itemList.GetIterator();
+		int i = 0;
+		while (iter->HasNext())
+		{
+			auto item = iter->Next();
+			if (item->NeedRemove())
+			{
+				iter->Remove();
+				if (i <= currentSelection)
+				{
+					currentSelection--;
+				}
+			}
+			i++;
+		}
+	}
+
 	void Menu::AddMenuItem(MenuItem* menuItem)
 	{
 		itemList.Add(menuItem);
@@ -71,6 +92,10 @@ namespace THEngine
 
 	void Menu::Click(int index)
 	{
+		if (index >= itemList.Size() || index < 0)
+		{
+			return;
+		}
 		itemList.Get(index)->OnClick();
 		OnMenuItemClicked(index);
 

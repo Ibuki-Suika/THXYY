@@ -25,6 +25,7 @@ namespace THEngine
 		Menu(int left, int top, int width, int height);
 		virtual ~Menu();
 
+		virtual void Update() override;
 		virtual bool OnKeyDown(EngineObject* sender, int key) override;
 
 		virtual void OnLoad() override;

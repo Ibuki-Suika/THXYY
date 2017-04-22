@@ -172,6 +172,12 @@
     <Filter Include="源文件\THEngine\Util">
       <UniqueIdentifier>{be491496-987d-4d52-840e-393964af0673}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\Scene\Select">
+      <UniqueIdentifier>{ac50786c-32e9-4954-998a-ea6a9414640e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Scene\Select">
+      <UniqueIdentifier>{78939e10-c763-4598-bcde-6fb053a07077}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -491,6 +497,18 @@
     </ClCompile>
     <ClCompile Include="src\THEngine\Renderer\THShadowMap.cpp">
       <Filter>源文件\THEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Select\SelectScene.cpp">
+      <Filter>源文件\Scene\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Select\SelectTitle.cpp">
+      <Filter>源文件\Scene\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Select\RankSelectMenu.cpp">
+      <Filter>源文件\Scene\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Select\RankSelectMenuItem.cpp">
+      <Filter>源文件\Scene\Select</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -829,6 +847,18 @@
     </ClInclude>
     <ClInclude Include="src\THEngine\Renderer\THShadowMap.h">
       <Filter>头文件\THEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Select\SelectScene.h">
+      <Filter>头文件\Scene\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Select\SelectTitle.h">
+      <Filter>头文件\Scene\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Select\RankSelectMenu.h">
+      <Filter>头文件\Scene\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Select\RankSelectMenuItem.h">
+      <Filter>头文件\Scene\Select</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

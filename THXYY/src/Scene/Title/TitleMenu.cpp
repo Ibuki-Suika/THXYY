@@ -1,5 +1,6 @@
 #include "TitleMenu.h"
 #include "../Game/GameScene.h"
+#include "../Select/SelectScene.h"
 #include "../../STGCore/STGCore.h"
 #include "TitleMenuItem.h"
 
@@ -89,7 +90,7 @@ void TitleMenu::OnMenuItemClicked(int item)
 	{
 	case 0:
 	{
-		auto engine = STGEngine::GetInstance();
+		/*auto engine = STGEngine::GetInstance();
 
 		engine->Init();
 
@@ -98,7 +99,9 @@ void TitleMenu::OnMenuItemClicked(int item)
 		global->playerEnum = Global::REIMU;
 
 		GameScene* scene = new GameScene();
-		Game::GetInstance()->LoadScene(scene);
+		Game::GetInstance()->LoadScene(scene);*/
+
+		Game::GetInstance()->LoadScene(new SelectScene());
 
 		break;
 	}

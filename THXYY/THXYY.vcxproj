@@ -112,6 +112,10 @@
     <ClCompile Include="src\Scene\Game\STGLayer.cpp" />
     <ClCompile Include="src\Scene\Game\STGParticleLayer.cpp" />
     <ClCompile Include="src\Scene\Game\YesNoMenu.cpp" />
+    <ClCompile Include="src\Scene\Select\RankSelectMenu.cpp" />
+    <ClCompile Include="src\Scene\Select\RankSelectMenuItem.cpp" />
+    <ClCompile Include="src\Scene\Select\SelectScene.cpp" />
+    <ClCompile Include="src\Scene\Select\SelectTitle.cpp" />
     <ClCompile Include="src\Scene\Title\ParticleLayer.cpp" />
     <ClCompile Include="src\Scene\Title\SakuraParticle.cpp" />
     <ClCompile Include="src\Scene\Title\Title.cpp" />
@@ -219,6 +223,10 @@
     <ClInclude Include="src\Scene\Game\STGLayer.h" />
     <ClInclude Include="src\Scene\Game\STGParticleLayer.h" />
     <ClInclude Include="src\Scene\Game\YesNoMenu.h" />
+    <ClInclude Include="src\Scene\Select\RankSelectMenu.h" />
+    <ClInclude Include="src\Scene\Select\RankSelectMenuItem.h" />
+    <ClInclude Include="src\Scene\Select\SelectScene.h" />
+    <ClInclude Include="src\Scene\Select\SelectTitle.h" />
     <ClInclude Include="src\Scene\Title\SakuraParticle.h" />
     <ClInclude Include="src\Scene\Title\Title.h" />
     <ClInclude Include="src\Scene\Title\TitleMenu.h" />

@@ -71,7 +71,6 @@ namespace THEngine
 
 		inline bool NeedRemove() { return needRemove; }
 	
-
 		void AddTween(Tween* tween);
 
 		void ClearTweens();
