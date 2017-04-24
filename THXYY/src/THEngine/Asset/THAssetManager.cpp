@@ -27,7 +27,6 @@ namespace THEngine
 		return assetManager;
 	}
 
-
 	Shader* AssetManager::CreateShaderFromFile(String filePath)
 	{
 		Shader* shader = new Shader();
@@ -137,7 +136,10 @@ namespace THEngine
 
 		TH_SAFE_RELEASE(image);
 
-		textureList.Add(texImpl);
+		TH_LOCK(this->mutex)
+		{
+			textureList.Add(texImpl);
+		}
 
 		Texture* texture = new Texture();
 		texture->name = filePath;
@@ -247,7 +249,10 @@ namespace THEngine
 		delete topImage;
 		delete bottomImage;
 
-		this->cubeMapList.Add(cubeMapImpl);
+		TH_LOCK(this->mutex)
+		{
+			this->cubeMapList.Add(cubeMapImpl);
+		}
 
 		CubeMap* cubeMap = new CubeMap();
 		TH_SET(cubeMap->impl, cubeMapImpl);
@@ -258,12 +263,15 @@ namespace THEngine
 	{
 		TextureImpl* texImpl = new TextureImpl();
 		auto device = Application::GetInstance()->GetDevice();
-		
+
 		texImpl->width = width;
 		texImpl->height = height;
 		D3DXCreateTexture(device, width, height, 0, D3DUSAGE_AUTOGENMIPMAP | D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texImpl->texture);
 
-		textureList.Add(texImpl);
+		TH_LOCK(this->mutex)
+		{
+			textureList.Add(texImpl);
+		}
 
 		RenderTexture* texture = new RenderTexture();
 		TH_SET(texture->texImpl, texImpl);
@@ -280,7 +288,10 @@ namespace THEngine
 		texImpl->height = height;
 		D3DXCreateTexture(device, width, height, 0, D3DUSAGE_AUTOGENMIPMAP | D3DUSAGE_RENDERTARGET, D3DFMT_G32R32F, D3DPOOL_DEFAULT, &texImpl->texture);
 
-		textureList.Add(texImpl);
+		TH_LOCK(this->mutex)
+		{
+			textureList.Add(texImpl);
+		}
 
 		FloatTexture* texture = new FloatTexture();
 		TH_SET(texture->texImpl, texImpl);
@@ -290,13 +301,19 @@ namespace THEngine
 
 	void AssetManager::DestroyTexture(Texture* texture)
 	{
-		textureList.Remove(texture->texImpl);
+		TH_LOCK(this->mutex)
+		{
+			textureList.Remove(texture->texImpl);
+		}
 		TH_SAFE_RELEASE(texture->texImpl);
 	}
 
 	void AssetManager::DestroyCubeMap(CubeMap* cubeMap)
 	{
-		cubeMapList.Remove(cubeMap->impl);
+		TH_LOCK(this->mutex)
+		{
+			cubeMapList.Remove(cubeMap->impl);
+		}
 		TH_SAFE_RELEASE(cubeMap->impl);
 	}
 
@@ -330,4 +347,3 @@ namespace THEngine
 		}
 	}
 }
-

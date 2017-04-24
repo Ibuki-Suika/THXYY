@@ -219,7 +219,7 @@ namespace THEngine
 		d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 
 		hr = d3d->CreateDevice(D3DADAPTER_DEFAULT, deviceType,
-			hWnd, vertexProcessingType, &d3dpp, &device);
+			hWnd, vertexProcessingType | D3DCREATE_MULTITHREADED, &d3dpp, &device);
 
 		InitRenderState();
 
@@ -366,7 +366,6 @@ namespace THEngine
 				}
 				return;
 			}
-
 		}
 	}
 
@@ -444,7 +443,7 @@ namespace THEngine
 			device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &surface);
 			device->SetRenderTarget(0, surface);
 		}
-		
+
 		TH_SET(renderState.renderTarget, texture);
 	}
 
@@ -583,4 +582,3 @@ namespace THEngine
 		return 0;
 	}
 }
-

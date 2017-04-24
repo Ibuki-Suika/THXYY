@@ -7,7 +7,6 @@ Texture* Stage01::texRoad = nullptr;
 
 Stage01::Stage01()
 {
-
 }
 
 Stage01::~Stage01()
@@ -46,6 +45,11 @@ void Stage01::Update()
 	}
 }
 
+void Stage01::OnStart()
+{
+	InitBackground();
+}
+
 void Stage01::OnLoad()
 {
 	auto assetManager = AssetManager::GetInstance();
@@ -76,9 +80,6 @@ void Stage01::OnLoad()
 		THMessageBox(ExceptionManager::GetInstance()->GetException()->GetInfo());
 	}
 	house->Retain();
-
-	InitBackground();
-	
 }
 
 void Stage01::InitBackground()
@@ -192,5 +193,5 @@ void Stage01::CreateHouses()
 		Mesh* houseRight2 = (Mesh*)houseRight1->Clone();
 		houseRight2->SetPosition(Vector3f(800, 395, 1000 + 1500 * i));
 		engine->AddBackgroundObject(houseRight2);
-	}	
+	}
 }

@@ -10,6 +10,7 @@
 #include <Asset\THAssetManager.h>
 #include <Asset\THShaderStock.h>
 #include <UI\THEventSystem.h>
+#include <Async\THAsyncLoader.h>
 
 using namespace THEngine;
 
@@ -36,7 +37,7 @@ Game::Game()
 Game::~Game()
 {
 	ASSERT(this == instance);
-	
+
 	OnShutdown();
 }
 
@@ -49,7 +50,7 @@ Game* Game::GetInstance()
 	return instance;
 }
 
-bool Game::CreateGame(int width, int height, bool fullScreen, const String& title, 
+bool Game::CreateGame(int width, int height, bool fullScreen, const String& title,
 	int bigIcon, int smallIcon)
 {
 	this->width = width;
@@ -60,7 +61,7 @@ bool Game::CreateGame(int width, int height, bool fullScreen, const String& titl
 	exceptionManager = ExceptionManager::GetInstance();
 
 	app = new Application();
-	if(app->Init(width,height,fullScreen,title,bigIcon,smallIcon) == false)
+	if (app->Init(width, height, fullScreen, title, bigIcon, smallIcon) == false)
 	{
 		return false;
 	}
@@ -106,7 +107,7 @@ bool Game::CreateGame(int width, int height, bool fullScreen, const String& titl
 	}
 	pipeline->Retain();
 
-	defaultFont = Font::CreateFontFromFile("res/font/font-fps-opensans.png","res/font/font-fps-opensans.txt");
+	defaultFont = Font::CreateFontFromFile("res/font/font-fps-opensans.png", "res/font/font-fps-opensans.txt");
 	if (defaultFont == nullptr)
 	{
 		auto exception = exceptionManager->GetException();
@@ -169,7 +170,7 @@ int Game::Run()
 			enterBackground = false;
 		}
 
-		if(enterBackground == false)
+		if (enterBackground == false)
 		{
 			CalcFPS();
 			Update();
@@ -201,16 +202,16 @@ void Game::Quit()
 
 void Game::OnEnterBackground()
 {
-
 }
 
 void Game::OnReturnToForeground()
 {
-
 }
 
 void Game::Update()
 {
+	EngineObject::Update();
+
 	input->Update();
 	eventSystem->Update();
 	audio->Update();
@@ -231,14 +232,14 @@ void Game::Draw()
 	{
 		scene->Draw();
 	}
-	
+
 	if (showFPS)
 	{
 		DrawFPS();
 	}
 
 	app->EndRender();
-	
+
 	app->SwapBuffers();
 }
 
@@ -252,6 +253,56 @@ void Game::SetScene(Scene* scene)
 void Game::LoadScene(Scene* scene)
 {
 	nextScene = scene;
+	if (scene->loaded == false)
+	{
+		nextScene->OnLoad(nullptr);
+	}
+}
+
+void Game::LoadSceneAsync(Scene* scene)
+{
+	if (scene->loaded)
+	{
+		return;
+	}
+	AsyncLoader::Load(scene, [this, scene]()
+	{
+		this->nextScene = scene;
+	});
+}
+
+void Game::LoadSceneAsync(Scene* scene, int delay, const std::function<void()>& onLoadCompleted)
+{
+	if (scene->loaded)
+	{
+		return;
+	}
+	AsyncLoader::Load(scene, [this, scene, delay, onLoadCompleted]()
+	{
+		FrameTimer* timer = new FrameTimer();
+		timer->SetFrame(delay);
+		timer->run = [this, scene]() {
+			this->nextScene = scene;
+		};
+		this->GetScheduler()->AddTimer(timer);
+		onLoadCompleted();
+	});
+}
+
+AsyncInfo* Game::LoadSceneAsyncWithInfo(Scene* scene, bool autoChange)
+{
+	if (scene->loaded)
+	{
+		return nullptr;
+	}
+	if (autoChange)
+	{
+		return AsyncLoader::LoadWithInfo(scene, [this, scene]()
+		{
+			this->nextScene = scene;
+		});
+	}
+	return AsyncLoader::LoadWithInfo(scene);
 }
 
 void Game::CalcFPS()
@@ -287,10 +338,10 @@ void Game::Shutdown()
 
 	TH_SAFE_RELEASE(pipeline);
 	TH_SAFE_RELEASE(scene);
-	
+
 	TH_SAFE_RELEASE(eventSystem);
 	TH_SAFE_RELEASE(defaultFont);
-	
+
 	TH_SAFE_RELEASE(input);
 	TH_SAFE_RELEASE(shaderStock);
 	TH_SAFE_RELEASE(assetManager);
@@ -304,5 +355,4 @@ void Game::Shutdown()
 
 void Game::OnShutdown()
 {
-
 }

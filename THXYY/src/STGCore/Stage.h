@@ -15,6 +15,8 @@ public:
 
 	virtual void UpdateBackground();
 
+	virtual void OnStart();
+
 	virtual void OnLoad();
 };
 

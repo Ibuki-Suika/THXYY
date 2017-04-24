@@ -178,6 +178,12 @@
     <Filter Include="头文件\Scene\Select">
       <UniqueIdentifier>{78939e10-c763-4598-bcde-6fb053a07077}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\THEngine\Async">
+      <UniqueIdentifier>{b031793e-69bb-4732-8ae0-1a0fafd9c65c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\THEngine\Async">
+      <UniqueIdentifier>{b3a9f036-d31f-45e1-8a16-1ffda735fe90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -508,6 +514,15 @@
       <Filter>源文件\Scene\Select</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Select\RankSelectMenuItem.cpp">
+      <Filter>源文件\Scene\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="src\THEngine\Async\THAsyncLoader.cpp">
+      <Filter>源文件\THEngine\Async</Filter>
+    </ClCompile>
+    <ClCompile Include="src\THEngine\Async\THAsyncInfo.cpp">
+      <Filter>源文件\THEngine\Async</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Select\StarParticle.cpp">
       <Filter>源文件\Scene\Select</Filter>
     </ClCompile>
   </ItemGroup>
@@ -858,6 +873,15 @@
       <Filter>头文件\Scene\Select</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Select\RankSelectMenuItem.h">
+      <Filter>头文件\Scene\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Async\THAsyncLoader.h">
+      <Filter>头文件\THEngine\Async</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Async\THAsyncInfo.h">
+      <Filter>头文件\THEngine\Async</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Select\StarParticle.h">
       <Filter>头文件\Scene\Select</Filter>
     </ClInclude>
   </ItemGroup>

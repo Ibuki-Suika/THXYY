@@ -18,7 +18,6 @@ Player::Player()
 
 Player::~Player()
 {
-
 }
 
 void Player::ProcessInvincible()
@@ -386,26 +385,23 @@ int Player::GetPowerLevel()
 	return engine->GetPower() / 100;
 }
 
-void Player::OnLoad()
+void Player::OnStart()
 {
-	Sprite::OnLoad();
+	Sprite::OnStart();
 
 	SetupSubPlanes();
 }
 
 void Player::OnPowerLevelChanged(int oldPowerLevel, int newPowerLevel)
 {
-	
 }
 
 void Player::OnEnterLowSpeed()
 {
-
 }
 
 void Player::OnEnterHighSpeed()
 {
-
 }
 
 void Player::AddSubPlane(SubPlane* subPlane)

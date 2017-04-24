@@ -1,6 +1,7 @@
 #include "SelectScene.h"
 #include "SelectTitle.h"
 #include "RankSelectMenu.h"
+#include "StarParticle.h"
 #include "../Title/Title.h"
 #include <Global.h>
 #include <STGEngine.h>
@@ -18,6 +19,7 @@ SelectScene::SelectScene()
 
 	this->texLoading = assetManager->CreateTextureFromFile("res/loading/loading.png");
 	this->texLoading->Retain();
+	StarParticle::tex = this->texLoading;
 
 	SelectTitle::tex = assetManager->CreateTextureFromFile("res/menu/select.png");
 	SelectTitle::tex->Retain();
@@ -36,8 +38,6 @@ SelectScene::SelectScene()
 	sequence->SetLooped(true);
 	background->AddTween(sequence);
 	bgrLayer->AddChild(background);
-
-	ShowRank();
 }
 
 SelectScene::~SelectScene()
@@ -45,6 +45,63 @@ SelectScene::~SelectScene()
 	TH_SAFE_RELEASE(this->texBackground);
 	TH_SAFE_RELEASE(this->texLoading);
 	TH_SAFE_RELEASE(SelectTitle::tex);
+}
+
+void SelectScene::OnStart()
+{
+	Scene::OnStart();
+
+	ShowRank();
+
+	for (int i = 0; i < 10; i++)
+	{
+		StarParticle* particle = new StarParticle();
+		this->bgrLayer->AddChild(particle);
+	}
+}
+
+void SelectScene::Update()
+{
+	Scene::Update();
+
+	frame++;
+	if (frame == 8)
+	{
+		frame = 0;
+		StarParticle* particle = new StarParticle();
+		this->bgrLayer->AddChild(particle);
+	}
+
+	if (nowLoading)
+	{
+		frame_nowLoading++;
+		if (frame_nowLoading == 4)
+		{
+			frame_nowLoading = 0;
+			Particle3D* particle = new Particle3D();
+			particle->SetTexture(this->texLoading);
+			particle->SetTexRect(Rect(32, 64, 96, 128));
+			particle->SetPosition(Vector3f(Random(416, 640), 128, 50));
+			particle->SetSpeed(1.0f + Random(0, 200) / 100.0f);
+			particle->SetLife(30);
+			particle->SetRotatingAxis(Vector3f(0, 0, 1));
+			particle->SetAlpha(0);
+			particle->SetRotatingSpeed(Random(100, 500) / 100.0f);
+
+			float scale = Random(50, 100) / 100.0f;
+			particle->SetScale(Vector3f(scale, scale, 1));
+			float rad = ToRad(Random(0, 90) + 225);
+			particle->SetDirection(Vector3f(cos(rad), sin(rad), 0));
+
+			TweenSequence* sequence = new TweenSequence();
+			sequence->AddTween(new FadeTo(0.8f, 10, Tweener::EASE_OUT));
+			sequence->AddTween(new Delay(10));
+			sequence->AddTween(new FadeOut(10, Tweener::EASE_OUT));
+			particle->AddTween(sequence);
+
+			this->blackLayer->AddChild(particle);
+		}
+	}
 }
 
 void SelectScene::ShowRank()
@@ -65,7 +122,7 @@ void SelectScene::Back()
 {
 	this->title->AddTween(new MoveTo(Vector3f(480 + OFFSET, 416, 25), FADE_TIME, Tweener::SIMPLE));
 	this->title->AddTween(new FadeOut(FADE_TIME, Tweener::SIMPLE));
-	
+
 	FrameTimer* timer = new FrameTimer();
 	timer->SetFrame(FADE_TIME);
 	timer->run = []() {
@@ -77,8 +134,8 @@ void SelectScene::Back()
 
 void SelectScene::StartGame()
 {
-	Layer* blackLayer = new Layer();
-	AddLayer(blackLayer);
+	this->blackLayer = new Layer();
+	AddLayer(this->blackLayer);
 
 	Sprite* black = new Sprite();
 	black->SetPosition(Vector3f(320, 240, 100));
@@ -88,7 +145,7 @@ void SelectScene::StartGame()
 	blackLayer->AddChild(black);
 
 	Sprite* loading = new Sprite();
-	loading->SetPosition(Vector3f(544, 80, 0));
+	loading->SetPosition(Vector3f(544, 80, 20));
 	loading->SetTexture(this->texLoading);
 	loading->SetTexRect(Rect(0, 256, 0, 96));
 	loading->SetAlpha(0.0f);
@@ -100,9 +157,11 @@ void SelectScene::StartGame()
 	loading->AddTween(new FadeTo(1.0f, 18, Tweener::SIMPLE));
 	blackLayer->AddChild(loading);
 
-	/*FrameTimer* timer = new FrameTimer();
+	this->nowLoading = true;
+
+	FrameTimer* timer = new FrameTimer();
 	timer->SetFrame(GO_TO_NEXT_SCENE_TIME);
-	timer->run = []() {
+	timer->run = [this]() {
 		auto engine = STGEngine::GetInstance();
 		auto global = Global::GetInstance();
 
@@ -110,7 +169,14 @@ void SelectScene::StartGame()
 		global->stageEnum = Global::STAGE_01;
 		global->playerEnum = Global::REIMU;
 		GameScene* scene = new GameScene();
-		Game::GetInstance()->LoadScene(scene);
+		Game::GetInstance()->LoadSceneAsync(scene, 18, [this]() {
+			Sprite* black2 = new Sprite();
+			black2->SetPosition(Vector3f(320, 240, 0));
+			black2->SetTexture(Global::GetInstance()->texBlack);
+			black2->SetAlpha(0);
+			black2->AddTween(new FadeTo(1.0f, 18, Tweener::SIMPLE));
+			this->blackLayer->AddChild(black2);
+		});
 	};
-	GetScheduler()->AddTimer(timer);*/
+	GetScheduler()->AddTimer(timer);
 }

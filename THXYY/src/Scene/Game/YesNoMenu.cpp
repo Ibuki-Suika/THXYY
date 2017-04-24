@@ -12,12 +12,11 @@ YesNoMenu::YesNoMenu() : Menu(32, 16, 384, 448)
 
 YesNoMenu::~YesNoMenu()
 {
-
 }
 
-void YesNoMenu::OnLoad()
+void YesNoMenu::OnStart()
 {
-	Menu::OnLoad();
+	Menu::OnStart();
 
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
 }
@@ -42,7 +41,7 @@ void YesNoMenu::OnMenuItemClicked(int index)
 	{
 	case 0:     //确认
 		Confirm();
-		break; 
+		break;
 	case 1:     //取消
 		Cancel();
 		break;

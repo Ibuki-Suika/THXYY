@@ -2,12 +2,10 @@
 
 Stage::Stage()
 {
-
 }
 
 Stage::~Stage()
 {
-
 }
 
 void Stage::Update()
@@ -17,10 +15,12 @@ void Stage::Update()
 
 void Stage::UpdateBackground()
 {
+}
 
+void Stage::OnStart()
+{
 }
 
 void Stage::OnLoad()
 {
-
 }

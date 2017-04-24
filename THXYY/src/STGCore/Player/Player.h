@@ -110,7 +110,7 @@ public:
 	void Hitten();
 	void Biu();
 	void EnterBombState(int bombTime);
-	
+
 	void AddSubPlane(SubPlane* subPlane);
 	void RemoveSubPlane(int index);
 	void RemoveAllSubPlanes();
@@ -132,8 +132,8 @@ public:
 
 	virtual void Update() override;
 	virtual void OnDestroy() override;
-	virtual void OnLoad() override;
-	
+	virtual void OnStart() override;
+
 	virtual void SetupSubPlanes() = 0;
 	virtual void Fire();
 	virtual void Bomb() = 0;

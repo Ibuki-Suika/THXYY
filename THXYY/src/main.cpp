@@ -1,4 +1,3 @@
-
 #pragma data_seg("shared")
 int volatile app_count = 0;
 #pragma data_seg()
@@ -7,7 +6,7 @@ int volatile app_count = 0;
 #include "THXYY.h"
 #include "resource.h"
 
-#include <crtdbg.h>  
+#include <crtdbg.h>
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
@@ -45,12 +44,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 #define MAX_LOADSTRING 100
 
-// 全局变量: 
+// 全局变量:
 HINSTANCE hInst;								// 当前实例
 TCHAR szTitle[MAX_LOADSTRING];					// 标题栏文本
 TCHAR szWindowClass[MAX_LOADSTRING];			// 主窗口类名
 
-// 此代码模块中包含的函数的前向声明: 
+// 此代码模块中包含的函数的前向声明:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -73,7 +72,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	LoadString(hInstance, IDC_THXYYMODIFIED, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
 
-	// 执行应用程序初始化: 
+	// 执行应用程序初始化:
 	if (!InitInstance(hInstance, nCmdShow))
 	{
 		return FALSE;
@@ -81,7 +80,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_THXYYMODIFIED));
 
-	// 主消息循环: 
+	// 主消息循环:
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
@@ -93,8 +92,6 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	return (int)msg.wParam;
 }
-
-
 
 //
 //  函数:  MyRegisterClass()
@@ -127,7 +124,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 //   目的:  保存实例句柄并创建主窗口
 //
-//   注释: 
+//   注释:
 //
 //        在此函数中，我们在全局变量中保存实例句柄并
 //        创建和显示主程序窗口。
@@ -173,7 +170,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_COMMAND:
 		wmId = LOWORD(wParam);
 		wmEvent = HIWORD(wParam);
-		// 分析菜单选择: 
+		// 分析菜单选择:
 		switch (wmId)
 		{
 		case IDM_ABOUT:

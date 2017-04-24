@@ -11,7 +11,7 @@ public:
 	YesNoMenu();
 	virtual ~YesNoMenu();
 
-	virtual void OnLoad() override;
+	virtual void OnStart() override;
 
 	virtual bool OnKeyDown(EngineObject* sender, int key) override;
 

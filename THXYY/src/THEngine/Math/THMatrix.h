@@ -32,6 +32,7 @@ namespace THEngine
 		void Set(int row, int coloum, float value);
 		float Get(int row, int coloum);
 
+		Matrix& operator =(const Matrix& matrix) = default;
 		Matrix& operator *=(const Matrix& matrix);
 		Matrix operator *(const Matrix& matrix) const;
 

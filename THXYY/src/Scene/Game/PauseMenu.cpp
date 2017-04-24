@@ -20,9 +20,9 @@ PauseMenu::~PauseMenu()
 	TH_SAFE_RELEASE(PauseMenuItem::texPauseMenu);
 }
 
-void PauseMenu::OnLoad()
+void PauseMenu::OnStart()
 {
-	Menu::OnLoad();
+	Menu::OnStart();
 
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
 }
@@ -195,7 +195,7 @@ void PauseMenu::AskForConfirm()
 	scene->GetYesNoMenu()->Enter();
 
 	Tween* tween = new FadeTo(0.2f, 20, Tweener::EASE_OUT);
-	tween->onFinished = [this](){this->Pause(); };
+	tween->onFinished = [this]() {this->Pause(); };
 	title->AddTween(tween);
 	for (int i = 0; i < GetItemCount(); i++)
 	{

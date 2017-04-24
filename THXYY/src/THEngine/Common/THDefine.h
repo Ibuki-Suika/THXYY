@@ -2,7 +2,8 @@
 #define THDEFINE_H
 
 #include <assert.h>
-#include <limits>  
+#include <limits>
+#include <mutex>
 
 #ifndef ASSERT
 #define ASSERT assert
@@ -22,7 +23,12 @@
 		if(object) \
 			object->Retain(); \
 	}
-	
+
+#define TH_LOCK(mutex)  \
+    for(auto __s__ = std::make_pair(  \
+            std::unique_lock<std::remove_reference<decltype(mutex)>::type>(mutex), \
+            false  \
+        ); __s__.second == false; __s__.second = true)
 
 #define TH_INSTANCEOF(instance,classname) (typeid(instance) == typeid(classname))
 

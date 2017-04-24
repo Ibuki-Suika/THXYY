@@ -116,6 +116,7 @@
     <ClCompile Include="src\Scene\Select\RankSelectMenuItem.cpp" />
     <ClCompile Include="src\Scene\Select\SelectScene.cpp" />
     <ClCompile Include="src\Scene\Select\SelectTitle.cpp" />
+    <ClCompile Include="src\Scene\Select\StarParticle.cpp" />
     <ClCompile Include="src\Scene\Title\ParticleLayer.cpp" />
     <ClCompile Include="src\Scene\Title\SakuraParticle.cpp" />
     <ClCompile Include="src\Scene\Title\Title.cpp" />
@@ -150,6 +151,8 @@
     <ClCompile Include="src\THEngine\Asset\THShader.cpp" />
     <ClCompile Include="src\THEngine\Asset\THShaderStock.cpp" />
     <ClCompile Include="src\THEngine\Asset\THTexture.cpp" />
+    <ClCompile Include="src\THEngine\Async\THAsyncInfo.cpp" />
+    <ClCompile Include="src\THEngine\Async\THAsyncLoader.cpp" />
     <ClCompile Include="src\THEngine\Common\THCommon.cpp" />
     <ClCompile Include="src\THEngine\Common\THEngineObject.cpp" />
     <ClCompile Include="src\THEngine\Common\THException.cpp" />
@@ -227,6 +230,7 @@
     <ClInclude Include="src\Scene\Select\RankSelectMenuItem.h" />
     <ClInclude Include="src\Scene\Select\SelectScene.h" />
     <ClInclude Include="src\Scene\Select\SelectTitle.h" />
+    <ClInclude Include="src\Scene\Select\StarParticle.h" />
     <ClInclude Include="src\Scene\Title\SakuraParticle.h" />
     <ClInclude Include="src\Scene\Title\Title.h" />
     <ClInclude Include="src\Scene\Title\TitleMenu.h" />
@@ -262,6 +266,8 @@
     <ClInclude Include="src\THEngine\Asset\THShader.h" />
     <ClInclude Include="src\THEngine\Asset\THShaderStock.h" />
     <ClInclude Include="src\THEngine\Asset\THTexture.h" />
+    <ClInclude Include="src\THEngine\Async\THAsyncInfo.h" />
+    <ClInclude Include="src\THEngine\Async\THAsyncLoader.h" />
     <ClInclude Include="src\THEngine\Common\THCommon.h" />
     <ClInclude Include="src\THEngine\Common\THDefine.h" />
     <ClInclude Include="src\THEngine\Common\THEngineObject.h" />

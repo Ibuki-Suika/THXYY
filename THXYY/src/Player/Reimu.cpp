@@ -45,7 +45,6 @@ Reimu::Reimu()
 
 Reimu::~Reimu()
 {
-
 }
 
 void Reimu::Update()
@@ -186,7 +185,7 @@ void Reimu::OnEnterHighSpeed()
 	}
 }
 
-//Called in OnLoad() to initialize subPlanes.
+//Called in OnStart() to initialize subPlanes.
 void Reimu::SetupSubPlanes()
 {
 	int powerLevel = GetPowerLevel();

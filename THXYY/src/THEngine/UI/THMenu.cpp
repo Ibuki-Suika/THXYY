@@ -6,17 +6,14 @@ namespace THEngine
 {
 	Menu::Menu()
 	{
-
 	}
 
 	Menu::Menu(int left, int top, int width, int height) : Layer(left, top, width, height)
 	{
-
 	}
 
 	Menu::~Menu()
 	{
-
 	}
 
 	void Menu::Update()
@@ -55,9 +52,9 @@ namespace THEngine
 		}
 	}
 
-	void Menu::OnLoad()
+	void Menu::OnStart()
 	{
-		Layer::OnLoad();
+		Layer::OnStart();
 		EventSystem::GetInstance()->RegisterKeyDownListener(this);
 	}
 
@@ -69,7 +66,6 @@ namespace THEngine
 
 	void Menu::OnMenuItemClicked(int item)
 	{
-
 	}
 
 	void Menu::Select(int index, bool playSound)

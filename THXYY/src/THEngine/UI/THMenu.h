@@ -28,9 +28,9 @@ namespace THEngine
 		virtual void Update() override;
 		virtual bool OnKeyDown(EngineObject* sender, int key) override;
 
-		virtual void OnLoad() override;
+		virtual void OnStart() override;
 		virtual void OnDestroy() override;
-		
+
 		virtual void OnMenuItemClicked(int item);
 
 		inline void Select(int index) { Select(index, true); }

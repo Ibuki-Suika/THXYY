@@ -1,6 +1,7 @@
 #ifndef THOBJECT_H
 #define THOBJECT_H
 
+#include <atomic>
 
 namespace THEngine
 {
@@ -9,7 +10,7 @@ namespace THEngine
 	class Object
 	{
 	private:
-		int refCount;
+		std::atomic_int refCount;
 
 	public:
 		Object();
@@ -17,7 +18,9 @@ namespace THEngine
 		virtual ~Object();
 
 		virtual Object* Clone();
-		
+
+		Object& operator=(const Object& obj);
+
 		void Retain();
 		void Release();
 	};

@@ -23,7 +23,7 @@ public:
 	virtual ~PauseMenu();
 
 	virtual bool OnKeyDown(EngineObject* sender, int key) override;
-	virtual void OnLoad() override;
+	virtual void OnStart() override;
 	virtual void OnMenuItemClicked(int index) override;
 
 	void DoPause();

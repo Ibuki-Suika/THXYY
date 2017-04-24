@@ -17,12 +17,14 @@ namespace THEngine
 		ArrayList<Shader*> shaderList;
 		ArrayList<TextureImpl*> textureList;
 		ArrayList<CubeMapImpl*> cubeMapList;
-	
+
+		std::mutex mutex;
+
 	private:
 		AssetManager();
 
 		void CopyImageToSurface(Image* image, IDirect3DSurface9* surface);
-		
+
 	public:
 		static AssetManager* instance;
 

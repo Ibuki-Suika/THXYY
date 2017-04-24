@@ -81,7 +81,7 @@ public:
 
 	inline void SetScore(long long score) { this->score = score; }
 	inline long long GetScore() { return score; }
-	
+
 	inline void SetHiScore(long long hiScore) { this->hiScore = hiScore; }
 	inline long long GetHiScore() { return hiScore; }
 
@@ -106,7 +106,7 @@ public:
 	inline Player* GetPlayer() { return player; }
 
 	inline void SetGameScene(GameScene* scene)
-	{ 
+	{
 		this->gameScene = scene;
 	}
 	inline GameScene* GetGameScene() { return gameScene; }
@@ -166,6 +166,9 @@ public:
 	void Shutdown();
 
 	void LoadStage(Stage* stage);
+	void StartStage(Stage* stage);
+
+	void OnStart();
 
 	void OnLoad();
 

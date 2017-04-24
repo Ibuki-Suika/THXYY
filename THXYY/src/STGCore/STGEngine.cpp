@@ -40,7 +40,7 @@ STGEngine* STGEngine::Create()
 	{
 		return nullptr;
 	}
-	STGEngine* engine =  new STGEngine();
+	STGEngine* engine = new STGEngine();
 	engine->SetDifficulty(NORMAL);
 	instance = engine;
 	return engine;
@@ -73,14 +73,7 @@ void STGEngine::Start()
 
 	((GameScene*)Game::GetInstance()->GetScene())->GetSTGLayer()->AddChild(player);
 
-	Stage* stage = nullptr;
-	switch (global->stageEnum)
-	{
-	case Global::STAGE_01:
-		stage = new Stage01();
-	}
-
-	LoadStage(stage);
+	StartStage(this->stage);
 }
 
 void STGEngine::Clear()
@@ -104,6 +97,7 @@ void STGEngine::Clear()
 void STGEngine::Restart()
 {
 	Clear();
+	OnLoad();
 	Start();
 }
 
@@ -193,13 +187,32 @@ void STGEngine::LoadStage(Stage* stage)
 	this->stage = stage;
 	this->stage->Retain();
 	this->stage->OnLoad();
+}
+
+void STGEngine::StartStage(Stage* stage)
+{
+	stage->OnStart();
 
 	player->SetPosition(192.0f, 48.0f);
 }
 
-void STGEngine::OnLoad()
+void STGEngine::OnStart()
 {
 	Start();
+}
+
+void STGEngine::OnLoad()
+{
+	auto global = Global::GetInstance();
+
+	Stage* stage = nullptr;
+	switch (global->stageEnum)
+	{
+	case Global::STAGE_01:
+		stage = new Stage01();
+	}
+
+	LoadStage(stage);
 }
 
 void STGEngine::AddEnemy(Enemy* enemy)

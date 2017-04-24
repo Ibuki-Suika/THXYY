@@ -19,6 +19,7 @@ namespace THEngine
 	class Font;
 	class ShaderStock;
 	class RenderPipeline;
+	class AsyncInfo;
 
 	class Game : public EngineObject
 	{
@@ -33,7 +34,7 @@ namespace THEngine
 		float fps;
 		int frameCount;
 		bool showFPS;
-		
+
 		unsigned int lastTime, currentTime;
 
 		CoreDumper coreDumper;
@@ -87,6 +88,12 @@ namespace THEngine
 		void SetScene(Scene* scene);
 
 		void LoadScene(Scene* scene);
+
+		void LoadSceneAsync(Scene* scene);
+
+		void LoadSceneAsync(Scene* scene, int delay, const std::function<void()>& onLoadCompleted);
+
+		AsyncInfo* LoadSceneAsyncWithInfo(Scene* scene, bool autoChange);
 
 		inline Application* GetApplication() const { return app; }
 

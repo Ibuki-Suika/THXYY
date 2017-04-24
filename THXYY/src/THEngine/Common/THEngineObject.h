@@ -6,11 +6,14 @@
 
 namespace THEngine
 {
+	class AsyncInfo;
+
 	class EngineObject : public Object
 	{
 	protected:
 		Scheduler* scheduler = nullptr;
 		bool paused = false;
+		bool started = false;
 		bool loaded = false;
 
 	public:
@@ -27,7 +30,10 @@ namespace THEngine
 		inline void Pause() { paused = true; }
 		inline void Resume() { paused = false; }
 
-		virtual void OnLoad();
+		virtual void OnStart();
+		virtual void OnLoad(AsyncInfo* info);
+
+		friend class Game;
 	};
 }
 
