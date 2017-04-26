@@ -25,6 +25,11 @@ RankSelectMenu::RankSelectMenu()
 	this->lunatic = new RankSelectMenuItem();
 	this->lunatic->SetType(RankSelectMenuItem::LUNATIC);
 	AddMenuItem(this->lunatic);
+
+	auto stgResources = STGResources::GetInstance();
+
+	SetSoundOK(stgResources->soundMenuOK);
+	SetSoundSelect(stgResources->soundMenuSelect);
 }
 
 RankSelectMenu::~RankSelectMenu()
@@ -38,7 +43,7 @@ void RankSelectMenu::OnMenuItemClicked(int item)
 
 	auto engine = STGEngine::GetInstance();
 	auto global = Global::GetInstance();
-		
+
 	switch (item)
 	{
 	case 0:
@@ -78,7 +83,7 @@ bool RankSelectMenu::OnKeyDown(EngineObject* sender, int key)
 		if (this->lunatic)
 		{
 			this->lunatic->Exit();
-		}	
+		}
 
 		this->easy = nullptr;
 		this->normal = nullptr;

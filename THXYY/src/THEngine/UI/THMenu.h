@@ -46,6 +46,7 @@ namespace THEngine
 
 		inline int GetItemCount() { return itemList.Size(); }
 		inline MenuItem* GetMenuItem(int index) { return itemList.Get(index); }
+		inline ArrayList<MenuItem*>* GetMenuItems() { return &this->itemList; }
 
 		void AddMenuItem(MenuItem* menuItem);
 

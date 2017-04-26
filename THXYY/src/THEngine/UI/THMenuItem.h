@@ -49,6 +49,9 @@ namespace THEngine
 
 		void SetSelectable(bool selectable);
 
+		inline void SetColorUnSelected(const Vector3f& color) { this->colorUnselected = color; }
+		inline void SetColorUnSelectable(const Vector3f& color) { this->colorUnselectable = color; }
+
 		friend class Menu;
 	};
 }

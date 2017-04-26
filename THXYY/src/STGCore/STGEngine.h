@@ -36,9 +36,17 @@ public:
 		STAGE_EX
 	};
 
+	enum GameType
+	{
+		NEW_GAME,
+		PRACTICE,
+		SPELL_PRACTICE
+	};
+
 private:
 	static STGEngine* instance;
 	Difficulty difficulty;
+	GameType gameType;
 	long long score;
 	long long hiScore;
 	int life;
@@ -78,6 +86,9 @@ public:
 
 	inline void SetDifficulty(Difficulty diff) { this->difficulty = diff; }
 	inline Difficulty GetDifficulty() { return difficulty; }
+
+	inline void SetGameType(GameType gameType) { this->gameType = gameType; }
+	inline GameType GetGameType() const { return this->gameType; }
 
 	inline void SetScore(long long score) { this->score = score; }
 	inline long long GetScore() { return score; }

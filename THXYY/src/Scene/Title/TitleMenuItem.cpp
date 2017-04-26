@@ -5,59 +5,54 @@ Texture* TitleMenuItem::texTitleMenu = nullptr;
 TitleMenuItem::TitleMenuItem(Type type)
 {
 	SetTexture(texTitleMenu);
+	SetColorUnSelectable(Vector3f(0.35f, 0.35f, 0.35f));
 
 	switch (type)
 	{
 	case GAME_START:
-		SetTexRect(Rect(128, 256, 0, 32));
+		SetTexRect(Rect(0, 128, 0, 32));
 		break;
 	case EXTRA_START:
-		SetTexRect(Rect(128, 256, 32, 64));
+		SetTexRect(Rect(0, 128, 32, 64));
+		SetSelectable(false);
 		break;
 	case PRACTICE_START:
-		SetTexRect(Rect(128, 256, 96, 128));
+		SetTexRect(Rect(0, 128, 96, 128));
 		break;
 	case SPELL_PRACTICE:
-		SetTexRect(Rect(128, 256, 128, 160));
+		SetTexRect(Rect(0, 128, 128, 160));
 		break;
 	case REPLAY:
-		SetTexRect(Rect(128, 256, 160, 192));
+		SetTexRect(Rect(0, 128, 160, 192));
 		break;
 	case PLAYER_DATA:
-		SetTexRect(Rect(128, 256, 192, 224));
+		SetTexRect(Rect(0, 128, 192, 224));
 		break;
 	case MUSIC_ROOM:
-		SetTexRect(Rect(128, 256, 224, 256));
+		SetTexRect(Rect(0, 128, 224, 256));
 		break;
 	case OPTION:
-		SetTexRect(Rect(128, 256, 256, 288));
+		SetTexRect(Rect(0, 128, 256, 288));
 		break;
 	case MANUAL:
-		SetTexRect(Rect(128, 256, 288, 320));
+		SetTexRect(Rect(0, 128, 288, 320));
 		break;
 	case QUIT:
-		SetTexRect(Rect(128, 256, 320, 352));
+		SetTexRect(Rect(0, 128, 320, 352));
 		break;
 	}
 }
 
 TitleMenuItem::~TitleMenuItem()
 {
-
 }
 
 void TitleMenuItem::OnSelect()
 {
 	MenuItem::OnSelect();
-
-	texRect.left -= 128;
-	texRect.right -= 128;
 }
 
 void TitleMenuItem::OnDeselect()
 {
 	MenuItem::OnDeselect();
-
-	texRect.left += 128;
-	texRect.right += 128;
 }

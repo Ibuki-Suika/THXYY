@@ -17,9 +17,15 @@ private:
 
 	ParticleLayer* particleLayer = nullptr;
 
+	bool needFadeIn = true;
+
 public:
 	Title();
 	virtual ~Title();
+
+	virtual void OnStart() override;
+
+	inline void SetNeedFadeIn(bool needFadeIn) { this->needFadeIn = needFadeIn; }
 };
 
 #endif

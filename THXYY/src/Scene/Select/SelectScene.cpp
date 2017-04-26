@@ -86,7 +86,7 @@ void SelectScene::Update()
 			particle->SetLife(30);
 			particle->SetRotatingAxis(Vector3f(0, 0, 1));
 			particle->SetAlpha(0);
-			particle->SetRotatingSpeed(Random(100, 500) / 100.0f);
+			particle->SetRotatingSpeed(Random(100, 800) / 100.0f);
 
 			float scale = Random(50, 100) / 100.0f;
 			particle->SetScale(Vector3f(scale, scale, 1));
@@ -127,7 +127,9 @@ void SelectScene::Back()
 	timer->SetFrame(FADE_TIME);
 	timer->run = []() {
 		auto game = Game::GetInstance();
-		game->LoadScene(new Title());
+		Title* titleScene = new Title();
+		titleScene->SetNeedFadeIn(false);
+		game->LoadScene(titleScene);
 	};
 	GetScheduler()->AddTimer(timer);
 }

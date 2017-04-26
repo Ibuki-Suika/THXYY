@@ -25,6 +25,10 @@ public:
 	virtual void OnDestroy() override;
 
 	virtual void OnMenuItemClicked(int item) override;
+
+	virtual void OnStart() override;
+
+	void GoOut();
 };
 
 #endif

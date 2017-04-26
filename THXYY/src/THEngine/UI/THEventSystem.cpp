@@ -7,12 +7,10 @@ EventSystem* EventSystem::instance = nullptr;
 
 EventSystem::EventSystem()
 {
-
 }
 
 EventSystem::~EventSystem()
 {
-
 }
 
 EventSystem* EventSystem::Create()
@@ -80,9 +78,8 @@ void EventSystem::UnRegisterKeyDownListener(IKeyDownListener* listener)
 		auto info = iter->Next();
 		if (info->listener == listener)
 		{
-			info->needRemove = true;
+			iter->Remove();
 			return;
 		}
 	}
 }
-

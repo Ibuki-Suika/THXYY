@@ -6,63 +6,55 @@
 
 using namespace THEngine;
 
-TitleMenu::TitleMenu() : Menu(464, 216, 128, 248)
-{
-	currentItem = 0;
-	itemCount = 10;
+static const int GO_OUT_TIME = 24;
+static const int GO_IN_TIME = 50;
 
+TitleMenu::TitleMenu()
+{
 	TitleMenuItem::texTitleMenu = AssetManager::GetInstance()->CreateTextureFromFile("res/title/main_menu.png");
 	TitleMenuItem::texTitleMenu->Retain();
+}
 
-	TitleMenuItem* menuItem = new TitleMenuItem(TitleMenuItem::GAME_START);
-	menuItem->SetPosition(Vector3f(64, 232, 0));
-	AddMenuItem(menuItem);
+TitleMenu::~TitleMenu()
+{
+}
 
-	menuItem = new TitleMenuItem(TitleMenuItem::EXTRA_START);
-	menuItem->SetPosition(Vector3f(64, 208, 0));
-	AddMenuItem(menuItem);
+void TitleMenu::OnStart()
+{
+	Menu::OnStart();
 
-	menuItem = new TitleMenuItem(TitleMenuItem::PRACTICE_START);
-	menuItem->SetPosition(Vector3f(64, 184, 0));
-	AddMenuItem(menuItem);
+	AddMenuItem(new TitleMenuItem(TitleMenuItem::GAME_START));
+	AddMenuItem(new TitleMenuItem(TitleMenuItem::EXTRA_START));
+	AddMenuItem(new TitleMenuItem(TitleMenuItem::PRACTICE_START));
+	AddMenuItem(new TitleMenuItem(TitleMenuItem::SPELL_PRACTICE));
+	AddMenuItem(new TitleMenuItem(TitleMenuItem::REPLAY));
+	AddMenuItem(new TitleMenuItem(TitleMenuItem::PLAYER_DATA));
+	AddMenuItem(new TitleMenuItem(TitleMenuItem::MUSIC_ROOM));
+	AddMenuItem(new TitleMenuItem(TitleMenuItem::OPTION));
+	AddMenuItem(new TitleMenuItem(TitleMenuItem::MANUAL));
+	AddMenuItem(new TitleMenuItem(TitleMenuItem::QUIT));
 
-	menuItem = new TitleMenuItem(TitleMenuItem::SPELL_PRACTICE);
-	menuItem->SetPosition(Vector3f(64, 160, 0));
-	AddMenuItem(menuItem);
-
-	menuItem = new TitleMenuItem(TitleMenuItem::REPLAY);
-	menuItem->SetPosition(Vector3f(64, 136, 0));
-	AddMenuItem(menuItem);
-
-	menuItem = new TitleMenuItem(TitleMenuItem::PLAYER_DATA);
-	menuItem->SetPosition(Vector3f(64, 112, 0));
-	AddMenuItem(menuItem);
-
-	menuItem = new TitleMenuItem(TitleMenuItem::MUSIC_ROOM);
-	menuItem->SetPosition(Vector3f(64, 88, 0));
-	AddMenuItem(menuItem);
-
-	menuItem = new TitleMenuItem(TitleMenuItem::OPTION);
-	menuItem->SetPosition(Vector3f(64, 64, 0));
-	AddMenuItem(menuItem);
-
-	menuItem = new TitleMenuItem(TitleMenuItem::MANUAL);
-	menuItem->SetPosition(Vector3f(64, 40, 0));
-	AddMenuItem(menuItem);
-
-	menuItem = new TitleMenuItem(TitleMenuItem::QUIT);
-	menuItem->SetPosition(Vector3f(64, 16, 0));
-	AddMenuItem(menuItem);
+	for (int i = 0; i < GetItemCount(); i++)
+	{
+		auto menuItem = GetMenuItem(i);
+		menuItem->SetPosition(Vector3f(604, 340, 0));
+		menuItem->SetAlpha(0);
+		menuItem->AddTween(new MoveTo(Vector3f(528, 278 - 24 * i, 0), GO_IN_TIME - 27 + 3 * i, Tweener::EASE_OUT));
+		menuItem->AddTween(new FadeTo(1.0f, GO_IN_TIME - 27 + 3 * i, Tweener::EASE_OUT));
+	}
 
 	auto stgResources = STGResources::GetInstance();
 
 	SetSoundOK(stgResources->soundMenuOK);
 	SetSoundSelect(stgResources->soundMenuSelect);
-}
 
-TitleMenu::~TitleMenu()
-{
-	
+	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
+	FrameTimer* timer = new FrameTimer();
+	timer->SetFrame(GO_IN_TIME);
+	timer->run = [this]() {
+		EventSystem::GetInstance()->RegisterKeyDownListener(this);
+	};
+	GetScheduler()->AddTimer(timer);
 }
 
 bool TitleMenu::OnKeyDown(EngineObject* sender, int key)
@@ -86,26 +78,33 @@ void TitleMenu::OnMenuItemClicked(int item)
 {
 	Menu::OnMenuItemClicked(item);
 
+	FrameTimer* timer = new FrameTimer();
+	timer->SetFrame(GO_OUT_TIME);
+
 	switch (item)
 	{
 	case 0:
 	{
-		/*auto engine = STGEngine::GetInstance();
-
-		engine->Init();
-
-		auto global = Global::GetInstance();
-		global->stageEnum = Global::STAGE_01;
-		global->playerEnum = Global::REIMU;
-
-		GameScene* scene = new GameScene();
-		Game::GetInstance()->LoadScene(scene);*/
-
-		Game::GetInstance()->LoadScene(new SelectScene());
-
+		timer->run = []() {
+			Game::GetInstance()->LoadScene(new SelectScene());
+		};
 		break;
 	}
 	case 9:
-		Game::GetInstance()->Quit();
+		timer->run = []() {
+			Game::GetInstance()->Quit();
+		};
+	}
+	GetScheduler()->AddTimer(timer);
+	GoOut();
+}
+
+void TitleMenu::GoOut()
+{
+	for (auto iter = this->GetMenuItems()->GetIterator(); iter->HasNext();)
+	{
+		auto item = iter->Next();
+		item->AddTween(new MoveBy(Vector3f(40, 0, 0), GO_OUT_TIME, Tweener::SIMPLE));
+		item->AddTween(new FadeOut(GO_OUT_TIME, Tweener::SIMPLE));
 	}
 }
