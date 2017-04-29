@@ -50,14 +50,13 @@ namespace THEngine
 
 		virtual void Update() override;
 		virtual void Draw() override;
-
+		virtual void OnLoad(AsyncInfo* info) override;
 		virtual Object* Clone() override;
-		
+
 		//virtual functions
 		virtual void OnDestroy();
 		virtual void DrawGeometry();
 		virtual void GetWorldMatrix(Matrix* world);
-
 
 		void AddChild(GameObject* obj);
 
@@ -70,7 +69,7 @@ namespace THEngine
 		inline void MarkDestroy() { needRemove = true; }
 
 		inline bool NeedRemove() { return needRemove; }
-	
+
 		void AddTween(Tween* tween);
 
 		void ClearTweens();

@@ -104,6 +104,7 @@
     <ClCompile Include="src\Player\ReimuSubPlaneBullet.cpp" />
     <ClCompile Include="src\Scene\Game\GameScene.cpp" />
     <ClCompile Include="src\Scene\Game\GrazeNumber.cpp" />
+    <ClCompile Include="src\Scene\Game\ItemLine.cpp" />
     <ClCompile Include="src\Scene\Game\PauseMenu.cpp" />
     <ClCompile Include="src\Scene\Game\PauseMenuItem.cpp" />
     <ClCompile Include="src\Scene\Game\PointNumber.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="src\Player\ReimuSubPlaneBullet.h" />
     <ClInclude Include="src\Scene\Game\GameScene.h" />
     <ClInclude Include="src\Scene\Game\GrazeNumber.h" />
+    <ClInclude Include="src\Scene\Game\ItemLine.h" />
     <ClInclude Include="src\Scene\Game\PauseMenu.h" />
     <ClInclude Include="src\Scene\Game\PauseMenuItem.h" />
     <ClInclude Include="src\Scene\Game\PointNumber.h" />

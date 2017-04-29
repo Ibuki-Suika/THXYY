@@ -168,6 +168,7 @@ void SelectScene::StartGame()
 		auto global = Global::GetInstance();
 
 		engine->Init();
+		engine->SetGameType(STGEngine::NEW_GAME);
 		global->stageEnum = Global::STAGE_01;
 		global->playerEnum = Global::REIMU;
 		GameScene* scene = new GameScene();

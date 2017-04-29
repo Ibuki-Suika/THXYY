@@ -53,7 +53,7 @@ namespace THEngine
 	struct Vector4f
 	{
 	public:
-		union 
+		union
 		{
 			float _data[4];
 			struct
@@ -64,7 +64,7 @@ namespace THEngine
 				float w;
 			};
 		};
-		
+
 	public:
 		Vector4f();
 		Vector4f(float a1, float a2, float a3, float a4);
@@ -80,8 +80,8 @@ namespace THEngine
 	public:
 		Rect() {}
 		Rect(float l, float r, float t, float b) :left(l), right(r), top(t), bottom(b) {}
-		inline float Width() { return right - left; }
-		inline float Height() { return bottom - top; }
+		inline float Width() const { return right - left; }
+		inline float Height() const { return bottom - top; }
 	};
 
 	class RectInt

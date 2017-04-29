@@ -6,9 +6,6 @@ static const int FADE_TIME = 30;
 
 PauseMenu::PauseMenu() : Menu(32, 16, 384, 448)
 {
-	PauseMenuItem::texPauseMenu = AssetManager::GetInstance()->CreateTextureFromFile("res/menu/pause_menu.png");
-	PauseMenuItem::texPauseMenu->Retain();
-
 	auto stgResources = STGResources::GetInstance();
 
 	SetSoundOK(stgResources->soundMenuOK);
@@ -18,6 +15,12 @@ PauseMenu::PauseMenu() : Menu(32, 16, 384, 448)
 PauseMenu::~PauseMenu()
 {
 	TH_SAFE_RELEASE(PauseMenuItem::texPauseMenu);
+}
+
+void PauseMenu::OnLoad(AsyncInfo* info)
+{
+	PauseMenuItem::texPauseMenu = AssetManager::GetInstance()->CreateTextureFromFile("res/menu/pause_menu.png");
+	PauseMenuItem::texPauseMenu->Retain();
 }
 
 void PauseMenu::OnStart()
@@ -137,13 +140,9 @@ void PauseMenu::DoRestart()
 	timer->SetFrame(30);
 	timer->run = [this, scene, engine]()
 	{
-		engine->Restart();
-		scene->STGFadeIn(60);
-		scene->GetSTGLayer()->Resume();
-		scene->GetSTGParticleLayer()->Resume();
+		scene->Restart();
 		Clear();
 		Resume();
-		scene->GetYesNoMenu()->Clear();
 	};
 	scheduler->AddTimer(timer);
 

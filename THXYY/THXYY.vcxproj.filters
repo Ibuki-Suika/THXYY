@@ -525,6 +525,9 @@
     <ClCompile Include="src\Scene\Select\StarParticle.cpp">
       <Filter>源文件\Scene\Select</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\Game\ItemLine.cpp">
+      <Filter>源文件\Scene\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\THXYY.h">
@@ -883,6 +886,9 @@
     </ClInclude>
     <ClInclude Include="src\Scene\Select\StarParticle.h">
       <Filter>头文件\Scene\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Game\ItemLine.h">
+      <Filter>头文件\Scene\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

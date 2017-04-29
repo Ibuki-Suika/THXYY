@@ -8,7 +8,6 @@
 	}  \
 	texture->Retain();
 
-
 STGResources* STGResources::instance = nullptr;
 
 STGResources::STGResources()
@@ -209,4 +208,3 @@ void STGResources::UnloadSounds()
 	soundBomb = nullptr;
 	soundExplode = nullptr;
 }
-

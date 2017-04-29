@@ -15,13 +15,13 @@ namespace THEngine
 	protected:
 		int width, height;
 		int left, top;
-		int order;          
+		int order;
 		GameObject rootNode;
-		
+
 		LinkedList<Camera*> cameraList;
 
 		Environment environment;
-		
+
 		CubeMap* skyBox = nullptr;
 
 	protected:
@@ -33,6 +33,7 @@ namespace THEngine
 		virtual ~Layer();
 		virtual void Update() override;
 		virtual void Draw() override;
+		virtual void OnLoad(AsyncInfo* info) override;
 
 		virtual void OnDestroy();
 
@@ -68,7 +69,7 @@ namespace THEngine
 		inline void EnableLighting(bool lightingEnable) { this->environment.lightingEnable = lightingEnable; }
 
 		inline void SetAmbientLight(const Vector4f ambient) { this->environment.ambientLight = ambient; }
-		
+
 		inline void SetFog(Fog fog) { this->environment.fog = fog; }
 
 		void SetSkyBox(CubeMap* skyBox);

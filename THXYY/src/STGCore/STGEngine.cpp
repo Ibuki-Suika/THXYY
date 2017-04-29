@@ -62,7 +62,6 @@ void STGEngine::Start()
 	SetMaxPoint(10000);
 	SetScore(0);
 	SetGraze(0);
-	SetDifficulty(STGEngine::NORMAL);
 
 	switch (global->playerEnum)
 	{

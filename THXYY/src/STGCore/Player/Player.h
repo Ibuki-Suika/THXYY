@@ -47,7 +47,7 @@ protected:
 	float radius = 3.0f;                //判定点半径
 	float hiSpeedItemRange = 24.0f;          //高速时取得道具范围
 	float lowSpeedItemRange = 32.0f;         //低速时取得道具范围
-	float itemGetHeight = 324.0f;                //道具回收线高度
+	float itemGetHeight = 320.0f;                //道具回收线高度
 
 	bool isHiSpeed;
 	bool invincible;          //无敌

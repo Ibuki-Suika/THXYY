@@ -5,7 +5,6 @@ namespace THEngine
 {
 	Scene::Scene()
 	{
-
 	}
 
 	Scene::~Scene()
@@ -60,9 +59,19 @@ namespace THEngine
 		}
 	}
 
+	void Scene::OnLoad(AsyncInfo* info)
+	{
+		EngineObject::OnLoad(info);
+
+		auto iter = layers.GetIterator();
+		while (iter->HasNext())
+		{
+			Layer* curLayer = iter->Next();
+			curLayer->OnLoad(info);
+		}
+	}
+
 	void Scene::OnDestroy()
 	{
-
 	}
 }
-

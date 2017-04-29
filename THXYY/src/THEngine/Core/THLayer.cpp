@@ -8,7 +8,6 @@ namespace THEngine
 {
 	Layer::Layer() : Layer(0, 0, Game::GetInstance()->GetWidth(), Game::GetInstance()->GetHeight())
 	{
-		
 	}
 
 	Layer::Layer(int left, int top, int width, int height)
@@ -159,6 +158,13 @@ namespace THEngine
 		}
 	}
 
+	void Layer::OnLoad(AsyncInfo* info)
+	{
+		EngineObject::OnLoad(info);
+
+		rootNode.OnLoad(info);
+	}
+
 	void Layer::SetupRenderState()
 	{
 		auto app = Application::GetInstance();
@@ -184,4 +190,3 @@ namespace THEngine
 		environment.Clear();
 	}
 }
-

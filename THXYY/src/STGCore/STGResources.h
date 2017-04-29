@@ -12,15 +12,15 @@ public:
 
 	static STGResources* GetInstance();
 
-	Texture* texPlayerCenter;
-	Texture* texEnemy01;
-	Texture* texBullet01;
+	Texture* texPlayerCenter = nullptr;
+	Texture* texEnemy01 = nullptr;
+	Texture* texBullet01 = nullptr;
 	Texture* texBullet02 = nullptr;
 	Texture* texBullet03 = nullptr;
 	Texture* texBullet04 = nullptr;
-	Texture* texReimu;
-	Texture* texEffBase;
-	Texture* texPointLight;
+	Texture* texReimu = nullptr;
+	Texture* texEffBase = nullptr;
+	Texture* texPointLight = nullptr;
 	Texture* texFourAngleStar = nullptr;
 
 	Sound* soundShoot1 = nullptr;

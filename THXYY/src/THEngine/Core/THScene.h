@@ -17,6 +17,7 @@ namespace THEngine
 
 		virtual void Update() override;
 		virtual void Draw() override;
+		virtual void OnLoad(AsyncInfo* info) override;
 
 		virtual void OnDestroy();
 

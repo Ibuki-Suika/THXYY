@@ -30,9 +30,11 @@ private:
 	Layer* backgroundLayer = nullptr;
 
 	Sprite* blackSTG = nullptr;
+	Sprite* difficulty = nullptr;
 
-	Texture* texGameBg;
-	Texture* texGameBg2;
+	Texture* texGameBg = nullptr;
+	Texture* texGameBg2 = nullptr;
+	Texture* texFront = nullptr;
 
 	ScoreNumber* hiScore[10];
 	ScoreNumber* score[10];
@@ -44,6 +46,19 @@ private:
 	ArrayList<GrazeNumber*> grazeSpriteList;
 
 	PowerNumber* powerSprite[6];
+
+private:
+	void CreateFront();
+	void UpdateScore();
+	void UpdateLifeAndBomb();
+	void UpdatePower();
+	void DrawMaxPoint();
+	void DrawGraze();
+	void CreateScorePanel();
+	void CreatePowerPanel();
+	void DrawNewGameItems();
+	bool IsNewGame();
+	bool IsFirstStage();
 
 public:
 	GameScene();
@@ -58,15 +73,9 @@ public:
 
 	virtual bool OnKeyDown(EngineObject* sender, int key) override;
 
-	void UpdateScore();
-	void UpdateLifeAndBomb();
-	void UpdatePower();
-	void DrawMaxPoint();
-	void DrawGraze();
-	void CreateScorePanel();
-	void CreatePowerPanel();
-
 	void ReturnToTitle();
+	void Restart();
+	void StartStage();
 	void STGFadeOut(int time);
 	void STGFadeIn(int time);
 

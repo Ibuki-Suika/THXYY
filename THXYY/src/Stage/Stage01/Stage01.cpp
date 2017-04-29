@@ -47,6 +47,8 @@ void Stage01::Update()
 
 void Stage01::OnStart()
 {
+	Stage::OnStart();
+
 	InitBackground();
 }
 

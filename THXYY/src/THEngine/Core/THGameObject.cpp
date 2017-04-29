@@ -22,9 +22,8 @@ namespace THEngine
 
 		tweenManager = new TweenManager(*object.tweenManager);
 		tweenManager->Retain();
-		
+
 		needRemove = false;
-		
 	}
 
 	GameObject::~GameObject()
@@ -35,6 +34,17 @@ namespace THEngine
 	Object* GameObject::Clone()
 	{
 		return new GameObject(*this);
+	}
+
+	void GameObject::OnLoad(AsyncInfo* info)
+	{
+		EngineObject::OnLoad(info);
+
+		Iterator<GameObject*>* iter = children.GetIterator();
+		while (iter->HasNext())
+		{
+			iter->Next()->OnLoad(info);
+		}
 	}
 
 	void GameObject::AddChild(GameObject* obj)
@@ -60,7 +70,6 @@ namespace THEngine
 
 	void GameObject::SendToRenderQueue()
 	{
-
 	}
 
 	void GameObject::WriteRenderData()
@@ -112,12 +121,10 @@ namespace THEngine
 
 	void GameObject::Draw()
 	{
-
 	}
 
 	void GameObject::DrawGeometry()
 	{
-
 	}
 
 	void GameObject::GetWorldMatrix(Matrix* world)
@@ -192,4 +199,3 @@ namespace THEngine
 		Quaternion::RotateAngleAxis(&rotation3D, Vector3f(axis.x, axis.y, axis.z), rotation);
 	}
 }
-

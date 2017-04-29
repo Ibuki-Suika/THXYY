@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "ItemLine.h"
 #include "../Title/Title.h"
 #include "../../STGCore/STGCore.h"
 
@@ -8,12 +9,6 @@ GameScene::GameScene()
 {
 	STGEngine* engine = STGEngine::GetInstance();
 	engine->SetGameScene(this);
-
-	AssetManager* manager = AssetManager::GetInstance();
-	texGameBg = manager->CreateTextureFromFile("res/front/gamebg.jpg");
-	texGameBg->Retain();
-	texGameBg2 = manager->CreateTextureFromFile("res/front/gamebg2.png");
-	texGameBg2->Retain();
 
 	baseLayer = new Layer();
 	baseLayer->SetOrder(100);
@@ -46,6 +41,36 @@ GameScene::GameScene()
 	yesNoMenu = new YesNoMenu();
 	yesNoMenu->SetOrder(4);
 	AddLayer(yesNoMenu);
+}
+
+GameScene::~GameScene()
+{
+	TH_SAFE_RELEASE(texGameBg);
+	TH_SAFE_RELEASE(texGameBg2);
+	TH_SAFE_RELEASE(texFront);
+}
+
+void GameScene::Update()
+{
+	Scene::Update();
+
+	UpdateScore();
+	UpdateLifeAndBomb();
+	UpdatePower();
+}
+
+void GameScene::Draw()
+{
+	Scene::Draw();
+	Application::GetInstance()->SetOrtho(0, 0, Game::GetInstance()->GetWidth(), Game::GetInstance()->GetHeight(), 0, 100);
+	Application::GetInstance()->SetViewport(0, 0, Game::GetInstance()->GetWidth(), Game::GetInstance()->GetHeight());
+	DrawMaxPoint();
+	DrawGraze();
+}
+
+void GameScene::CreateFront()
+{
+	auto engine = STGEngine::GetInstance();
 
 	Sprite* background = new Sprite();
 	background->SetTexture(texGameBg);
@@ -54,30 +79,38 @@ GameScene::GameScene()
 	baseLayer->AddChild(background);
 
 	//创建难度栏
-	Sprite* difficulty = new Sprite();
-	difficulty->SetTexture(texGameBg2);
-	difficulty->SetPosition(Vector3f(528.0f, 448.0f, 1.0f));
+	this->difficulty = new Sprite();
+	this->difficulty->SetTexture(texGameBg2);
+	this->difficulty->SetPosition(Vector3f(528.0f, 448.0f, 1.0f));
 	switch (engine->GetDifficulty())
 	{
 	case STGEngine::EASY:
-		difficulty->SetTexRect(Rect(0.0f, 96.0f, 0.0f, 32.0f));
+		this->difficulty->SetTexRect(Rect(0.0f, 96.0f, 0.0f, 32.0f));
 		break;
 	case STGEngine::NORMAL:
-		difficulty->SetTexRect(Rect(0.0f, 96.0f, 32.0f, 64.0f));
+		this->difficulty->SetTexRect(Rect(0.0f, 96.0f, 32.0f, 64.0f));
 		break;
 	case STGEngine::HARD:
-		difficulty->SetTexRect(Rect(0.0f, 96.0f, 64.0f, 96.0f));
+		this->difficulty->SetTexRect(Rect(0.0f, 96.0f, 64.0f, 96.0f));
 		break;
 	case STGEngine::LUNATIC:
-		difficulty->SetTexRect(Rect(0.0f, 96.0f, 96.0f, 128.0f));
+		this->difficulty->SetTexRect(Rect(0.0f, 96.0f, 96.0f, 128.0f));
 		break;
 	case STGEngine::EXTRA:
-		difficulty->SetTexRect(Rect(0.0f, 96.0f, 128.0f, 160.0f));
+		this->difficulty->SetTexRect(Rect(0.0f, 96.0f, 128.0f, 160.0f));
 		break;
 	default:
 		break;
 	}
-	baseLayer->AddChild(difficulty);
+	baseLayer->AddChild(this->difficulty);
+	if (IsNewGame())
+	{
+		this->difficulty->SetAlpha(0);
+		TweenSequence* sequence = new TweenSequence();
+		sequence->AddTween(new Delay(120));
+		sequence->AddTween(new FadeTo(1.0f, 30, Tweener::SIMPLE));
+		this->difficulty->AddTween(sequence);
+	}
 
 	//创建分数栏
 	CreateScorePanel();
@@ -102,34 +135,17 @@ GameScene::GameScene()
 	CreatePowerPanel();
 }
 
-GameScene::~GameScene()
-{
-	AssetManager* manager = AssetManager::GetInstance();
-	TH_SAFE_RELEASE(texGameBg);
-	TH_SAFE_RELEASE(texGameBg2);
-}
-
-void GameScene::Update()
-{
-	Scene::Update();
-
-	UpdateScore();
-	UpdateLifeAndBomb();
-	UpdatePower();
-}
-
-void GameScene::Draw()
-{
-	Scene::Draw();
-	Application::GetInstance()->SetOrtho(0, 0, Game::GetInstance()->GetWidth(), Game::GetInstance()->GetHeight(), 0, 100);
-	Application::GetInstance()->SetViewport(0, 0, Game::GetInstance()->GetWidth(), Game::GetInstance()->GetHeight());
-	DrawMaxPoint();
-	DrawGraze();
-}
-
 void GameScene::OnLoad(AsyncInfo* info)
 {
 	Scene::OnLoad(info);
+
+	AssetManager* manager = AssetManager::GetInstance();
+	texGameBg = manager->CreateTextureFromFile("res/front/gamebg.jpg");
+	texGameBg->Retain();
+	texGameBg2 = manager->CreateTextureFromFile("res/front/gamebg2.png");
+	texGameBg2->Retain();
+	texFront = manager->CreateTextureFromFile("res/front/front.png");
+	texFront->Retain();
 
 	auto engine = STGEngine::GetInstance();
 	engine->OnLoad();
@@ -138,6 +154,12 @@ void GameScene::OnLoad(AsyncInfo* info)
 void GameScene::OnStart()
 {
 	Scene::OnStart();
+
+	auto engine = STGEngine::GetInstance();
+	engine->OnStart();
+
+	CreateFront();
+	StartStage();
 
 	Sprite* black = new Sprite();
 	black->SetTexture(Global::GetInstance()->texBlack);
@@ -149,9 +171,6 @@ void GameScene::OnStart()
 
 	auto eventSystem = EventSystem::GetInstance();
 	eventSystem->RegisterKeyDownListener(this);
-
-	auto engine = STGEngine::GetInstance();
-	engine->OnStart();
 }
 
 void GameScene::OnDestroy()
@@ -421,6 +440,114 @@ void GameScene::ReturnToTitle()
 	timer->SetFrame(60);
 	timer->run = []() {Game::GetInstance()->LoadScene(new Title()); };
 	scheduler->AddTimer(timer);
+}
+
+bool GameScene::IsNewGame()
+{
+	return STGEngine::GetInstance()->GetGameType() == STGEngine::NEW_GAME;
+}
+
+bool GameScene::IsFirstStage()
+{
+	auto engine = STGEngine::GetInstance();
+	return engine->GetStageEnum() == STGEngine::STAGE_01 ||
+		engine->GetStageEnum() == STGEngine::STAGE_EX;
+}
+
+void GameScene::DrawNewGameItems()
+{
+	auto engine = STGEngine::GetInstance();
+
+	//draw item get border line
+	float lineHeight = STGEngine::GetInstance()->GetPlayer()->GetItemGetHeight();
+
+	ItemLine* itemLineText = new ItemLine();
+	itemLineText->SetTexture(this->texFront);
+	itemLineText->SetTexRect(Rect(0, 172, 0, 24));
+	itemLineText->SetPosition(Vector3f(192, lineHeight, 25));
+
+	ItemLine* itemLine = new ItemLine();
+	itemLine->SetTexture(this->texFront);
+	itemLine->SetTexRect(Rect(0, 172, 24, 32));
+	itemLine->SetPosition(Vector3f(28, lineHeight, 25));
+
+	ItemLine* itemLine2 = new ItemLine();
+	itemLine2->SetTexture(this->texFront);
+	itemLine2->SetTexRect(Rect(0, 172, 24, 32));
+	itemLine2->SetPosition(Vector3f(356, lineHeight, 25));
+
+	GetSTGLayer()->AddChild(itemLine);
+	GetSTGLayer()->AddChild(itemLine2);
+	GetSTGLayer()->AddChild(itemLineText);
+
+	//draw blinking difficulty on top of the shooting region
+	Sprite* diff = new Sprite();
+	diff->SetTexture(texGameBg2);
+	switch (engine->GetDifficulty())
+	{
+	case STGEngine::EASY:
+		diff->SetTexRect(Rect(0.0f, 96.0f, 0.0f, 32.0f));
+		break;
+	case STGEngine::NORMAL:
+		diff->SetTexRect(Rect(0.0f, 96.0f, 32.0f, 64.0f));
+		break;
+	case STGEngine::HARD:
+		diff->SetTexRect(Rect(0.0f, 96.0f, 64.0f, 96.0f));
+		break;
+	case STGEngine::LUNATIC:
+		diff->SetTexRect(Rect(0.0f, 96.0f, 96.0f, 128.0f));
+		break;
+	case STGEngine::EXTRA:
+		diff->SetTexRect(Rect(0.0f, 96.0f, 128.0f, 160.0f));
+		break;
+	default:
+		break;
+	}
+	TweenSequence* sequence = new TweenSequence();
+	sequence->AddTween(new Delay(7));
+	sequence->AddTween(new ColorTo(Vector3f(0.5f, 0.5f, 0.5f), 1, Tweener::SIMPLE));
+	sequence->AddTween(new Delay(7));
+	sequence->AddTween(new ColorTo(Vector3f(1.0f, 1.0f, 1.0f), 1, Tweener::SIMPLE));
+	sequence->SetLooped(true);
+	diff->AddTween(sequence);
+
+	FrameTimer* timer = new FrameTimer();
+	timer->SetFrame(120);
+	timer->run = [diff]() {
+		diff->ClearTweens();
+		diff->AddTween(new FadeOut(30, Tweener::SIMPLE));
+	};
+	diff->GetScheduler()->AddTimer(timer);
+
+	diff->SetPosition(Vector3f(192.0f, 432.0f, 1.0f));
+	GetSTGLayer()->AddChild(diff);
+}
+
+void GameScene::StartStage()
+{
+	if (IsNewGame() && IsFirstStage())
+	{
+		DrawNewGameItems();
+
+		this->difficulty->SetAlpha(0);
+		TweenSequence* sequence = new TweenSequence();
+		sequence->AddTween(new Delay(120));
+		sequence->AddTween(new FadeTo(1.0f, 30, Tweener::SIMPLE));
+		this->difficulty->AddTween(sequence);
+	}
+}
+
+void GameScene::Restart()
+{
+	auto engine = STGEngine::GetInstance();
+
+	engine->Restart();
+	STGFadeIn(60);
+	GetSTGLayer()->Resume();
+	GetSTGParticleLayer()->Resume();
+	GetYesNoMenu()->Clear();
+
+	StartStage();
 }
 
 void GameScene::STGFadeIn(int time)
