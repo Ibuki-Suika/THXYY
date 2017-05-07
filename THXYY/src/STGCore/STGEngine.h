@@ -45,6 +45,9 @@ public:
 
 private:
 	static STGEngine* instance;
+
+	RandomGenerator* randomGenerator = nullptr;
+
 	Difficulty difficulty;
 	GameType gameType;
 	long long score;
@@ -165,6 +168,10 @@ public:
 	void Update();
 
 	void UpdateList();
+
+	int Random(int a, int b);
+	void ResetRandomSeed(int seed);
+	int GetRandomSeed();
 
 	void Init();
 

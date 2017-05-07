@@ -81,16 +81,16 @@ void SelectScene::Update()
 			Particle3D* particle = new Particle3D();
 			particle->SetTexture(this->texLoading);
 			particle->SetTexRect(Rect(32, 64, 96, 128));
-			particle->SetPosition(Vector3f(Random(416, 640), 128, 50));
-			particle->SetSpeed(1.0f + Random(0, 200) / 100.0f);
+			particle->SetPosition(Vector3f(Math::Random(416, 640), 128, 50));
+			particle->SetSpeed(1.0f + Math::Random(0, 200) / 100.0f);
 			particle->SetLife(30);
 			particle->SetRotatingAxis(Vector3f(0, 0, 1));
 			particle->SetAlpha(0);
-			particle->SetRotatingSpeed(Random(100, 800) / 100.0f);
+			particle->SetRotatingSpeed(Math::Random(100, 800) / 100.0f);
 
-			float scale = Random(50, 100) / 100.0f;
+			float scale = Math::Random(50, 100) / 100.0f;
 			particle->SetScale(Vector3f(scale, scale, 1));
-			float rad = ToRad(Random(0, 90) + 225);
+			float rad = Math::ToRad(Math::Random(0, 90) + 225);
 			particle->SetDirection(Vector3f(cos(rad), sin(rad), 0));
 
 			TweenSequence* sequence = new TweenSequence();

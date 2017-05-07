@@ -15,7 +15,7 @@ namespace THEngine
 
 	void Quaternion::RotateAngleAxis(Quaternion* quaternion, const Vector3f& axis, float degree)
 	{
-		D3DXQuaternionRotationAxis(&quaternion->quaternion, &D3DXVECTOR3(axis.x, axis.y, axis.z), ToRad(degree));
+		D3DXQuaternionRotationAxis(&quaternion->quaternion, &D3DXVECTOR3(axis.x, axis.y, axis.z), Math::ToRad(degree));
 	}
 
 	Quaternion& Quaternion::operator*=(const Quaternion& quaternion)

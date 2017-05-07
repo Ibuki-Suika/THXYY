@@ -1,6 +1,11 @@
 #include "THAudio.h"
 #include "THApplication.h"
 #include "External\CWaveFile.h"
+#include <External\SDL2\SDL.h>
+#include <External\SDL2\SDL_mixer.h>
+
+#pragma comment(lib, "SDL2/SDL2.lib")
+#pragma comment(lib, "SDL2/SDL2_mixer.lib")
 
 namespace THEngine
 {
@@ -8,7 +13,6 @@ namespace THEngine
 
 	Audio::Audio()
 	{
-
 	}
 
 	Audio::~Audio()
@@ -21,6 +25,8 @@ namespace THEngine
 		TH_SAFE_RELEASE(xaudio);
 
 		CoUninitialize();
+
+		Mix_CloseAudio();
 	}
 
 	Audio* Audio::GetInstance()
@@ -52,10 +58,19 @@ namespace THEngine
 		if (FAILED(hr = xaudio->CreateMasteringVoice(&masterVoice)))
 			return false;
 
+		if (SDL_Init(SDL_INIT_AUDIO) < 0)
+			return false;
+
+		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+		{
+			return false;
+		}
+		Mix_Volume(-1, this->volume / 100.0f * MIX_MAX_VOLUME);
+
 		return true;
 	}
 
-	Sound* Audio::CreateSound(String filePath)
+	Sound* Audio::CreateSound(const String& filePath)
 	{
 		auto exceptionManager = ExceptionManager::GetInstance();
 		Sound* sound = nullptr;
@@ -88,7 +103,7 @@ namespace THEngine
 		return sound;
 	}
 
-	Sound* Audio::LoadWav(String filePath)
+	Sound* Audio::LoadWav(const String& filePath)
 	{
 		Sound* sound = new Sound();
 		auto exceptionManager = ExceptionManager::GetInstance();
@@ -132,6 +147,74 @@ namespace THEngine
 		return sound;
 	}
 
+	Music* Audio::CreateMusic(const String& filePath)
+	{
+		auto exceptionManager = ExceptionManager::GetInstance();
+		Music* music = new Music();
+
+		char path[256];
+		WideCharToMultiByte(CP_ACP, 0, filePath.GetBuffer(), -1, path, sizeof(path), NULL, NULL);
+		music->mixMusic = Mix_LoadMUS(path);
+		if (music->mixMusic == nullptr)
+		{
+			THMessageBox((String)"无法加载音频文件：" + filePath);
+			delete music;
+			return nullptr;
+		}
+
+		this->musicList.Add(music);
+		return music;
+	}
+
+	void Audio::PlayMusic(Music* music)
+	{
+		PlayMusic(music, false);
+	}
+
+	void Audio::PlayMusic(Music* music, bool looped)
+	{
+		if (currentMusic == music && Mix_PlayingMusic() == 1)
+			return;
+
+		if (currentMusic && currentMusic != music)
+		{
+			currentMusic->Stop();
+		}
+		currentMusic = music;
+
+		if (looped)
+		{
+			Mix_PlayMusic(music->mixMusic, -1);
+		}
+		else
+		{
+			Mix_PlayMusic(music->mixMusic, 1);
+		}
+		float volume = music->volume * this->volume / 10000.0f;
+		Mix_VolumeMusic(volume * MIX_MAX_VOLUME);
+	}
+
+	void Audio::StopMusic(Music* music)
+	{
+		if (currentMusic != music)
+			return;
+
+		if (music)
+		{
+			Mix_HaltMusic();
+		}
+		currentMusic = nullptr;
+	}
+
+	void Audio::DestroyMusic(Music* music)
+	{
+		if (music == currentMusic)
+		{
+			StopMusic(music);
+		}
+		this->musicList.Remove(music);
+	}
+
 	void Audio::Update()
 	{
 		auto iter = soundList.GetIterator();
@@ -142,4 +225,3 @@ namespace THEngine
 		}
 	}
 }
-

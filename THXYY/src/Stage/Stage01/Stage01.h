@@ -15,6 +15,16 @@ private:
 	Mesh* house = nullptr;
 
 public:
+	static const int BPM;
+	static const float SPB;
+	static const float FPB;
+
+private:
+	void AddEnemy001(int startFrame);
+	void AddEnemy002(int startFrame);
+	void AddEnemy003(int startFrame);
+
+public:
 	Stage01();
 	virtual ~Stage01();
 

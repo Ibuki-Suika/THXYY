@@ -139,6 +139,11 @@ namespace THEngine
 	{
 		EngineObject::Update();
 
+		for (auto iter = cameraList.GetIterator(); iter->HasNext();)
+		{
+			iter->Next()->Update();
+		}
+
 		rootNode.Update();
 	}
 

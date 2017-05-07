@@ -26,7 +26,7 @@ namespace THEngine
 			WCHAR fileName[MAX_PATH];
 			if (instance->Dump(exception, fileName))
 			{
-				THMessageBox((String)"啊哦，程序崩溃了>_<\n崩溃信息已写入程序所在目录dump文件夹下的" + (String)fileName 
+				THMessageBox((String)"啊哦，程序崩溃了>_<\n崩溃信息已写入程序所在目录dump文件夹下的" + (String)fileName
 					+ "文件中。请将该文件发送至SZ_Silence06@foxmail.com");
 			}
 			else
@@ -35,7 +35,7 @@ namespace THEngine
 			}
 			return EXCEPTION_EXECUTE_HANDLER;
 		}
-		
+
 		return EXCEPTION_CONTINUE_SEARCH;
 	}
 
@@ -75,12 +75,13 @@ namespace THEngine
 		information.ExceptionPointers = exception;
 		information.ClientPointers = TRUE;
 
-		EnterCriticalSection(&section);
-		if (MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hFile, MiniDumpNormal, &information, nullptr, nullptr))
+		TH_LOCK(section)
 		{
-			return true;
+			if (MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hFile, MiniDumpNormal, &information, nullptr, nullptr))
+			{
+				return true;
+			}
 		}
-		LeaveCriticalSection(&section);
 
 		return false;
 	}

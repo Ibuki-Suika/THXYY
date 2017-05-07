@@ -2,38 +2,14 @@
 #define BULLET_H
 
 #include <THEngine.h>
-
+#include "BulletColor.h"
 using namespace THEngine;
 
-class Bullet;
-
-class BulletDelegate : public Object
-{
-protected:
-	Bullet* bullet;
-
-public:
-	BulletDelegate(Bullet* bullet);
-	virtual ~BulletDelegate();
-
-	virtual bool Hit(float xPlayer, float yPlayer, float radius) = 0;
-};
+class BulletType;
 
 class Bullet : public Sprite
 {
 public:
-	enum BulletColor
-	{
-		GREY,
-		RED,
-		PURPLE,
-		BLUE,
-		TEAL,
-		GREEN,
-		YELLOW,
-		ORANGE
-	};
-
 	enum Type
 	{
 		NONE = 0,
@@ -64,7 +40,7 @@ public:
 		CHAIN_RED = 25,
 		CHAIN_PURPLE = 26,
 		CHAIN_BLUE = 27,
-		CHAIN_TEAL  =28,
+		CHAIN_TEAL = 28,
 		CHAIN_GREEN = 29,
 		CHAIN_YELLOW = 30,
 		CHAIN_ORANGE = 31,
@@ -207,9 +183,9 @@ public:
 	};
 
 protected:
-	BulletDelegate* bulletDelegate;
-	Type type;
+	BulletType* bulletType = nullptr;
 	BulletColor bulletColor;
+	Type type;
 
 	bool dirSame;                //朝向与运动方向相同
 	bool autoDelete = true;             //出屏即消
@@ -218,10 +194,10 @@ public:
 	Bullet();
 	virtual ~Bullet();
 
-	inline bool Hit(float x, float y, float radius)
-	{
-		return bulletDelegate->Hit(x, y, radius);
-	}
+	inline void SetBulletColor(BulletColor bulletColor) { this->bulletColor = bulletColor; }
+	inline BulletColor GetBulletColor() const { return this->bulletColor; }
+
+	bool Hit(float playerX, float playerY, float playerRadius);
 
 	inline void SetPosition(float x, float y)
 	{
@@ -231,10 +207,7 @@ public:
 	inline void SetDirSame(bool dirSame) { this->dirSame = dirSame; }
 	inline void SetAutoDelete(bool autoDelete) { this->autoDelete = autoDelete; }
 
-	inline void SetBulletColor(BulletColor bulletColor) { this->bulletColor = bulletColor; }
-	inline BulletColor GetBulletColor() { return bulletColor; }
-
-	void SetType(Type type);
+	void SetType(BulletType* type);
 
 	virtual void Update() override;
 

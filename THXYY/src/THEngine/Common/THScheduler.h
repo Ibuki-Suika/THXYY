@@ -12,6 +12,8 @@ namespace THEngine
 	private:
 		LinkedList<FrameTimer*> frameTimerList;
 
+		using TimerFunc = std::function<void()>;
+
 	public:
 		Scheduler();
 		Scheduler(const Scheduler& scheduler);
@@ -20,6 +22,7 @@ namespace THEngine
 		void Update();
 
 		inline void AddTimer(FrameTimer* timer) { frameTimerList.Add(timer); }
+		void AddTimer(int delay, TimerFunc run);
 	};
 }
 

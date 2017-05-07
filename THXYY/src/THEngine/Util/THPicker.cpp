@@ -5,10 +5,9 @@ namespace THEngine
 {
 	Picker::Picker()
 	{
-
 	}
 
-	Picker::Picker(Camera3D* camera) 
+	Picker::Picker(Camera3D* camera)
 	{
 		TH_SET(this->camera, camera);
 		this->width = camera->GetViewport().Width();
@@ -16,7 +15,7 @@ namespace THEngine
 		this->front = (camera->GetLookAt() - camera->GetPosition()).Normalize();
 		this->up = camera->GetUp().Normalize();
 		this->right = Vector3f::Cross(front, up);
-		this->fovScale = tan(ToRad(camera->GetFov() * 0.5)) * 2;
+		this->fovScale = tan(Math::ToRad(camera->GetFov() * 0.5)) * 2;
 		this->whFactor = this->width * 1.0f / this->height;
 	}
 

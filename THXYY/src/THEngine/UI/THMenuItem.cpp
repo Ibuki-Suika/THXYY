@@ -11,7 +11,6 @@ namespace THEngine
 
 	MenuItem::~MenuItem()
 	{
-
 	}
 
 	void MenuItem::Update()
@@ -41,7 +40,7 @@ namespace THEngine
 			}
 			if (twinkleCounter % (2 * twinkleInterval) == 0)
 			{
-				SetColor(Vector3f(1.0f,1.0f,1.0f));
+				SetColor(Vector3f(1.0f, 1.0f, 1.0f));
 			}
 			else if (twinkleCounter % (2 * twinkleInterval) == twinkleInterval)
 			{
@@ -67,10 +66,10 @@ namespace THEngine
 
 		if (vibrateEnabled)
 		{
-			float x1 = Random(0, xVibrateRange);
-			float x2 = Random(0, xVibrateRange);
-			float y1 = Random(0, yVibrateRange);
-			float y2 = Random(0, yVibrateRange);
+			float x1 = Math::Random(0, xVibrateRange);
+			float x2 = Math::Random(0, xVibrateRange);
+			float y1 = Math::Random(0, yVibrateRange);
+			float y2 = Math::Random(0, yVibrateRange);
 
 			TweenSequence* sequence = new TweenSequence();
 			sequence->AddTween(new MoveBy(Vector3f(-x1, -y1, 0.0f), vibrateTime, Tweener::SIMPLE));

@@ -10,12 +10,10 @@ namespace THEngine
 
 	class Sprite : public GameObject
 	{
-	public:
-
 	protected:
 		Texture* texture;
 		Rect texRect;
-		
+
 		Vector2f pivot;
 
 		float rotation;
@@ -52,7 +50,7 @@ namespace THEngine
 		inline void SetTexRect(const Rect& rect) { this->texRect = rect; }
 		inline const Rect& GetTexRect() const { return texRect; }
 		inline void SetPivot(Vector2f pivot) { this->pivot = pivot; }
-		
+
 		inline float GetRotation() const { return rotation; }
 		inline void SetRotation(float rotation) { this->rotation = rotation; }
 
@@ -72,7 +70,7 @@ namespace THEngine
 
 		inline void SetFlipX(bool flipX) { this->flipX = flipX; }
 		inline void SetFlipY(bool flipY) { this->flipY = flipY; }
-		
+
 		inline void SetScaleX(float x) { this->scale.x = x; }
 		inline void SetScaleY(float y) { this->scale.y = y; }
 		inline void SetScale(float x, float y) { SetScaleX(x); SetScaleY(y); }
@@ -82,6 +80,7 @@ namespace THEngine
 		inline void SetPixelAlign(bool pixelAlign) { this->pixelAlign = pixelAlign; }
 
 		friend class Rotate2D;
+		friend class SpeedTo;
 	};
 }
 

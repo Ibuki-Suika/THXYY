@@ -48,7 +48,7 @@ bool THXYY::CreateGame(int width, int height, bool fullScreen)
 	srand(time(NULL));
 
 	Title* title = new Title();
-	SetScene(title);
+	LoadScene(title);
 
 	return true;
 }

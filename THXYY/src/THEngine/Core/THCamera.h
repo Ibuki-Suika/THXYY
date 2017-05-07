@@ -3,6 +3,7 @@
 
 #include <Common\THCommon.h>
 #include <Math\THMathUtil.h>
+#include <Math\THQuaternion.h>
 
 namespace THEngine
 {
@@ -82,8 +83,10 @@ namespace THEngine
 	protected:
 		Vector3f lookAt;
 		Vector3f up;
-		
+
 		float fov = 60.0f;
+
+		Quaternion rotation3D;
 
 	public:
 		Camera3D();

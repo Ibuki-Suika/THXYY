@@ -3,12 +3,10 @@
 
 Item::Item()
 {
-
 }
 
 Item::~Item()
 {
-
 }
 
 void Item::Update()
@@ -35,7 +33,7 @@ void Item::Update()
 			OnGot();
 			return;
 		}
-		SetAngle(ToAngle(-difX, -difY));
+		SetAngle(Math::ToAngle(-difX, -difY));
 		SetRotation(GetAngle());
 	}
 
@@ -63,7 +61,7 @@ void Item::Update()
 	{
 		return;
 	}
-	
+
 	float dist;
 	if (player->IsHiSpeed())
 	{

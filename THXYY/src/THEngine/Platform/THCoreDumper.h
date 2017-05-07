@@ -2,6 +2,7 @@
 #define TH_CORE_DUMPER_H
 
 #include <Common\THCommon.h>
+#include <mutex>
 
 namespace THEngine
 {
@@ -10,7 +11,7 @@ namespace THEngine
 	private:
 		static CoreDumper* instance;
 
-		CRITICAL_SECTION section;
+		std::mutex section;
 
 		static LONG WINAPI  UnhandledExceptionFilter(_EXCEPTION_POINTERS* exception);
 

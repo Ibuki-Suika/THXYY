@@ -1,10 +1,11 @@
 ﻿#include "THMathUtil.h"
-
-using namespace THEngine;
+#include "THRandomGenerator.h"
 
 namespace THEngine
 {
-	float ToAngle(float x, float y)
+	const float Math::PI = 3.1415926f;
+
+	float Math::ToAngle(float x, float y)
 	{
 		float angle;
 		if (x == 0)
@@ -33,30 +34,28 @@ namespace THEngine
 		return angle >= 0 ? angle : angle + 360;
 	}
 
-	float StandardizeAngle(float angle)
+	float Math::StandardizeAngle(float angle)
 	{
 		angle -= ((int)angle) / 360 * 360;
 		return angle >= 0 ? angle : angle + 360;
 	}
 
-	float RadToDegree(float rad)
+	float Math::RadToDegree(float rad)
 	{
 		return rad * 180.0f / PI;
 	}
 
-	float ToRad(float angle)
+	float Math::ToRad(float angle)
 	{
 		return angle * PI / 180.0f;
 	}
 
-	int Random(int a, int b)
+	int Math::Random(int a, int b)
 	{
-		int temp = rand();
-		temp %= b - a + 1;
-		return (int)temp + a;
+		return GetRandomGenerator()->Next(a, b);
 	}
 
-	Vector2f VecRotate2D(const Vector2f& pos, float angle)
+	Vector2f Math::VecRotate2D(const Vector2f& pos, float angle)
 	{
 		Vector2f ret;
 		float rad = ToRad(angle);
@@ -65,5 +64,11 @@ namespace THEngine
 		ret.y = sin(rad) * pos.x + cos(rad) * pos.y;
 
 		return ret;
+	}
+
+	RandomGenerator* Math::GetRandomGenerator()
+	{
+		static RandomGenerator randomGenerator(time(NULL));
+		return &randomGenerator;
 	}
 }

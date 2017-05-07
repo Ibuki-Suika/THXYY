@@ -4,5 +4,6 @@
 #include "THVector.h"
 #include "THMatrix.h"
 #include "THMathUtil.h"
+#include "THRandomGenerator.h"
 
 #endif

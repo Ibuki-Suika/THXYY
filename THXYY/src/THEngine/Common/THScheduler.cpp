@@ -4,7 +4,6 @@ namespace THEngine
 {
 	Scheduler::Scheduler()
 	{
-
 	}
 
 	Scheduler::Scheduler(const Scheduler& scheduler) : Object(scheduler)
@@ -19,7 +18,6 @@ namespace THEngine
 
 	Scheduler::~Scheduler()
 	{
-
 	}
 
 	void Scheduler::Update()
@@ -39,5 +37,13 @@ namespace THEngine
 				}
 			}
 		}
+	}
+
+	void Scheduler::AddTimer(int delay, TimerFunc run)
+	{
+		FrameTimer* timer = new FrameTimer();
+		timer->SetFrame(delay);
+		timer->run = run;
+		AddTimer(timer);
 	}
 }

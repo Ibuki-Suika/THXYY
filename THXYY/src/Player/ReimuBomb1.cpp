@@ -21,7 +21,7 @@ ReimuBomb1::ReimuBomb1()
 	subBlue->SetColor(Vector3f(0.0f, 0.0f, 1.0f));
 	AddChild(subBlue);
 
-	int angle = Random(0, 359);
+	int angle = STGEngine::GetInstance()->Random(0, 359);
 
 	subRed->SetSpeed(1.0f);
 	subRed->SetAngle(angle);
@@ -40,7 +40,6 @@ ReimuBomb1::ReimuBomb1()
 
 ReimuBomb1::~ReimuBomb1()
 {
-
 }
 
 void ReimuBomb1::Update()
@@ -88,8 +87,8 @@ void ReimuBomb1::Update()
 	{
 		float r = 1.0f * frame;
 		initialAngle -= 6;
-		offset.x = r * cos(ToRad(initialAngle));
-		offset.y = r * sin(ToRad(initialAngle));
+		offset.x = r * cos(Math::ToRad(initialAngle));
+		offset.y = r * sin(Math::ToRad(initialAngle));
 
 		auto playerPos = player->GetPosition();
 		this->position.x = playerPos.x + offset.x;
@@ -132,11 +131,11 @@ void ReimuBomb1::Attack()
 		auto diffX = enemyPos.x - position.x;
 		auto diffY = enemyPos.y - position.y;
 
-		auto wantAngle = ToAngle(diffX, diffY);
-		auto myAngle = StandardizeAngle(angle);
+		auto wantAngle = Math::ToAngle(diffX, diffY);
+		auto myAngle = Math::StandardizeAngle(angle);
 		double diffAngle = fabs(wantAngle - myAngle);
 		diffAngle = diffAngle <= 180 ? diffAngle : 360 - diffAngle;
-		if ( diffAngle > 5)
+		if (diffAngle > 5)
 		{
 			if (myAngle < 180)
 			{
@@ -261,7 +260,6 @@ ReimuBomb1::SubSprite::SubSprite()
 
 ReimuBomb1::SubSprite::~SubSprite()
 {
-	
 }
 
 void ReimuBomb1::SubSprite::Update()
@@ -284,6 +282,3 @@ void ReimuBomb1::SubSprite::Update()
 		SetAcSpeed(0);
 	}
 }
-
-
-

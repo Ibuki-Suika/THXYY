@@ -5,12 +5,10 @@ namespace THEngine
 {
 	Matrix::Matrix()
 	{
-
 	}
 
 	Matrix::~Matrix()
 	{
-
 	}
 
 	void Matrix::Identity(Matrix* matrix)
@@ -30,7 +28,7 @@ namespace THEngine
 
 	void Matrix::Perspective(Matrix* matrix, int fov, float aspect, float znear, float zfar)
 	{
-		D3DXMatrixPerspectiveFovLH(&matrix->matrix, ToRad(fov), aspect, znear, zfar);
+		D3DXMatrixPerspectiveFovLH(&matrix->matrix, Math::ToRad(fov), aspect, znear, zfar);
 	}
 
 	void Matrix::LookAt(Matrix* matrix, const Vector3f& eye, const Vector3f& lookAt, const Vector3f& up)
@@ -46,17 +44,17 @@ namespace THEngine
 
 	void Matrix::RotateX(Matrix* matrix, float degree)
 	{
-		D3DXMatrixRotationX(&matrix->matrix, ToRad(degree));
+		D3DXMatrixRotationX(&matrix->matrix, Math::ToRad(degree));
 	}
 
 	void Matrix::RotateY(Matrix* matrix, float degree)
 	{
-		D3DXMatrixRotationY(&matrix->matrix, ToRad(degree));
+		D3DXMatrixRotationY(&matrix->matrix, Math::ToRad(degree));
 	}
 
 	void Matrix::RotateZ(Matrix* matrix, float degree)
 	{
-		D3DXMatrixRotationZ(&matrix->matrix, ToRad(degree));
+		D3DXMatrixRotationZ(&matrix->matrix, Math::ToRad(degree));
 	}
 
 	void Matrix::RotateQuarternion(Matrix* matrix, const Quaternion& quaternion)

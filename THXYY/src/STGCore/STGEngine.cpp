@@ -17,6 +17,9 @@ STGEngine::STGEngine()
 	stgResources = STGResources::GetInstance();
 	stgResources->Retain();
 
+	this->randomGenerator = new RandomGenerator(time(NULL));
+	this->randomGenerator->Retain();
+
 	player = nullptr;
 	gameScene = nullptr;
 	stage = nullptr;
@@ -25,6 +28,7 @@ STGEngine::STGEngine()
 STGEngine::~STGEngine()
 {
 	TH_SAFE_RELEASE(stgResources);
+	TH_SAFE_RELEASE(randomGenerator);
 	TH_SAFE_RELEASE(player);
 	TH_SAFE_RELEASE(stage);
 }
@@ -46,9 +50,25 @@ STGEngine* STGEngine::Create()
 	return engine;
 }
 
+void STGEngine::ResetRandomSeed(int seed)
+{
+	this->randomGenerator->Reset(seed);
+}
+
+int STGEngine::GetRandomSeed()
+{
+	return this->randomGenerator->GetSeed();
+}
+
+int STGEngine::Random(int a, int b)
+{
+	return this->randomGenerator->Next(a, b);
+}
+
 void STGEngine::Init()
 {
 	gameOver = false;
+	this->randomGenerator->Reset(time(NULL));
 }
 
 void STGEngine::Start()

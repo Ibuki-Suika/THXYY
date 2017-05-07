@@ -10,7 +10,6 @@ Enemy01_003::Enemy01_003()
 
 Enemy01_003::~Enemy01_003()
 {
-
 }
 
 void Enemy01_003::Update()
@@ -19,9 +18,8 @@ void Enemy01_003::Update()
 
 	frame++;
 
-	if (speed < 0)
+	if (frame == 300)
 	{
-		SetAcSpeed(0);
-		SetSpeed(0);
+		MarkDestroy();
 	}
 }

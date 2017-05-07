@@ -13,6 +13,11 @@ Title::~Title()
 	TH_SAFE_RELEASE(titleTex);
 }
 
+void Title::OnLoad(AsyncInfo* info)
+{
+	Scene::OnLoad(info);
+}
+
 void Title::OnStart()
 {
 	Scene::OnStart();

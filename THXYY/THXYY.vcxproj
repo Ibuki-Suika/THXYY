@@ -126,7 +126,8 @@
     <ClCompile Include="src\Stage\Stage01\Stage01.cpp" />
     <ClCompile Include="src\STGCore\API.cpp" />
     <ClCompile Include="src\STGCore\Bullet\Bullet.cpp" />
-    <ClCompile Include="src\STGCore\Bullet\BulletDelegate.cpp" />
+    <ClCompile Include="src\STGCore\Bullet\ConcreteBulletType.cpp" />
+    <ClCompile Include="src\STGCore\Bullet\HitChecker.cpp" />
     <ClCompile Include="src\STGCore\Bullet\Laser.cpp" />
     <ClCompile Include="src\STGCore\Effect\BulletFog.cpp" />
     <ClCompile Include="src\STGCore\Enemy\ButterFly.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="src\STGCore\Stage.cpp" />
     <ClCompile Include="src\StgCore\STGEngine.cpp" />
     <ClCompile Include="src\STGCore\STGResources.cpp" />
+    <ClCompile Include="src\STGCore\STGUtil.cpp" />
     <ClCompile Include="src\THEngine\Asset\THAssetManager.cpp" />
     <ClCompile Include="src\THEngine\Asset\THAssetImpl.cpp" />
     <ClCompile Include="src\THEngine\Asset\THCubeMap.cpp" />
@@ -179,6 +181,7 @@
     <ClCompile Include="src\THEngine\Math\THMathUtil.cpp" />
     <ClCompile Include="src\THEngine\Math\THMatrix.cpp" />
     <ClCompile Include="src\THEngine\Math\THQuaternion.cpp" />
+    <ClCompile Include="src\THEngine\Math\THRandomGenerator.cpp" />
     <ClCompile Include="src\THEngine\Math\THVector.cpp" />
     <ClCompile Include="src\THEngine\Platform\External\CWaveFile.cpp" />
     <ClCompile Include="src\THEngine\Platform\THSurface.cpp" />
@@ -241,7 +244,10 @@
     <ClInclude Include="src\Stage\Stage01\Stage01.h" />
     <ClInclude Include="src\STGCore\API.h" />
     <ClInclude Include="src\STGCore\Bullet\Bullet.h" />
-    <ClInclude Include="src\STGCore\Bullet\BulletDelegate.h" />
+    <ClInclude Include="src\STGCore\Bullet\BulletColor.h" />
+    <ClInclude Include="src\STGCore\Bullet\ConcreteBulletType.h" />
+    <ClInclude Include="src\STGCore\Bullet\BulletType.h" />
+    <ClInclude Include="src\STGCore\Bullet\HitChecker.h" />
     <ClInclude Include="src\STGCore\Bullet\Laser.h" />
     <ClInclude Include="src\STGCore\Effect\BulletFog.h" />
     <ClInclude Include="src\STGCore\Enemy\ButterFly.h" />
@@ -259,6 +265,7 @@
     <ClInclude Include="src\STGCore\STGCore.h" />
     <ClInclude Include="src\StgCore\STGEngine.h" />
     <ClInclude Include="src\STGCore\STGResources.h" />
+    <ClInclude Include="src\STGCore\STGUtil.h" />
     <ClInclude Include="src\THEngine\Asset\THAssetImpl.h" />
     <ClInclude Include="src\THEngine\Asset\THAssetManager.h" />
     <ClInclude Include="src\THEngine\Asset\THCubeMap.h" />
@@ -299,6 +306,7 @@
     <ClInclude Include="src\THEngine\Math\THMath.h" />
     <ClInclude Include="src\THEngine\Math\THMatrix.h" />
     <ClInclude Include="src\THEngine\Math\THQuaternion.h" />
+    <ClInclude Include="src\THEngine\Math\THRandomGenerator.h" />
     <ClInclude Include="src\THEngine\Math\THVector.h" />
     <ClInclude Include="src\THEngine\Platform\External\CWaveFile.h" />
     <ClInclude Include="src\THEngine\Platform\THSurface.h" />

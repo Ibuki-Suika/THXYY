@@ -5,12 +5,10 @@
 
 Enemy::Enemy()
 {
-
 }
 
 Enemy::~Enemy()
 {
-
 }
 
 void Enemy::Update()
@@ -106,7 +104,7 @@ void Enemy::UpdateMotionState()
 			break;
 		}
 	}
-	else 
+	else
 	{
 		switch (prevMotionState)
 		{
@@ -166,14 +164,14 @@ void Enemy::OnDie()
 		effect[i]->SetLife(effectLife);
 		effect[i]->SetTexRect(Rect(96, 128, 32, 64));
 
-		float effectAngle = ToRad(Random(0, 359));
-		float dist = Random(0, 60);
+		float effectAngle = Math::ToRad(engine->Random(0, 359));
+		float dist = engine->Random(0, 60);
 
-		float effectScale = Random(4, 14) / 10.0f;
+		float effectScale = engine->Random(4, 14) / 10.0f;
 		effect[i]->SetScale(Vector3f(effectScale, effectScale, 1));
 
-		effect[i]->SetRotatingAxis(Vector3f(Random(0, 100), Random(0, 100), Random(0, 100)));
-		effect[i]->SetRotatingSpeed(Random(50, 100) / 10.0f);
+		effect[i]->SetRotatingAxis(Vector3f(engine->Random(0, 100), engine->Random(0, 100), engine->Random(0, 100)));
+		effect[i]->SetRotatingSpeed(engine->Random(50, 100) / 10.0f);
 		effect[i]->SetAlpha(0.6f);
 
 		TweenSequence* sequence = new TweenSequence();
@@ -257,13 +255,11 @@ void Enemy::OnDie()
 
 		break;
 	}
-		
 	}
 }
 
 void Enemy::OnDestroy()
 {
-	
 }
 
 void Enemy::OnHitten(float damage)
@@ -295,9 +291,9 @@ void Enemy::DropItems()
 		{
 			maxOffset = 40;
 		}
-		float posX = Random(-maxOffset, maxOffset);
-		float posY = Random(-maxOffset, maxOffset);
-		
+		float posX = engine->Random(-maxOffset, maxOffset);
+		float posY = engine->Random(-maxOffset, maxOffset);
+
 		PowerItemSmall* item = new PowerItemSmall();
 		item->SetPosition(position.x + posX, position.y + posY);
 		item->AddTween(new MoveBy(Vector3f(0, 20, 0), 40, Tweener::EASE_OUT));
@@ -312,8 +308,8 @@ void Enemy::DropItems()
 		{
 			maxOffset = 40;
 		}
-		float posX = Random(-maxOffset, maxOffset);
-		float posY = Random(-maxOffset, maxOffset);
+		float posX = engine->Random(-maxOffset, maxOffset);
+		float posY = engine->Random(-maxOffset, maxOffset);
 
 		ScoreItem* item = new ScoreItem();
 		item->SetPosition(position.x + posX, position.y + posY);

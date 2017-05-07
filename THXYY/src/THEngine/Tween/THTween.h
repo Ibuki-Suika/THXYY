@@ -18,7 +18,7 @@ namespace THEngine
 		bool started = false;
 
 	public:
-		std::function<void()> onFinished = [](){};
+		std::function<void()> onFinished = []() {};
 
 	public:
 		Tween();
@@ -51,6 +51,7 @@ namespace THEngine
 	{
 	protected:
 		Tweener* tweener = nullptr;
+		int duration;
 
 	public:
 		TweenUnit();
@@ -84,7 +85,7 @@ namespace THEngine
 		virtual void Bind(GameObject* object) override;
 
 		inline void AddTween(Tween* tween)
-		{ 
+		{
 			tween->object = this->object;
 			tweenList.Add(tween);
 		}

@@ -23,7 +23,6 @@ namespace THEngine
 	////////////////////////////////////////////////
 	ShadowRenderer::ShadowRenderer()
 	{
-		
 	}
 
 	ShadowRenderer::~ShadowRenderer()
@@ -36,7 +35,7 @@ namespace THEngine
 		auto app = Application::GetInstance();
 		auto renderState = app->GetRenderState();
 		auto shadowShader = ShaderStock::GetInstance()->GetShadowShader();
-	
+
 		SetupWorldTransform(obj);
 
 		Matrix mvMatrix = renderState->GetWorldMatrix() * renderState->GetViewMatrix();
@@ -90,7 +89,6 @@ namespace THEngine
 	/////////////////////////////////////////////////
 	DirectionalLightShadowRenderer::DirectionalLightShadowRenderer()
 	{
-
 	}
 
 	DirectionalLightShadowRenderer::~DirectionalLightShadowRenderer()
@@ -238,7 +236,7 @@ namespace THEngine
 		Vector3f rb = picker.GenerateRay(width, 0);
 		Vector3f rt = picker.GenerateRay(width, height);
 
-		float y = tan(ToRad(camera->GetFov() * 0.5f));
+		float y = tan(Math::ToRad(camera->GetFov() * 0.5f));
 		float x = y * width / height;
 		float dist = sqrt(1 + y * y + x * x);
 		float distDelta = (camera->GetZFar() - camera->GetZNear()) / MAX_CASCADED_LEVEL * dist;
@@ -255,7 +253,7 @@ namespace THEngine
 		output[7] = rt * distFar + camera->GetPosition();
 	}
 
-	void DirectionalLightShadowRenderer::FindBoundingSphere(const Vector3f* vertices, 
+	void DirectionalLightShadowRenderer::FindBoundingSphere(const Vector3f* vertices,
 		int size, Vector3f& center, float& radius)
 	{
 		BoundingBox bbox;
@@ -267,7 +265,6 @@ namespace THEngine
 
 		radius = (center - Vector3f(bbox.xmax, bbox.ymax, bbox.zmax)).Norm();
 	}
-
 
 	void DirectionalLightShadowRenderer::FindAABBForSphere(const Vector3f& center, float radius, BoundingBox& bbox)
 	{

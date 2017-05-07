@@ -1,4 +1,5 @@
 #include "Enemy01_001.h"
+#include "../../Stage/Stage01/Stage01.h"
 
 Enemy01_001::Enemy01_001()
 {
@@ -11,7 +12,6 @@ Enemy01_001::Enemy01_001()
 
 Enemy01_001::~Enemy01_001()
 {
-
 }
 
 void Enemy01_001::Update()
@@ -21,24 +21,28 @@ void Enemy01_001::Update()
 	auto engine = STGEngine::GetInstance();
 
 	frame++;
-
-	if (frame == 2)
+	frame_shoot++;
+	shoot_count++;
+	if (shoot_count < 3 && frame_shoot == 0.5 * Stage01::FPB)
 	{
-		frame = 0;
+		frame_shoot = 0;
+		shoot_count++;
 
-		shootAngle += acShootAngle;
-
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			Bullet* bullet = new Bullet();
-			bullet->SetType(Bullet::ARROW_TEAL);
+			bullet->SetType(new SmallJadeBlue());
 			bullet->SetPosition(position.x, position.y);
-			bullet->SetSpeed(2.5);
-			bullet->SetAngle(72 * i + shootAngle);
+			bullet->SetSpeed(5);
+			bullet->SetAngle(72 * i + STGUtil::GetAngleToPlayer(this->position.x, this->position.y));
+			bullet->AddTween(new SpeedTo(2, 30, Tweener::SIMPLE));
 
 			engine->ShootBullet(bullet, true, 2);
 		}
-		
-		acShootAngle += 0.08f;
+	}
+
+	if (position.x >= 416)
+	{
+		MarkDestroy();
 	}
 }

@@ -62,8 +62,8 @@ void ReimuSubPlaneBullet::Update()
 			auto diffY = enemyPos.y - position.y;
 			float distSquare = diffX * diffX + diffY * diffY;
 
-			auto wantAngle = ToAngle(diffX, diffY);
-			auto myAngle = StandardizeAngle(angle);
+			auto wantAngle = Math::ToAngle(diffX, diffY);
+			auto myAngle = Math::StandardizeAngle(angle);
 			double diffAngle = wantAngle - myAngle;
 			if (fabs(diffAngle) > 180)
 			{

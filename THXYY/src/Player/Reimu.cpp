@@ -19,28 +19,28 @@ Reimu::Reimu()
 	const float radiusHigh = 45;
 
 	subPlaneOffsetHigh[0][0] = Vector2f(0, radiusHigh);
-	subPlaneOffsetHigh[1][0] = Vector2f(cos(ToRad(45)) * radiusHigh, sin(ToRad(45)) * radiusHigh);
-	subPlaneOffsetHigh[1][1] = Vector2f(cos(ToRad(135)) * radiusHigh, sin(ToRad(135)) * radiusHigh);
-	subPlaneOffsetHigh[2][0] = Vector2f(cos(ToRad(45)) * radiusHigh, sin(ToRad(45)) * radiusHigh);
-	subPlaneOffsetHigh[2][1] = Vector2f(cos(ToRad(90)) * radiusHigh, sin(ToRad(90)) * radiusHigh);
-	subPlaneOffsetHigh[2][2] = Vector2f(cos(ToRad(135)) * radiusHigh, sin(ToRad(135)) * radiusHigh);
-	subPlaneOffsetHigh[3][0] = Vector2f(cos(ToRad(45)) * radiusHigh, sin(ToRad(45)) * radiusHigh);
-	subPlaneOffsetHigh[3][1] = Vector2f(cos(ToRad(75)) * radiusHigh, sin(ToRad(75)) * radiusHigh);
-	subPlaneOffsetHigh[3][2] = Vector2f(cos(ToRad(105)) * radiusHigh, sin(ToRad(105)) * radiusHigh);
-	subPlaneOffsetHigh[3][3] = Vector2f(cos(ToRad(135)) * radiusHigh, sin(ToRad(135)) * radiusHigh);
+	subPlaneOffsetHigh[1][0] = Vector2f(cos(Math::ToRad(45)) * radiusHigh, sin(Math::ToRad(45)) * radiusHigh);
+	subPlaneOffsetHigh[1][1] = Vector2f(cos(Math::ToRad(135)) * radiusHigh, sin(Math::ToRad(135)) * radiusHigh);
+	subPlaneOffsetHigh[2][0] = Vector2f(cos(Math::ToRad(45)) * radiusHigh, sin(Math::ToRad(45)) * radiusHigh);
+	subPlaneOffsetHigh[2][1] = Vector2f(cos(Math::ToRad(90)) * radiusHigh, sin(Math::ToRad(90)) * radiusHigh);
+	subPlaneOffsetHigh[2][2] = Vector2f(cos(Math::ToRad(135)) * radiusHigh, sin(Math::ToRad(135)) * radiusHigh);
+	subPlaneOffsetHigh[3][0] = Vector2f(cos(Math::ToRad(45)) * radiusHigh, sin(Math::ToRad(45)) * radiusHigh);
+	subPlaneOffsetHigh[3][1] = Vector2f(cos(Math::ToRad(75)) * radiusHigh, sin(Math::ToRad(75)) * radiusHigh);
+	subPlaneOffsetHigh[3][2] = Vector2f(cos(Math::ToRad(105)) * radiusHigh, sin(Math::ToRad(105)) * radiusHigh);
+	subPlaneOffsetHigh[3][3] = Vector2f(cos(Math::ToRad(135)) * radiusHigh, sin(Math::ToRad(135)) * radiusHigh);
 
 	const float radiusLow = 30;
 
 	subPlaneOffsetLow[0][0] = Vector2f(0, radiusLow);
-	subPlaneOffsetLow[1][0] = Vector2f(cos(ToRad(60)) * radiusLow, sin(ToRad(60)) * radiusLow);
-	subPlaneOffsetLow[1][1] = Vector2f(cos(ToRad(120)) * radiusLow, sin(ToRad(120)) * radiusLow);
-	subPlaneOffsetLow[2][0] = Vector2f(cos(ToRad(60)) * radiusLow, sin(ToRad(60)) * radiusLow);
-	subPlaneOffsetLow[2][1] = Vector2f(cos(ToRad(90)) * radiusLow, sin(ToRad(90)) * radiusLow);
-	subPlaneOffsetLow[2][2] = Vector2f(cos(ToRad(120)) * radiusLow, sin(ToRad(120)) * radiusLow);
-	subPlaneOffsetLow[3][0] = Vector2f(cos(ToRad(60)) * radiusLow, sin(ToRad(60)) * radiusLow);
-	subPlaneOffsetLow[3][1] = Vector2f(cos(ToRad(80)) * radiusLow, sin(ToRad(80)) * radiusLow);
-	subPlaneOffsetLow[3][2] = Vector2f(cos(ToRad(100)) * radiusLow, sin(ToRad(100)) * radiusLow);
-	subPlaneOffsetLow[3][3] = Vector2f(cos(ToRad(120)) * radiusLow, sin(ToRad(120)) * radiusLow);
+	subPlaneOffsetLow[1][0] = Vector2f(cos(Math::ToRad(60)) * radiusLow, sin(Math::ToRad(60)) * radiusLow);
+	subPlaneOffsetLow[1][1] = Vector2f(cos(Math::ToRad(120)) * radiusLow, sin(Math::ToRad(120)) * radiusLow);
+	subPlaneOffsetLow[2][0] = Vector2f(cos(Math::ToRad(60)) * radiusLow, sin(Math::ToRad(60)) * radiusLow);
+	subPlaneOffsetLow[2][1] = Vector2f(cos(Math::ToRad(90)) * radiusLow, sin(Math::ToRad(90)) * radiusLow);
+	subPlaneOffsetLow[2][2] = Vector2f(cos(Math::ToRad(120)) * radiusLow, sin(Math::ToRad(120)) * radiusLow);
+	subPlaneOffsetLow[3][0] = Vector2f(cos(Math::ToRad(60)) * radiusLow, sin(Math::ToRad(60)) * radiusLow);
+	subPlaneOffsetLow[3][1] = Vector2f(cos(Math::ToRad(80)) * radiusLow, sin(Math::ToRad(80)) * radiusLow);
+	subPlaneOffsetLow[3][2] = Vector2f(cos(Math::ToRad(100)) * radiusLow, sin(Math::ToRad(100)) * radiusLow);
+	subPlaneOffsetLow[3][3] = Vector2f(cos(Math::ToRad(120)) * radiusLow, sin(Math::ToRad(120)) * radiusLow);
 }
 
 Reimu::~Reimu()

@@ -24,6 +24,7 @@ public:
 	virtual ~Title();
 
 	virtual void OnStart() override;
+	virtual void OnLoad(AsyncInfo* info) override;
 
 	inline void SetNeedFadeIn(bool needFadeIn) { this->needFadeIn = needFadeIn; }
 };

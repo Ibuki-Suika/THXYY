@@ -47,8 +47,8 @@ void Sprite::Update()
 
 	speed += acSpeed;
 	angle += acAngle;
-	vx = speed * cos(angle / 180.0f * PI);
-	vy = speed * sin(angle / 180.0f * PI);
+	vx = speed * cos(angle / 180.0f * Math::PI);
+	vy = speed * sin(angle / 180.0f * Math::PI);
 	vx += ax;
 	vy += ay;
 	position.x += vx;

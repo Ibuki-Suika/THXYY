@@ -306,12 +306,12 @@ void Player::Biu()
 		light->SetTexRect(Rect(96, 128, 0, 32));
 		light->SetPosition(position);
 
-		float scale = Random(25, 75) / 100.0f;
+		float scale = engine->Random(25, 75) / 100.0f;
 		light->SetScale(scale, scale);
 		light->AddTween(new ScaleTo(Vector3f(0, 0, 1), 40, Tweener::SIMPLE));
 
-		float lightAngle = ToRad(Random(0, 360));
-		float distance = Random(0, 120);
+		float lightAngle = Math::ToRad(engine->Random(0, 359));
+		float distance = engine->Random(0, 120);
 		light->AddTween(new MoveTo(Vector3f(position.x + cos(lightAngle)*distance,
 			position.y + sin(lightAngle)*distance, position.z), 40, Tweener::EASE_OUT));
 		light->AddTween(new FadeOut(40, Tweener::EASE_OUT));
@@ -329,7 +329,7 @@ void Player::Biu()
 
 	for (int i = 0; i < 9; i++)
 	{
-		float itemAngle = ToRad(30 + 15 * i);
+		float itemAngle = Math::ToRad(30 + 15 * i);
 		float distance = 80;
 
 		PowerItemSmall* item = new PowerItemSmall();

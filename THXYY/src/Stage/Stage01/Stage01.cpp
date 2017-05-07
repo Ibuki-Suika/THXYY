@@ -5,6 +5,10 @@
 
 Texture* Stage01::texRoad = nullptr;
 
+const int Stage01::BPM = 120;
+const float Stage01::SPB = 60.0f / BPM;
+const float Stage01::FPB = 60.0f * SPB;
+
 Stage01::Stage01()
 {
 }
@@ -26,22 +30,64 @@ void Stage01::Update()
 	auto engine = STGEngine::GetInstance();
 
 	frame++;
+	AddEnemy001(0);
+	AddEnemy002(120);
+	AddEnemy001(240);
+	AddEnemy002(360);
+	AddEnemy003(480);
+}
 
-	if (frame == 1 || frame == 50 || frame == 100 || frame == 200)
+void Stage01::AddEnemy001(int startFrame)
+{
+	auto engine = STGEngine::GetInstance();
+	int frame2 = frame - startFrame;
+	const int interval = 30;
+	if (frame2 < 80 && frame2 % 10 == 1)   //frame == 1,11,21,...71
 	{
+		int i = frame2 / 10;
 		Enemy01_001* enemy = new Enemy01_001();
 		enemy->SetPosition(-30, 420);
-		enemy->AddTween(new MoveTo(Vector3f(192, 280, enemy->GetPosition().z), 180, Tweener::EASE_OUT));
+		TweenSequence* sequence = new TweenSequence();
+		sequence->AddTween(new MoveTo(Vector3f(192 + interval * (3.5f - i), 280, enemy->GetPosition().z), 120, Tweener::EASE_OUT));
+		sequence->AddTween(new Delay(60));
+		sequence->AddTween(new MoveTo(Vector3f(420, 140, enemy->GetPosition().z), 120, Tweener::EASE_IN));
+		enemy->AddTween(sequence);
 		engine->AddEnemy(enemy);
+	}
+}
 
-		Enemy01_002* enemy2 = new Enemy01_002();
-		enemy2->AddTween(new MoveTo(Vector3f(192, 300, enemy->GetPosition().z), 240, Tweener::EASE_OUT));
-		engine->AddEnemy(enemy2);
+void Stage01::AddEnemy002(int startFrame)
+{
+	auto engine = STGEngine::GetInstance();
+	int frame2 = frame - startFrame;
+	const int interval = 30;
+	if (frame2 < 80 && frame2 % 10 == 1)   //frame == 1,11,21,...71
+	{
+		int i = frame2 / 10;
+		Enemy01_002* enemy = new Enemy01_002();
+		enemy->SetPosition(414, 420);
+		TweenSequence* sequence = new TweenSequence();
+		sequence->AddTween(new MoveTo(Vector3f(192 + interval * (i - 3.5), 280, enemy->GetPosition().z), 120, Tweener::EASE_OUT));
+		sequence->AddTween(new Delay(60));
+		sequence->AddTween(new MoveTo(Vector3f(-36, 140, enemy->GetPosition().z), 120, Tweener::EASE_IN));
+		enemy->AddTween(sequence);
+		engine->AddEnemy(enemy);
+	}
+}
 
-		Enemy01_003* enemy3 = new Enemy01_003();
-		enemy3->SetPosition(500, 500);
-		enemy3->AddTween(new MoveTo(Vector3f(240, 224, enemy->GetPosition().z), 120, Tweener::EASE_OUT));
-		engine->AddEnemy(enemy3);
+void Stage01::AddEnemy003(int startFrame)
+{
+	auto engine = STGEngine::GetInstance();
+	if (frame == startFrame)
+	{
+		Enemy01_003* enemy = new Enemy01_003();
+		enemy->SetPosition(192, 500);
+		TweenSequence* sequence = new TweenSequence();
+		sequence->AddTween(new MoveTo(Vector3f(192, 320, enemy->GetPosition().z), 60, Tweener::SIMPLE));
+		sequence->AddTween(new Delay(60));
+		sequence->AddTween(new MoveTo(Vector3f(192, 500, enemy->GetPosition().z), 120, Tweener::SIMPLE));
+		enemy->AddTween(sequence);
+		engine->AddEnemy(enemy);
 	}
 }
 

@@ -22,28 +22,28 @@ BulletFog::BulletFog(Bullet* bullet)
 
 	switch (bullet->GetBulletColor())
 	{
-	case Bullet::RED:
+	case BulletColor::BULLET_RED:
 		SetTexRect(Rect(0, 32, 160, 192));
 		break;
-	case Bullet::PURPLE:
+	case BulletColor::BULLET_PURPLE:
 		SetTexRect(Rect(32, 64, 160, 192));
 		break;
-	case Bullet::BLUE:
+	case BulletColor::BULLET_BLUE:
 		SetTexRect(Rect(64, 96, 160, 192));
 		break;
-	case Bullet::TEAL:
+	case BulletColor::BULLET_TEAL:
 		SetTexRect(Rect(96, 128, 160, 192));
 		break;
-	case Bullet::GREEN:
+	case BulletColor::BULLET_GREEN:
 		SetTexRect(Rect(128, 160, 160, 192));
 		break;
-	case Bullet::YELLOW:
+	case BulletColor::BULLET_YELLOW:
 		SetTexRect(Rect(160, 192, 160, 192));
 		break;
-	case Bullet::ORANGE:
+	case BulletColor::BULLET_ORANGE:
 		SetTexRect(Rect(192, 224, 160, 192));
 		break;
-	case Bullet::GREY:
+	case BulletColor::BULLET_GREY:
 		SetTexRect(Rect(224, 256, 160, 192));
 		break;
 	default:

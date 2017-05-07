@@ -45,17 +45,17 @@ void ParticleLayer::AddParticle()
 
 	particle->SetLife(300);
 
-	float x = Random(-100, 740);
-	float y = Random(360, 500);
-	float z = Random(0, 100);
+	float x = Math::Random(-100, 740);
+	float y = Math::Random(360, 500);
+	float z = Math::Random(0, 100);
 	particle->SetPosition(Vector3f(x, y, z));
 
-	float rad = ToRad(Random(0, 90) + 225);
+	float rad = Math::ToRad(Math::Random(0, 90) + 225);
 	particle->SetDirection(Vector3f(cos(rad), sin(rad), 0));
 
-	particle->SetRotatingAxis(Vector3f(Random(-100, 100), Random(-100, 100), Random(-100, 100)));
-	particle->SetRotatingSpeed(Random(100, 500) / 100.0f);
-	particle->SetSpeed(0.5f + Random(0, 100) / 100.0f);
+	particle->SetRotatingAxis(Vector3f(Math::Random(-100, 100), Math::Random(-100, 100), Math::Random(-100, 100)));
+	particle->SetRotatingSpeed(Math::Random(100, 500) / 100.0f);
+	particle->SetSpeed(0.5f + Math::Random(0, 100) / 100.0f);
 	particle->SetAlpha(0);
 
 	TweenSequence* sequence = new TweenSequence();

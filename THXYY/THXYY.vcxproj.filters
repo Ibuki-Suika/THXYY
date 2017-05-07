@@ -411,9 +411,6 @@
     <ClCompile Include="src\Enemy\Stage01\Enemy01_002.cpp">
       <Filter>源文件\Enemy\Stage01</Filter>
     </ClCompile>
-    <ClCompile Include="src\STGCore\Bullet\BulletDelegate.cpp">
-      <Filter>源文件\STGCore\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="src\STGCore\Enemy\ButterFly.cpp">
       <Filter>源文件\STGCore\Enemy</Filter>
     </ClCompile>
@@ -527,6 +524,18 @@
     </ClCompile>
     <ClCompile Include="src\Scene\Game\ItemLine.cpp">
       <Filter>源文件\Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\STGCore\Bullet\ConcreteBulletType.cpp">
+      <Filter>源文件\STGCore\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="src\STGCore\Bullet\HitChecker.cpp">
+      <Filter>源文件\STGCore\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="src\STGCore\STGUtil.cpp">
+      <Filter>源文件\STGCore</Filter>
+    </ClCompile>
+    <ClCompile Include="src\THEngine\Math\THRandomGenerator.cpp">
+      <Filter>源文件\THEngine\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -773,9 +782,6 @@
     <ClInclude Include="src\Enemy\Stage01\Enemy01_002.h">
       <Filter>头文件\Enemy\Stage01</Filter>
     </ClInclude>
-    <ClInclude Include="src\STGCore\Bullet\BulletDelegate.h">
-      <Filter>头文件\STGCore\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="src\STGCore\Enemy\ButterFly.h">
       <Filter>头文件\STGCore\Enemy</Filter>
     </ClInclude>
@@ -889,6 +895,24 @@
     </ClInclude>
     <ClInclude Include="src\Scene\Game\ItemLine.h">
       <Filter>头文件\Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\STGCore\Bullet\BulletType.h">
+      <Filter>头文件\STGCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\STGCore\Bullet\ConcreteBulletType.h">
+      <Filter>头文件\STGCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\STGCore\Bullet\BulletColor.h">
+      <Filter>头文件\STGCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\STGCore\Bullet\HitChecker.h">
+      <Filter>头文件\STGCore\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\STGCore\STGUtil.h">
+      <Filter>头文件\STGCore</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Math\THRandomGenerator.h">
+      <Filter>头文件\THEngine\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
