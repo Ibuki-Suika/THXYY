@@ -59,5 +59,11 @@ void Title::OnStart()
 			titleMenu->Resume();
 		};
 		GetScheduler()->AddTimer(timer);
+
+		Music* bgm = Global::GetInstance()->titleMusic;
+		if (bgm)
+		{
+			bgm->Play();
+		}
 	}
 }

@@ -24,6 +24,11 @@ void ReimuSubPlaneBullet::Update()
 	auto engine = STGEngine::GetInstance();
 	auto enemyList = engine->GetEnemyList();
 
+	if (position.y > 464 || position.y < -16 || position.x < -16 || position.x > 400)
+	{
+		MarkDestroy();
+	}
+
 	if (this->target == nullptr)
 	{
 		float minDist = 999999.0f;

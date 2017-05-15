@@ -10,6 +10,7 @@ class THXYY : public Game
 {
 private:
 	STGEngine* engine;
+	Music* titleMusic = nullptr;
 
 public:
 	THXYY();

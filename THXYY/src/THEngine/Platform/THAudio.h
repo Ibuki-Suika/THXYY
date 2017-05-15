@@ -20,7 +20,7 @@ namespace THEngine
 		ArrayList<Music*> musicList;
 
 		int volume = 20;    //Range from 0 to 100
-		int musicVolume = 20;
+		int musicVolume = 50;
 
 		Music* currentMusic = nullptr;
 	private:
@@ -52,6 +52,8 @@ namespace THEngine
 		inline Music* GetCurrentMusic() const { return this->currentMusic; }
 
 		void Update();
+
+		void OnMusicFinished();
 	};
 }
 

@@ -139,6 +139,8 @@ void SelectScene::StartGame()
 	this->blackLayer = new Layer();
 	AddLayer(this->blackLayer);
 
+	Audio::GetInstance()->GetCurrentMusic()->FadeOut(2000);
+
 	Sprite* black = new Sprite();
 	black->SetPosition(Vector3f(320, 240, 100));
 	black->SetTexture(Global::GetInstance()->texBlack);

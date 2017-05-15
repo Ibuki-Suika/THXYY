@@ -4,7 +4,6 @@ Global* Global::instance = nullptr;
 
 Global::Global()
 {
-	
 }
 
 Global::~Global()
@@ -21,7 +20,7 @@ Global* Global::GetInstance()
 	return instance;
 }
 
-bool Global::LoadTextures()
+bool Global::Load()
 {
 	auto manager = AssetManager::GetInstance();
 	texBlack = manager->CreateTextureFromFile("res/front/black.jpg");
@@ -30,7 +29,8 @@ bool Global::LoadTextures()
 		return false;
 	}
 	texBlack->Retain();
+
+	this->titleMusic = Audio::GetInstance()->CreateMusic("bgm/title.wav");
+
 	return true;
 }
-
-

@@ -40,12 +40,10 @@ bool THXYY::CreateGame(int width, int height, bool fullScreen)
 	}
 
 	auto global = Global::GetInstance();
-	if (!global->LoadTextures())
+	if (!global->Load())
 	{
 		return false;
 	}
-
-	srand(time(NULL));
 
 	Title* title = new Title();
 	LoadScene(title);

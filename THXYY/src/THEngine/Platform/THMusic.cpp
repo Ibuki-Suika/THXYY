@@ -8,6 +8,7 @@ namespace THEngine
 {
 	Music::Music()
 	{
+		this->volume = 100;
 	}
 
 	Music::~Music()
@@ -41,5 +42,13 @@ namespace THEngine
 	void Music::Stop()
 	{
 		Audio::GetInstance()->StopMusic(this);
+	}
+
+	void Music::FadeOut(int millisecond)
+	{
+		if (Audio::GetInstance()->GetCurrentMusic() != this)
+			return;
+
+		Mix_FadeOutMusic(millisecond);
 	}
 }

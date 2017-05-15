@@ -77,7 +77,7 @@ void STGEngine::Start()
 
 	SetLife(2);
 	SetBomb(3);
-	SetPower(100);
+	SetPower(0);
 	SetMaxPower(400);
 	SetMaxPoint(10000);
 	SetScore(0);

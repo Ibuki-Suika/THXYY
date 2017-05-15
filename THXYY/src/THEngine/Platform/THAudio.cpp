@@ -157,7 +157,7 @@ namespace THEngine
 		music->mixMusic = Mix_LoadMUS(path);
 		if (music->mixMusic == nullptr)
 		{
-			THMessageBox((String)"无法加载音频文件：" + filePath);
+			exceptionManager->PushException(new Exception(((String)"无法加载音频文件：" + filePath)));
 			delete music;
 			return nullptr;
 		}
@@ -190,8 +190,17 @@ namespace THEngine
 		{
 			Mix_PlayMusic(music->mixMusic, 1);
 		}
-		float volume = music->volume * this->volume / 10000.0f;
+		float volume = music->volume * this->musicVolume / 10000.0f;
 		Mix_VolumeMusic(volume * MIX_MAX_VOLUME);
+
+		Mix_HookMusicFinished([]() {
+			Audio::GetInstance()->OnMusicFinished();
+		});
+	}
+
+	void Audio::OnMusicFinished()
+	{
+		this->currentMusic = nullptr;
 	}
 
 	void Audio::StopMusic(Music* music)

@@ -72,6 +72,7 @@ void Player::ProcessCenterPoint()
 		if (!isHiSpeed)
 		{
 			center->Disappear();
+			center = nullptr;
 			OnEnterHighSpeed();
 		}
 		isHiSpeed = true;
@@ -357,10 +358,6 @@ bool Player::IsDamageable()
 
 void Player::OnDestroy()
 {
-	if (center)
-	{
-		center->MarkDestroy();
-	}
 }
 
 void Player::Fire()

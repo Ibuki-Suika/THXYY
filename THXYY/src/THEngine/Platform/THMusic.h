@@ -14,7 +14,7 @@ namespace THEngine
 	protected:
 		Mix_Music* mixMusic = nullptr;
 		String path;
-		int volume = 50;
+		int volume = 100;
 
 	public:
 		Music();
@@ -24,6 +24,7 @@ namespace THEngine
 		void Pause();
 		void Resume();
 		void Stop();
+		void FadeOut(int millisecond);
 
 		friend class Audio;
 	};

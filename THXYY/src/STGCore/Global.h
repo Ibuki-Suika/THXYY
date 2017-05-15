@@ -33,7 +33,7 @@ private:
 public:
 	StageEnum stageEnum;
 	PlayerEnum playerEnum;
-
+	Music* titleMusic = nullptr;
 	Texture* texBlack = nullptr;
 
 public:
@@ -42,7 +42,7 @@ public:
 
 	static Global* GetInstance();
 
-	bool LoadTextures();
+	bool Load();
 };
 
 #endif

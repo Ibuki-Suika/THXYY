@@ -14,7 +14,6 @@ PlayerCenter::PlayerCenter()
 
 PlayerCenter::~PlayerCenter()
 {
-
 }
 
 void PlayerCenter::Update()

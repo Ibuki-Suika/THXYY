@@ -34,7 +34,7 @@ void Stage01::Update()
 	AddEnemy002(120);
 	AddEnemy001(240);
 	AddEnemy002(360);
-	AddEnemy003(480);
+	AddEnemy003(500);
 }
 
 void Stage01::AddEnemy001(int startFrame)
@@ -83,9 +83,9 @@ void Stage01::AddEnemy003(int startFrame)
 		Enemy01_003* enemy = new Enemy01_003();
 		enemy->SetPosition(192, 500);
 		TweenSequence* sequence = new TweenSequence();
-		sequence->AddTween(new MoveTo(Vector3f(192, 320, enemy->GetPosition().z), 60, Tweener::SIMPLE));
-		sequence->AddTween(new Delay(60));
-		sequence->AddTween(new MoveTo(Vector3f(192, 500, enemy->GetPosition().z), 120, Tweener::SIMPLE));
+		sequence->AddTween(new MoveTo(Vector3f(192, 320, enemy->GetPosition().z), 120, Tweener::SIMPLE));
+		sequence->AddTween(new Delay(500));
+		sequence->AddTween(new MoveTo(Vector3f(192, 500, enemy->GetPosition().z), 180, Tweener::SIMPLE));
 		enemy->AddTween(sequence);
 		engine->AddEnemy(enemy);
 	}
@@ -128,6 +128,8 @@ void Stage01::OnLoad()
 		THMessageBox(ExceptionManager::GetInstance()->GetException()->GetInfo());
 	}
 	house->Retain();
+
+	this->SetBGM(Audio::GetInstance()->CreateMusic("bgm/stage01.wav"));
 }
 
 void Stage01::InitBackground()
