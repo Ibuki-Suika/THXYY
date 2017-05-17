@@ -2,6 +2,7 @@
 #include <UI\THEventSystem.h>
 #include <Asset\THAssetManager.h>
 #include <Asset\THRenderTexture.h>
+#include <Core\THConfig.h>
 #include "THSurface.h"
 
 namespace THEngine
@@ -26,6 +27,8 @@ namespace THEngine
 
 		TH_SAFE_RELEASE(d3d);
 		TH_SAFE_RELEASE(device);
+
+		TH_SAFE_DELETE(config);
 	}
 
 	Application* Application::GetInstance()
@@ -33,16 +36,13 @@ namespace THEngine
 		return instance;
 	}
 
-	bool Application::Init(int width, int height, bool fullScreen, String title, int bigIcon, int smallIcon)
+	bool Application::Init(const Config& config, int bigIcon, int smallIcon)
 	{
 		auto exceptionManager = ExceptionManager::GetInstance();
 
 		bool status;
 
-		this->width = width;
-		this->height = height;
-		this->fullScreen = fullScreen;
-		this->title = title;
+		this->config = new Config(config);
 		this->bigIcon = bigIcon;
 		this->smallIcon = smallIcon;
 
@@ -103,7 +103,7 @@ namespace THEngine
 		UINT windowStyle = WS_OVERLAPPEDWINDOW;
 		windowStyle &= ~(WS_THICKFRAME | WS_MAXIMIZEBOX);            //固定窗口大小
 
-		hWnd = CreateWindow(TEXT("THGameEngine"), title.GetBuffer(), windowStyle,
+		hWnd = CreateWindow(TEXT("THGameEngine"), config->title.GetBuffer(), windowStyle,
 			CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
 
 		if (!hWnd)
@@ -123,8 +123,9 @@ namespace THEngine
 		int screen_width = GetSystemMetrics(SM_CXSCREEN);
 		int screen_height = GetSystemMetrics(SM_CYSCREEN);
 
-		MoveWindow(hWnd, (screen_width - width) / 2, (screen_height - height) / 2, width + windowRect.right - windowRect.left - clientRect.right - clientRect.left,
-			height + windowRect.bottom - windowRect.top - clientRect.bottom - clientRect.top, TRUE);
+		MoveWindow(hWnd, (screen_width - config->width) / 2, (screen_height - config->height) / 2,
+			config->width + windowRect.right - windowRect.left - clientRect.right - clientRect.left,
+			config->height + windowRect.bottom - windowRect.top - clientRect.bottom - clientRect.top, TRUE);
 
 		return true;
 	}
@@ -174,7 +175,7 @@ namespace THEngine
 
 		//设置帧率
 		int refresh;
-		if (!fullScreen)
+		if (!config->fullScreen)
 		{
 			refresh = 0;
 		}
@@ -203,15 +204,15 @@ namespace THEngine
 		}
 
 		ZeroMemory(&d3dpp, sizeof(d3dpp));
-		d3dpp.BackBufferWidth = width;
-		d3dpp.BackBufferHeight = height;
+		d3dpp.BackBufferWidth = config->width;
+		d3dpp.BackBufferHeight = config->height;
 		d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
 		d3dpp.BackBufferCount = 1;
 		d3dpp.MultiSampleType = multiSampleType;
 		d3dpp.MultiSampleQuality = qualityLevel;
 		d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 		d3dpp.hDeviceWindow = hWnd;
-		d3dpp.Windowed = !fullScreen;
+		d3dpp.Windowed = !config->fullScreen;
 		d3dpp.EnableAutoDepthStencil = true;
 		d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 		d3dpp.Flags = 0;
@@ -235,7 +236,7 @@ namespace THEngine
 	void Application::GetDeviceInfo(D3DDEVTYPE* deviceType, int* vertexProcessingType)
 	{
 		HRESULT hr;
-		hr = d3d->CheckDeviceType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DFMT_UNKNOWN, D3DFMT_UNKNOWN, !fullScreen);
+		hr = d3d->CheckDeviceType(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, D3DFMT_UNKNOWN, D3DFMT_UNKNOWN, !config->fullScreen);
 		if (FAILED(hr))
 		{
 			*deviceType = D3DDEVTYPE_HAL;
@@ -337,13 +338,21 @@ namespace THEngine
 			D3DMULTISAMPLE_16_SAMPLES
 		};
 
-		*multiSampleType = D3DMULTISAMPLE_16_SAMPLES;
 		DWORD qualityLevels;
+		if (config->useMultiSample)
+		{
+			*multiSampleType = D3DMULTISAMPLE_16_SAMPLES;
+		}
+		else
+		{
+			*multiSampleType = D3DMULTISAMPLE_NONE;
+			*qualityLevel = 0;
+		}
 
 		for (int i = *multiSampleType; i > 0; i--)
 		{
 			hr = d3d->CheckDeviceMultiSampleType(D3DADAPTER_DEFAULT, deviceType, D3DFMT_A8R8G8B8,
-				!fullScreen, multiSampleTypes[i], &qualityLevels);
+				!config->fullScreen, multiSampleTypes[i], &qualityLevels);
 			if (!FAILED(hr))
 			{
 				*multiSampleType = multiSampleTypes[i];

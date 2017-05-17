@@ -3,6 +3,7 @@
 #include "THSprite.h"
 #include "THDataStack.h"
 #include "THScene.h"
+#include "THConfig.h"
 #include <Platform\THApplication.h>
 #include <Platform\THInput.h>
 #include <Platform\THAudio.h>
@@ -53,15 +54,22 @@ Game* Game::GetInstance()
 bool Game::CreateGame(int width, int height, bool fullScreen, const String& title,
 	int bigIcon, int smallIcon)
 {
-	this->width = width;
-	this->height = height;
-	this->fullScreen = fullScreen;
-	this->title = title;
+	Config config;
 
+	config.width = width;
+	config.height = height;
+	config.fullScreen = fullScreen;
+	config.title = title;
+
+	return CreateGame(config, bigIcon, smallIcon);
+}
+
+bool Game::CreateGame(const Config& config, int bigIcon, int smallIcon)
+{
 	exceptionManager = ExceptionManager::GetInstance();
 
 	app = new Application();
-	if (app->Init(width, height, fullScreen, title, bigIcon, smallIcon) == false)
+	if (app->Init(config, bigIcon, smallIcon) == false)
 	{
 		return false;
 	}
@@ -140,7 +148,23 @@ bool Game::CreateGame(int width, int height, bool fullScreen, const String& titl
 	dataStack = DataStack::GetInstance();
 	dataStack->Retain();
 
+	this->config = new Config(config);
 	return true;
+}
+
+int Game::GetWidth() const
+{
+	return this->config->width;
+}
+
+int Game::GetHeight() const
+{
+	return this->config->height;
+}
+
+const String& Game::GetTitle() const
+{
+	return this->config->title;
 }
 
 int Game::Run()
@@ -324,12 +348,12 @@ void Game::CalcFPS()
 
 void Game::DrawFPS()
 {
-	app->SetViewport(0, 0, width, height);
-	app->SetOrtho(0, 0, width, height, 0, TH_MAX_Z);
+	app->SetViewport(0, 0, GetWidth(), GetHeight());
+	app->SetOrtho(0, 0, GetWidth(), GetHeight(), 0, TH_MAX_Z);
 
 	char buffer[10];
 	sprintf(buffer, "%.2f", fps);
-	defaultFont->DrawString(buffer, width - 65, 30);
+	defaultFont->DrawString(buffer, GetWidth() - 65, 30);
 }
 
 void Game::Shutdown()
@@ -348,6 +372,8 @@ void Game::Shutdown()
 	TH_SAFE_RELEASE(audio);
 	TH_SAFE_RELEASE(app);
 	TH_SAFE_RELEASE(dataStack);
+
+	TH_SAFE_DELETE(config);
 
 	delete Logger::GetInstance();
 	delete exceptionManager;

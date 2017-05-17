@@ -1,6 +1,8 @@
 #include "THXYY.h"
-#include "Scene\Title\Title.h"
-#include "resource.h"
+#include "GameConfig.h"
+#include <STGCore.h>
+#include "..\Scene\Title\Title.h"
+#include "..\resource.h"
 #include <time.h>
 
 THXYY::THXYY()
@@ -13,11 +15,13 @@ THXYY::~THXYY()
 	TH_SAFE_RELEASE(engine);
 }
 
-bool THXYY::CreateGame(int width, int height, bool fullScreen)
+bool THXYY::CreateGame(const GameConfig& config)
 {
 	auto exceptionManager = ExceptionManager::GetInstance();
 
-	if (Game::CreateGame(width, height, fullScreen, "THXYY", IDI_THXYY, IDI_SMALL) == false)
+	Config conf;
+	config.GetConfig(&conf);
+	if (Game::CreateGame(conf, IDI_THXYY, IDI_SMALL) == false)
 	{
 		return false;
 	}

@@ -1,10 +1,12 @@
 #ifndef THXYY_H
 #define THXYY_H
 
-#include "THEngine/THEngine.h"
-#include "STGCore\STGCore.h"
+#include <THEngine.h>
 
 using namespace THEngine;
+
+class STGEngine;
+class GameConfig;
 
 class THXYY : public Game
 {
@@ -16,7 +18,7 @@ public:
 	THXYY();
 	virtual ~THXYY();
 
-	bool CreateGame(int width, int height, bool fullScreen);
+	bool CreateGame(const GameConfig& config);
 
 	virtual void OnShutdown() override;
 };

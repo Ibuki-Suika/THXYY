@@ -209,9 +209,12 @@
     <ClCompile Include="src\THEngine\UI\THMenu.cpp" />
     <ClCompile Include="src\THEngine\UI\THMenuItem.cpp" />
     <ClCompile Include="src\THEngine\Util\THPicker.cpp" />
-    <ClCompile Include="src\THXYY.cpp" />
+    <ClCompile Include="src\THXYY\GameConfig.cpp" />
+    <ClCompile Include="src\THXYY\StartupDialog.cpp" />
+    <ClCompile Include="src\THXYY\THXYY.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\Enemy\Stage01\Enemy01_001.h" />
     <ClInclude Include="src\Enemy\Stage01\Enemy01_002.h" />
     <ClInclude Include="src\Enemy\Stage01\Enemy01_003.h" />
@@ -291,6 +294,7 @@
     <ClInclude Include="src\THEngine\Common\THString.h" />
     <ClInclude Include="src\THEngine\Core\3D\THLight.h" />
     <ClInclude Include="src\THEngine\Core\3D\THMesh.h" />
+    <ClInclude Include="src\THEngine\Core\THConfig.h" />
     <ClInclude Include="src\THEngine\Core\THDataStack.h" />
     <ClInclude Include="src\THEngine\Core\THCamera.h" />
     <ClInclude Include="src\THEngine\Core\THFont.h" />
@@ -336,7 +340,9 @@
     <ClInclude Include="src\THEngine\UI\THMenu.h" />
     <ClInclude Include="src\THEngine\UI\THMenuItem.h" />
     <ClInclude Include="src\THEngine\Util\THPicker.h" />
-    <ClInclude Include="src\THXYY.h" />
+    <ClInclude Include="src\THXYY\GameConfig.h" />
+    <ClInclude Include="src\THXYY\StartupDialog.h" />
+    <ClInclude Include="src\THXYY\THXYY.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="THXYY.rc" />
@@ -365,6 +371,10 @@
     <None Include="fx\mesh.fx">
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\icon\small.ico" />
+    <Image Include="res\icon\THXYY.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

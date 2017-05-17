@@ -9,15 +9,13 @@ namespace THEngine
 	class Input;
 	class RenderTexture;
 	class Surface;
+	struct Config;
 
 	class Application : public Object
 	{
 	private:
-		int bigIcon;
-		int smallIcon;
-		String title;
-		int width, height;
-		bool fullScreen;
+		const Config* config = nullptr; //
+		int bigIcon, smallIcon;
 		bool needQuit;
 		int returnCode;
 
@@ -53,7 +51,7 @@ namespace THEngine
 
 		static Application* GetInstance();
 
-		bool Init(int width, int height, bool fullScreen, String title, int bigIcon, int smallIcon);
+		bool Init(const Config& config, int bigIcon, int smallIcon);
 		void DealWithMessage();
 
 		void SetOrtho(float left, float bottom, float width, float height, float znear, float zfar);
@@ -105,7 +103,7 @@ namespace THEngine
 		void SetRenderTarget(RenderTexture* texture);
 
 		void SetDepthBuffer(Surface* depthBuffer);
-		Surface* CreateDepthBuffer(int width, int height); 
+		Surface* CreateDepthBuffer(int width, int height);
 
 		void SetBlendMode(BlendMode blendMode);
 
@@ -132,7 +130,7 @@ namespace THEngine
 		}
 
 		inline void SetProjectionMatrix(const Matrix& projection)
-		{ 
+		{
 			renderState.projection = projection;
 		}
 

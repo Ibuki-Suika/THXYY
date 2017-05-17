@@ -20,14 +20,13 @@ namespace THEngine
 	class ShaderStock;
 	class RenderPipeline;
 	class AsyncInfo;
+	struct Config;
 
 	class Game : public EngineObject
 	{
 	private:
 		static Game* instance;
-		String title;
-		int width, height;
-		bool fullScreen;
+		Config* config = nullptr;
 
 		bool enterBackground = false;
 
@@ -85,6 +84,8 @@ namespace THEngine
 
 		bool CreateGame(int width, int height, bool fullScreen, const String& title, int bigIcon, int smallIcon);
 
+		bool CreateGame(const Config& config, int bigIcon, int smallIcon);
+
 		void SetScene(Scene* scene);
 
 		void LoadScene(Scene* scene);
@@ -104,13 +105,12 @@ namespace THEngine
 			return assetManager;
 		}
 
-		inline int GetWidth() const { return width; }
-
-		inline int GetHeight() const { return height; }
+		int GetWidth() const;
+		int GetHeight() const;
 
 		inline Scene* GetScene() const { return scene; }
 
-		inline const String& GetTitle() const { return title; }
+		const String& GetTitle() const;
 	};
 }
 

@@ -2,3 +2,10 @@
 /Config/Config/bin
 /Config/Config/obj
 /Config/packages
+/Debug
+/Release
+/THXYY/Debug
+/THXYY/Release
+/THXYY/THLog.txt
+/THXYY/THXYY.APS
+/.vs

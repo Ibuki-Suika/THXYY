@@ -49,7 +49,7 @@ namespace Config
         public void SaveToFile()
         {
             string fileName = "config.json";
-            string json = JsonConvert.SerializeObject(this);
+            string json = JsonConvert.SerializeObject(this, Formatting.Indented);
 
             StreamWriter writer = new StreamWriter(fileName);
             writer.Write(json);

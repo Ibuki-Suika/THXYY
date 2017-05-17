@@ -184,12 +184,15 @@
     <Filter Include="源文件\THEngine\Async">
       <UniqueIdentifier>{b3a9f036-d31f-45e1-8a16-1ffda735fe90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\THXYY">
+      <UniqueIdentifier>{e011d138-2014-4f45-8355-e837944d8f20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\THXYY">
+      <UniqueIdentifier>{6a3cdf4d-3540-4fd6-990e-5e330f48762a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\THXYY.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\THEngine\Common\THCommon.cpp">
@@ -537,11 +540,17 @@
     <ClCompile Include="src\THEngine\Math\THRandomGenerator.cpp">
       <Filter>源文件\THEngine\Math</Filter>
     </ClCompile>
+    <ClCompile Include="src\THXYY\GameConfig.cpp">
+      <Filter>源文件\THXYY</Filter>
+    </ClCompile>
+    <ClCompile Include="src\THXYY\THXYY.cpp">
+      <Filter>源文件\THXYY</Filter>
+    </ClCompile>
+    <ClCompile Include="src\THXYY\StartupDialog.cpp">
+      <Filter>源文件\THXYY</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\THXYY.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="src\THEngine\Common\THCommon.h">
       <Filter>头文件\THEngine\Common</Filter>
     </ClInclude>
@@ -914,6 +923,21 @@
     <ClInclude Include="src\THEngine\Math\THRandomGenerator.h">
       <Filter>头文件\THEngine\Math</Filter>
     </ClInclude>
+    <ClInclude Include="src\THXYY\GameConfig.h">
+      <Filter>头文件\THXYY</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THXYY\THXYY.h">
+      <Filter>头文件\THXYY</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Core\THConfig.h">
+      <Filter>头文件\THEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THXYY\StartupDialog.h">
+      <Filter>头文件\THXYY</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="THXYY.rc">
@@ -936,5 +960,13 @@
     <None Include="fx\mesh.fx">
       <Filter>fx</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\icon\THXYY.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\icon\small.ico">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

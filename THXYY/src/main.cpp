@@ -3,7 +3,9 @@ int volatile app_count = 0;
 #pragma data_seg()
 #pragma comment(linker,"/SECTION:shared,RWS")
 
-#include "THXYY.h"
+#include "THXYY/GameConfig.h"
+#include "THXYY/THXYY.h"
+#include "THXYY/StartupDialog.h"
 #include "resource.h"
 
 #include <crtdbg.h>
@@ -24,8 +26,25 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
 	//_CrtSetBreakAlloc(2149);
 
+	GameConfig config;
+	if (config.Load() == false)
+	{
+		config.SetToDefault();
+	}
+
+	if (config.askEveryTime)
+	{
+		StartupDialog dialog(config);
+		if (dialog.Show() == false)
+		{
+			return 0;
+		}
+	}
+
+	config.Save();
+
 	THXYY game;
-	if (game.CreateGame(640, 480, false) == false)
+	if (game.CreateGame(config) == false)
 	{
 		String error = ExceptionManager::GetInstance()->GetException()->GetInfo();
 		String message = (String)"糟糕，游戏好像被隙间了。原因是：\n" + error;

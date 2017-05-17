@@ -6,6 +6,7 @@ This project used these 3rd party open source libraries.
 
 ### MIT
 * <a href="http://www.newtonsoft.com/json">Json.NET</a>
+* <a href="http://rapidjson.org"/>RapidJSON</a>
 
 ### zlib licesne
 * <a href="http://zlib.net">zlib</a>
