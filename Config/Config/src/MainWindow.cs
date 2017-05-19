@@ -34,7 +34,7 @@ namespace Config
         {
             //render config
             config.useMultiSample = (bool)checkBox_useMultiSample.IsChecked;
-            config.useVerticalAsync = (bool)checkBox_useVerticalAsync.IsChecked;
+            config.useVSync = (bool)checkBox_useVerticalAsync.IsChecked;
             config.lightShadowLevel = lightLevels[combo_lightLevel.SelectedIndex];
             config.drawInterval = drawIntervals[combo_drawInterval.SelectedIndex];
 
@@ -49,7 +49,10 @@ namespace Config
         {
             //render config
             checkBox_useMultiSample.IsChecked = config.useMultiSample;
-            checkBox_useVerticalAsync.IsChecked = config.useVerticalAsync;
+            checkBox_useVerticalAsync.IsChecked = config.useVSync;
+
+            combo_drawInterval.IsEnabled = !config.useVSync;
+
             switch (config.lightShadowLevel)
             {
                 case Configuration.LightShadowLevel.NONE:

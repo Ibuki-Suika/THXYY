@@ -131,7 +131,7 @@ void SelectScene::Back()
 		titleScene->SetNeedFadeIn(false);
 		game->LoadScene(titleScene);
 	};
-	GetScheduler()->AddTimer(timer);
+	GetScheduler()->AddFrameTimer(timer);
 }
 
 void SelectScene::StartGame()
@@ -183,5 +183,5 @@ void SelectScene::StartGame()
 			this->blackLayer->AddChild(black2);
 		});
 	};
-	GetScheduler()->AddTimer(timer);
+	GetScheduler()->AddFrameTimer(timer);
 }

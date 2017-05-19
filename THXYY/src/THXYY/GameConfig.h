@@ -47,7 +47,7 @@ public:
 public:
 	//render settings
 	bool useMultiSample = true;
-	bool useVerticalAsync = true;
+	bool useVSync = true;
 	LightLevel lightLevel = LightLevel::HIGH;
 	DrawInterval drawInterval = DrawInterval::ONE;
 

@@ -41,7 +41,7 @@
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
                 <CheckBox x:Name="checkBox_useMultiSample" Grid.Row="0" Content="多重采样抗锯齿" FontSize="14" Margin="0,0,2,2" IsChecked="True" />
-                <CheckBox x:Name="checkBox_useVerticalAsync" Grid.Row="1" Content="垂直同步" FontSize="14" Margin="0,0,2,2" IsChecked="True" />
+                <CheckBox x:Name="checkBox_useVerticalAsync" Grid.Row="1" Content="垂直同步" FontSize="14" Margin="0,0,2,2" IsChecked="True" Checked="checkBox_useVerticalAsync_CheckChanged" Unchecked="checkBox_useVerticalAsync_CheckChanged" />
                 <Grid Grid.Row="2" HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.8*" />

@@ -26,6 +26,23 @@ bool THXYY::CreateGame(const GameConfig& config)
 		return false;
 	}
 
+	if (config.useVSync == false)
+	{
+		switch (config.drawInterval)
+		{
+		case GameConfig::DrawInterval::ONE:
+			break;
+		case GameConfig::DrawInterval::HALF:
+			SetSpeed(2.0f);
+			break;
+		case GameConfig::DrawInterval::ONE_THIRD:
+			SetSpeed(3.0f);
+			break;
+		default:
+			throw std::logic_error("not implemented");
+		}
+	}
+
 	engine = STGEngine::Create();
 	if (engine == nullptr)
 	{

@@ -54,7 +54,7 @@ void TitleMenu::OnStart()
 	timer->run = [this]() {
 		EventSystem::GetInstance()->RegisterKeyDownListener(this);
 	};
-	GetScheduler()->AddTimer(timer);
+	GetScheduler()->AddFrameTimer(timer);
 }
 
 bool TitleMenu::OnKeyDown(EngineObject* sender, int key)
@@ -95,7 +95,7 @@ void TitleMenu::OnMenuItemClicked(int item)
 			Game::GetInstance()->Quit();
 		};
 	}
-	GetScheduler()->AddTimer(timer);
+	GetScheduler()->AddFrameTimer(timer);
 	GoOut();
 }
 

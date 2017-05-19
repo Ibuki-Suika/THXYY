@@ -190,6 +190,12 @@
     <Filter Include="源文件\THXYY">
       <UniqueIdentifier>{6a3cdf4d-3540-4fd6-990e-5e330f48762a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\THEngine\Scheduling">
+      <UniqueIdentifier>{5d237f30-251d-4064-afcc-d3df0ca2433c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\THEngine\Scheduling">
+      <UniqueIdentifier>{50e887e2-9de0-4e31-ba1a-8435a81aa9d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -286,12 +292,6 @@
       <Filter>源文件\STGCore</Filter>
     </ClCompile>
     <ClCompile Include="src\THEngine\Common\THEngineObject.cpp">
-      <Filter>源文件\THEngine\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="src\THEngine\Common\THScheduler.cpp">
-      <Filter>源文件\THEngine\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="src\THEngine\Common\THFrameTimer.cpp">
       <Filter>源文件\THEngine\Common</Filter>
     </ClCompile>
     <ClCompile Include="src\STGCore\Enemy\Enemy.cpp">
@@ -549,6 +549,21 @@
     <ClCompile Include="src\THXYY\StartupDialog.cpp">
       <Filter>源文件\THXYY</Filter>
     </ClCompile>
+    <ClCompile Include="src\THEngine\Scheduling\THFrameTimer.cpp">
+      <Filter>源文件\THEngine\Scheduling</Filter>
+    </ClCompile>
+    <ClCompile Include="src\THEngine\Scheduling\THScheduler.cpp">
+      <Filter>源文件\THEngine\Scheduling</Filter>
+    </ClCompile>
+    <ClCompile Include="src\THEngine\Scheduling\THTime.cpp">
+      <Filter>源文件\THEngine\Scheduling</Filter>
+    </ClCompile>
+    <ClCompile Include="src\THEngine\Platform\THSystemClock.cpp">
+      <Filter>源文件\THEngine\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\THEngine\Scheduling\THTimer.cpp">
+      <Filter>源文件\THEngine\Scheduling</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\THEngine\Common\THCommon.h">
@@ -666,12 +681,6 @@
       <Filter>头文件\STGCore</Filter>
     </ClInclude>
     <ClInclude Include="src\THEngine\Common\THEngineObject.h">
-      <Filter>头文件\THEngine\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="src\THEngine\Common\THScheduler.h">
-      <Filter>头文件\THEngine\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="src\THEngine\Common\THFrameTimer.h">
       <Filter>头文件\THEngine\Common</Filter>
     </ClInclude>
     <ClInclude Include="src\STGCore\Enemy\Enemy.h">
@@ -937,6 +946,21 @@
     </ClInclude>
     <ClInclude Include="src\THXYY\StartupDialog.h">
       <Filter>头文件\THXYY</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Scheduling\THScheduler.h">
+      <Filter>头文件\THEngine\Scheduling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Scheduling\THTime.h">
+      <Filter>头文件\THEngine\Scheduling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Platform\THSystemClock.h">
+      <Filter>头文件\THEngine\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Scheduling\THFrameTimer.h">
+      <Filter>头文件\THEngine\Scheduling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Scheduling\THTimer.h">
+      <Filter>头文件\THEngine\Scheduling</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

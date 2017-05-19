@@ -12,9 +12,10 @@ namespace THEngine
 		bool fullScreen = false;
 		String title = "THEngine";
 		bool useMultiSample = true;
-		bool useVerticalAsync = true;
+		bool useVSync = true;
 		bool useShadow = true;
 		bool useLighting = true;
+		int fps = 60;         //this option is valid only if useVsync == false
 	};
 }
 

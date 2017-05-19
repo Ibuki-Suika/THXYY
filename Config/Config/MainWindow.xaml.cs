@@ -21,9 +21,10 @@ namespace Config
     {
         public MainWindow()
         {
+            config = Configuration.Create();
+
             InitializeComponent();
 
-            config = Configuration.Create();
             Update();
         }
 
@@ -42,6 +43,15 @@ namespace Config
         {
             config.SetToDefault();
             Update();
+        }
+
+        private void checkBox_useVerticalAsync_CheckChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.IsInitialized)
+            {
+                this.config.useVSync = (bool)(sender as CheckBox).IsChecked;
+                this.combo_drawInterval.IsEnabled = !this.config.useVSync;
+            }
         }
     }
 }

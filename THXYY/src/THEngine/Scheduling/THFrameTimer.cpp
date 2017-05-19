@@ -10,7 +10,6 @@ namespace THEngine
 
 	FrameTimer::~FrameTimer()
 	{
-
 	}
 
 	Object* FrameTimer::Clone()

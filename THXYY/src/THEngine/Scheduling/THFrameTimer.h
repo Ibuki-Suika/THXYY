@@ -1,7 +1,7 @@
 #ifndef THFRAMETIMER_H
 #define THFRAMETIMER_H
 
-#include "THObject.h"
+#include <Common\THObject.h>
 #include <functional>
 
 namespace THEngine
@@ -16,7 +16,7 @@ namespace THEngine
 		FrameTimer();
 		virtual ~FrameTimer();
 
-		std::function<void()> run = [](){};
+		std::function<void()> run = []() {};
 
 		virtual Object* Clone() override;
 

@@ -7,13 +7,13 @@
 #include "THRenderQueue.h"
 #include <Core\THGame.h>
 #include <Core\THGameObject.h>
+#include <Core\THConfig.h>
 #include <Platform\THApplication.h>
 
 namespace THEngine
 {
 	RenderPipeline::RenderPipeline()
 	{
-
 	}
 
 	RenderPipeline::~RenderPipeline()
@@ -61,7 +61,6 @@ namespace THEngine
 		}
 		pipeline->particle3DRenderer->Retain();
 
-
 		pipeline->meshRenderer = MeshRenderer::Create();
 		if (pipeline->meshRenderer == nullptr)
 		{
@@ -99,7 +98,7 @@ namespace THEngine
 		if (pipeline->dirShadowRenderer == nullptr)
 		{
 			auto exception = exceptionManager->GetException();
-			auto newException = new Exception((String)"创建DirectionalLightShadowRenderer失败。原因是：\n" 
+			auto newException = new Exception((String)"创建DirectionalLightShadowRenderer失败。原因是：\n"
 				+ exception->GetInfo());
 			exceptionManager->PushException(newException);
 			delete pipeline;
@@ -138,7 +137,8 @@ namespace THEngine
 		auto app = Application::GetInstance();
 		auto renderState = app->GetRenderState();
 
-		if (renderState->IsLightingEnabled())
+		auto config = Game::GetInstance()->GetConfig();
+		if (config->useLighting && renderState->IsLightingEnabled())
 		{
 			this->meshRenderer->SetRenderAmbient(true);
 			normalQueue->Render();

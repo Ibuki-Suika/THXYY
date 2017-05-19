@@ -15,5 +15,6 @@
 #include <Platform\THApplication.h>
 #include <Platform\THAudio.h>
 #include <Platform\THInput.h>
+#include <Scheduling\THScheduler.h>
 
 #endif

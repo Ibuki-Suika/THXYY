@@ -1,5 +1,6 @@
 #include "THEngineObject.h"
 #include "THDefine.h"
+#include <Scheduling\THScheduler.h>
 
 namespace THEngine
 {

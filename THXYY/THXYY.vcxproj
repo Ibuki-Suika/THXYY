@@ -160,10 +160,8 @@
     <ClCompile Include="src\THEngine\Common\THEngineObject.cpp" />
     <ClCompile Include="src\THEngine\Common\THException.cpp" />
     <ClCompile Include="src\THEngine\Common\THExceptionManager.cpp" />
-    <ClCompile Include="src\THEngine\Common\THFrameTimer.cpp" />
     <ClCompile Include="src\THEngine\Common\THLogger.cpp" />
     <ClCompile Include="src\THEngine\Common\THObject.cpp" />
-    <ClCompile Include="src\THEngine\Common\THScheduler.cpp" />
     <ClCompile Include="src\THEngine\Common\THString.cpp" />
     <ClCompile Include="src\THEngine\Core\3D\THLight.cpp" />
     <ClCompile Include="src\THEngine\Core\3D\THMesh.cpp" />
@@ -184,6 +182,7 @@
     <ClCompile Include="src\THEngine\Math\THRandomGenerator.cpp" />
     <ClCompile Include="src\THEngine\Math\THVector.cpp" />
     <ClCompile Include="src\THEngine\Platform\External\CWaveFile.cpp" />
+    <ClCompile Include="src\THEngine\Platform\THSystemClock.cpp" />
     <ClCompile Include="src\THEngine\Platform\THSurface.cpp" />
     <ClCompile Include="src\THEngine\Platform\THAudio.cpp" />
     <ClCompile Include="src\THEngine\Platform\THCoreDumper.cpp" />
@@ -200,6 +199,10 @@
     <ClCompile Include="src\THEngine\Renderer\THSkyBoxRenderer.cpp" />
     <ClCompile Include="src\THEngine\Renderer\THSpriteRenderer.cpp" />
     <ClCompile Include="src\THEngine\Renderer\THRenderQueue.cpp" />
+    <ClCompile Include="src\THEngine\Scheduling\THFrameTimer.cpp" />
+    <ClCompile Include="src\THEngine\Scheduling\THScheduler.cpp" />
+    <ClCompile Include="src\THEngine\Scheduling\THTime.cpp" />
+    <ClCompile Include="src\THEngine\Scheduling\THTimer.cpp" />
     <ClCompile Include="src\THEngine\Tween\THConcreteTween.cpp" />
     <ClCompile Include="src\THEngine\Tween\THConcreteTweener.cpp" />
     <ClCompile Include="src\THEngine\Tween\THTween.cpp" />
@@ -285,12 +288,10 @@
     <ClInclude Include="src\THEngine\Common\THEngineObject.h" />
     <ClInclude Include="src\THEngine\Common\THException.h" />
     <ClInclude Include="src\THEngine\Common\THExceptionManager.h" />
-    <ClInclude Include="src\THEngine\Common\THFrameTimer.h" />
     <ClInclude Include="src\THEngine\Common\THMap.h" />
     <ClInclude Include="src\THEngine\Common\THList.h" />
     <ClInclude Include="src\THEngine\Common\THLogger.h" />
     <ClInclude Include="src\THEngine\Common\THObject.h" />
-    <ClInclude Include="src\THEngine\Common\THScheduler.h" />
     <ClInclude Include="src\THEngine\Common\THString.h" />
     <ClInclude Include="src\THEngine\Core\3D\THLight.h" />
     <ClInclude Include="src\THEngine\Core\3D\THMesh.h" />
@@ -313,6 +314,7 @@
     <ClInclude Include="src\THEngine\Math\THRandomGenerator.h" />
     <ClInclude Include="src\THEngine\Math\THVector.h" />
     <ClInclude Include="src\THEngine\Platform\External\CWaveFile.h" />
+    <ClInclude Include="src\THEngine\Platform\THSystemClock.h" />
     <ClInclude Include="src\THEngine\Platform\THSurface.h" />
     <ClInclude Include="src\THEngine\Platform\THAudio.h" />
     <ClInclude Include="src\THEngine\Platform\THCoreDumper.h" />
@@ -329,6 +331,10 @@
     <ClInclude Include="src\THEngine\Renderer\THShadowRenderer.h" />
     <ClInclude Include="src\THEngine\Renderer\THSkyBoxRenderer.h" />
     <ClInclude Include="src\THEngine\Renderer\THSpriteRenderer.h" />
+    <ClInclude Include="src\THEngine\Scheduling\THFrameTimer.h" />
+    <ClInclude Include="src\THEngine\Scheduling\THScheduler.h" />
+    <ClInclude Include="src\THEngine\Scheduling\THTime.h" />
+    <ClInclude Include="src\THEngine\Scheduling\THTimer.h" />
     <ClInclude Include="src\THEngine\THEngine.h" />
     <ClInclude Include="src\THEngine\Tween\THConcreteTween.h" />
     <ClInclude Include="src\THEngine\Tween\THConcreteTweener.h" />

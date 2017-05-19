@@ -8,17 +8,17 @@
 #include <Core\THCamera.h>
 #include <Core\THEnvironment.h>
 #include <Core\3D\THMesh.h>
+#include <Core\THGame.h>
+#include <Core\THConfig.h>
 
 namespace THEngine
 {
 	MeshRenderer::MeshRenderer()
 	{
-
 	}
 
 	MeshRenderer::~MeshRenderer()
 	{
-
 	}
 
 	MeshRenderer* MeshRenderer::Create()
@@ -103,7 +103,6 @@ namespace THEngine
 
 	void MeshRenderer::ShadeWithLight(Mesh* mesh)
 	{
-
 	}
 
 	void MeshRenderer::Shade(Mesh* mesh)
@@ -111,7 +110,7 @@ namespace THEngine
 		auto app = Application::GetInstance();
 		auto renderState = app->GetRenderState();
 
-		if (renderState->IsLightingEnabled())
+		if (Game::GetInstance()->GetConfig()->useLighting && renderState->IsLightingEnabled())
 		{
 			if (isRenderingAmbient)
 			{
@@ -152,12 +151,10 @@ namespace THEngine
 	//////////////////////////////////////////////
 	DirectionalLightRenderer::DirectionalLightRenderer()
 	{
-
 	}
 
 	DirectionalLightRenderer::~DirectionalLightRenderer()
 	{
-
 	}
 
 	DirectionalLightRenderer* DirectionalLightRenderer::Create()

@@ -439,7 +439,7 @@ void GameScene::ReturnToTitle()
 	FrameTimer* timer = new FrameTimer();
 	timer->SetFrame(60);
 	timer->run = []() {Game::GetInstance()->LoadScene(new Title()); };
-	scheduler->AddTimer(timer);
+	scheduler->AddFrameTimer(timer);
 }
 
 bool GameScene::IsNewGame()
@@ -517,7 +517,7 @@ void GameScene::DrawNewGameItems()
 		diff->ClearTweens();
 		diff->AddTween(new FadeOut(30, Tweener::SIMPLE));
 	};
-	diff->GetScheduler()->AddTimer(timer);
+	diff->GetScheduler()->AddFrameTimer(timer);
 
 	diff->SetPosition(Vector3f(192.0f, 432.0f, 1.0f));
 	GetSTGLayer()->AddChild(diff);

@@ -2,11 +2,11 @@
 #define THENGINEOBJECT_H
 
 #include "THObject.h"
-#include "THScheduler.h"
 
 namespace THEngine
 {
 	class AsyncInfo;
+	class Scheduler;
 
 	class EngineObject : public Object
 	{

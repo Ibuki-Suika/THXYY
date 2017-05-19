@@ -2,6 +2,7 @@
 #define THGAME_H
 
 #include <Common\THCommon.h>
+#include <Scheduling\THTime.h>
 #include <Platform\THCoreDumper.h>
 
 namespace THEngine
@@ -34,7 +35,15 @@ namespace THEngine
 		int frameCount;
 		bool showFPS;
 
-		unsigned int lastTime, currentTime;
+		//game speed control
+		float speed = 1.0f;          //1表示原速，2表示2倍速
+		float speedReciprocal = 1;   //速率的倒数
+		float speedCounter = 0;
+
+		//fps control
+		Time lastTimeStamp;
+
+		long long lastTime, currentTime, timerFrequency;
 
 		CoreDumper coreDumper;
 
@@ -95,6 +104,15 @@ namespace THEngine
 		void LoadSceneAsync(Scene* scene, int delay, const std::function<void()>& onLoadCompleted);
 
 		AsyncInfo* LoadSceneAsyncWithInfo(Scene* scene, bool autoChange);
+
+		inline void SetSpeed(float speed)
+		{
+			this->speed = speed;
+			this->speedReciprocal = 1.0f / speed;
+		}
+		inline float GetSpeed() const { return this->speed; }
+
+		inline Config* GetConfig() const { return this->config; }
 
 		inline Application* GetApplication() const { return app; }
 

@@ -51,7 +51,7 @@ void Enemy01_003::Shoot(float x, float y, ShootColor color)
 			bullet->SetSpeed(0.5 + j);
 			bullet->SetAngle(baseAngle + 15 * i + 2 * j);
 			bullet->AddTween(new SpeedTo(0.0f, 45, Tweener::SIMPLE));
-			bullet->GetScheduler()->AddTimer(90, [bullet]() {
+			bullet->GetScheduler()->AddFrameTimer(90, [bullet]() {
 				bullet->SetAngle(bullet->GetAngle() + 60);
 				bullet->AddTween(new SpeedTo(-1.5f, 45, Tweener::SIMPLE));
 			});

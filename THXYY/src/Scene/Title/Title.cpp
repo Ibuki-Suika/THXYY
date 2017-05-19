@@ -58,7 +58,7 @@ void Title::OnStart()
 		timer->run = [titleMenu]() {
 			titleMenu->Resume();
 		};
-		GetScheduler()->AddTimer(timer);
+		GetScheduler()->AddFrameTimer(timer);
 
 		Music* bgm = Global::GetInstance()->titleMusic;
 		if (bgm)

@@ -89,7 +89,7 @@ void GameConfig::SetToDefault()
 {
 	//render settings
 	useMultiSample = true;
-	useVerticalAsync = true;
+	useVSync = true;
 	lightLevel = LightLevel::HIGH;
 	drawInterval = DrawInterval::ONE;
 
@@ -101,7 +101,24 @@ void GameConfig::SetToDefault()
 void GameConfig::GetConfig(Config* config) const
 {
 	config->useMultiSample = this->useMultiSample;
-	config->useVerticalAsync = this->useVerticalAsync;
+	config->useVSync = this->useVSync;
+	if (config->useVSync == false)
+	{
+		switch (this->drawInterval)
+		{
+		case DrawInterval::ONE:
+			config->fps = 60.0f;
+			break;
+		case DrawInterval::HALF:
+			config->fps = 30.0f;
+			break;
+		case DrawInterval::ONE_THIRD:
+			config->fps = 20.0f;
+			break;
+		default:
+			throw std::logic_error("not implemented");
+		}
+	}
 
 	switch (this->lightLevel)
 	{
@@ -135,7 +152,7 @@ void GameConfig::GetConfig(Config* config) const
 		throw std::logic_error("Not implemented");
 	}
 
-	config->title = "东方星雨夜 ~ Legend of Dancing Stars";
+	config->title = "东方星语夜 ~ Legend of Dancing Stars";
 }
 
 bool GameConfig::LoadRenderConfig(const rapidjson::Document& document)
@@ -145,7 +162,7 @@ bool GameConfig::LoadRenderConfig(const rapidjson::Document& document)
 		return false;
 	}
 
-	if (ReadBool(document, "useVerticalAsync", &this->useVerticalAsync) == false)
+	if (ReadBool(document, "useVSync", &this->useVSync) == false)
 	{
 		return false;
 	}
@@ -224,7 +241,7 @@ bool GameConfig::LoadStartupConfig(const rapidjson::Document& document)
 void GameConfig::SaveRenderConfig(rapidjson::Document& document)
 {
 	AddBool(document, "useMultiSample", this->useMultiSample);
-	AddBool(document, "useVerticalAsync", this->useVerticalAsync);
+	AddBool(document, "useVSync", this->useVSync);
 	AddInt(document, "lightShadowLevel", this->lightLevel);
 	AddInt(document, "drawInterval", this->drawInterval);
 }

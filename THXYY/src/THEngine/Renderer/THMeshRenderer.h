@@ -46,7 +46,6 @@ namespace THEngine
 		inline void SetRenderAmbient(bool renderAmbient) { this->isRenderingAmbient = renderAmbient; }
 		inline void SetCurrentLight(Light* light) { this->currentLight = light; }
 
-
 		static MeshRenderer* Create();
 	};
 

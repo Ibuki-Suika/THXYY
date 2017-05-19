@@ -33,7 +33,7 @@ namespace Config
         //render config
         public bool useMultiSample = true;
 
-        public bool useVerticalAsync = true;
+        public bool useVSync = true;
         public LightShadowLevel lightShadowLevel = LightShadowLevel.HIGH;
         public DrawInterval drawInterval = DrawInterval.ONE;
 
@@ -82,7 +82,7 @@ namespace Config
         {
             //render config
             useMultiSample = true;
-            useVerticalAsync = true;
+            useVSync = true;
             lightShadowLevel = LightShadowLevel.HIGH;
             drawInterval = DrawInterval.ONE;
 

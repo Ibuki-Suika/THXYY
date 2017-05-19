@@ -144,7 +144,7 @@ void PauseMenu::DoRestart()
 		Clear();
 		Resume();
 	};
-	scheduler->AddTimer(timer);
+	scheduler->AddFrameTimer(timer);
 
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
 }
