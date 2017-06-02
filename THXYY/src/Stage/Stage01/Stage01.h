@@ -7,7 +7,7 @@ class Stage01 : public Stage
 {
 private:
 	static Texture* texRoad;
-
+	Texture* texLogo = nullptr;
 	CubeMap* sky = nullptr;
 
 	int frame = 0;
@@ -20,6 +20,7 @@ public:
 	static const float FPB;
 
 private:
+	void ShowLogo(int startFrame);
 	void AddEnemy001(int startFrame);
 	void AddEnemy002(int startFrame);
 	void AddEnemy003(int startFrame);

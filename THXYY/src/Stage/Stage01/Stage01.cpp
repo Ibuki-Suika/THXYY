@@ -18,6 +18,7 @@ Stage01::~Stage01()
 	auto assetManager = AssetManager::GetInstance();
 
 	TH_SAFE_RELEASE(texRoad);
+	TH_SAFE_RELEASE(texLogo);
 	TH_SAFE_RELEASE(sky);
 
 	TH_SAFE_RELEASE(house);
@@ -30,11 +31,32 @@ void Stage01::Update()
 	auto engine = STGEngine::GetInstance();
 
 	frame++;
-	AddEnemy001(0);
-	AddEnemy002(120);
-	AddEnemy001(240);
-	AddEnemy002(360);
-	AddEnemy003(500);
+	AddEnemy001(1);
+	AddEnemy002(5.5 * FPB);
+	AddEnemy001(10 * FPB);
+	AddEnemy002(14.5 * FPB);
+	AddEnemy003(19 * FPB);
+
+	ShowLogo(40.5 * FPB);
+}
+
+void Stage01::ShowLogo(int startFrame)
+{
+	auto engine = STGEngine::GetInstance();
+
+	if (frame == startFrame)
+	{
+		Sprite* logo = new Sprite();
+		logo->SetTexture(this->texLogo);
+		logo->SetPosition(Vector3f(192, 280, 10));
+		logo->SetAlpha(0.0f);
+		TweenSequence* sequence = new TweenSequence();
+		sequence->AddTween(new FadeTo(1.0f, 80, Tweener::SIMPLE));
+		sequence->AddTween(new Delay(240));
+		sequence->AddTween(new FadeOut(80, Tweener::SIMPLE));
+		logo->AddTween(sequence);
+		engine->AddObject(logo);
+	}
 }
 
 void Stage01::AddEnemy001(int startFrame)
@@ -109,6 +131,13 @@ void Stage01::OnLoad()
 		THMessageBox(ExceptionManager::GetInstance()->GetException()->GetInfo());
 	}
 	texRoad->Retain();
+
+	texLogo = assetManager->CreateTextureFromFile("res/front/logo/stage01_logo.png");
+	if (texLogo == nullptr)
+	{
+		THMessageBox(ExceptionManager::GetInstance()->GetException()->GetInfo());
+	}
+	texLogo->Retain();
 
 	sky = assetManager->CreateCubeMapFromFile("res/background/stage01/skybox/BluePinkNebular_front.jpg",
 		"res/background/stage01/skybox/BluePinkNebular_back.jpg",

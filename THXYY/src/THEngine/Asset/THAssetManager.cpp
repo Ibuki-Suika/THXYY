@@ -33,7 +33,8 @@ namespace THEngine
 		auto device = Application::GetInstance()->GetDevice();
 
 		ID3DXBuffer *error;
-		if (FAILED(D3DXCreateEffectFromFile(device, filePath.GetBuffer(), NULL, NULL,
+		HRESULT hr;
+		if (FAILED(hr = D3DXCreateEffectFromFile(device, filePath.GetBuffer(), NULL, NULL,
 			D3DXSHADER_DEBUG, NULL, &shader->effect, &error)))
 		{
 			if (error)

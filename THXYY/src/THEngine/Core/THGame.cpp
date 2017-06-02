@@ -92,7 +92,7 @@ bool Game::CreateGame(const Config& config, int bigIcon, int smallIcon)
 	if (shaderStock == nullptr)
 	{
 		auto exception = exceptionManager->GetException();
-		auto newException = new Exception((String)"创建AssetManager失败。原因是：\n" + exception->GetInfo());
+		auto newException = new Exception((String)"创建ShaderStock失败。原因是：\n" + exception->GetInfo());
 		exceptionManager->PushException(newException);
 		return false;
 	}
@@ -364,7 +364,7 @@ AsyncInfo* Game::LoadSceneAsyncWithInfo(Scene* scene, bool autoChange)
 
 void Game::CalcFPS()
 {
-	this->currentTime = GetTickCount64();
+	this->currentTime = GetTickCount();
 	frameCount++;
 	if (lastTime < 0)
 	{

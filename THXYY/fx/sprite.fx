@@ -6,13 +6,13 @@ int screenWidth, screenHeight;
 int viewportWidth, viewportHeight;
 
 sampler TextureSampler = sampler_state
-{ 
+{
 	texture = <tex>;
 	magfilter = LINEAR;
 	minfilter = LINEAR;
 	mipfilter = LINEAR;
-	AddressU = mirror;
- 	AddressV = mirror;
+	AddressU = CLAMP;
+	AddressV = CLAMP;
 };
 
 struct VertexIn
@@ -24,7 +24,7 @@ struct VertexIn
 
 struct VertexOut
 {
-    float4 position : POSITION;
+	float4 position : POSITION;
 	float4 color : COLOR;
 	float2 texCoord : TEXCOORD0;
 };
@@ -33,17 +33,19 @@ VertexOut VSFunc(VertexIn input)
 {
 	VertexOut output;
 	matrix transform;
-	
+
 	transform = mul(world, view);
-		
+
 	output.position.xyz = input.position;
 	output.position.w = 1.0f;
 	output.position = mul(output.position, transform);
-	
+
 	output.position = mul(output.position, projection);
 	output.color = input.color;
 	output.texCoord = input.texCoord;
-	
+
+	output.position.xy += float2(-output.position.w / viewportWidth, output.position.w / viewportHeight);
+
 	return output;
 }
 

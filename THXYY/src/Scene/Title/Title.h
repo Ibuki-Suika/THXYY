@@ -11,6 +11,7 @@ class Title : public Scene
 private:
 	Layer* bgrLayer;
 	Texture* titleTex;
+	Texture* texLogo = nullptr;
 
 	Layer* blackLayer = nullptr;
 	Sprite* black = nullptr;
@@ -18,6 +19,9 @@ private:
 	ParticleLayer* particleLayer = nullptr;
 
 	bool needFadeIn = true;
+
+private:
+	void CreateLogo();
 
 public:
 	Title();

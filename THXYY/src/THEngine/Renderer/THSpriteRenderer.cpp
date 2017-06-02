@@ -10,7 +10,6 @@ using namespace THEngine;
 
 SpriteRenderer::SpriteRenderer()
 {
-
 }
 
 SpriteRenderer::~SpriteRenderer()
@@ -71,10 +70,10 @@ void SpriteRenderer::Render(GameObject* obj)
 	float y = -height * sprite->pivot.y;
 	float z = sprite->position.z;
 
-	left += 0.5 / texWidth;
-	right += 0.5 / texWidth;
-	top += 0.5 / texHeight;
-	bottom += 0.5 / texHeight;
+	//left += 0.5 / texWidth;
+	//right += 0.5 / texWidth;
+	//top += 0.5 / texHeight;
+	//bottom += 0.5 / texHeight;
 
 	SpriteVertex* vertices;
 	auto& color = sprite->GetColor();
@@ -140,17 +139,17 @@ void SpriteRenderer::Render(GameObject* obj)
 	spriteShader->UsePass(0);
 	device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 }
-	/*Sprite* sprite = (Sprite*)obj;
-	if (this->spriteBatch.texture && this->spriteBatch.spriteCount < MAX_SPRITE 
-		&& this->spriteBatch.texture == sprite->GetTexture())
-	{
-		PushBatch(sprite);
-	}
-	else
-	{
-		FlushBatch();
-		PushBatch(sprite);
-	}
+/*Sprite* sprite = (Sprite*)obj;
+if (this->spriteBatch.texture && this->spriteBatch.spriteCount < MAX_SPRITE
+	&& this->spriteBatch.texture == sprite->GetTexture())
+{
+	PushBatch(sprite);
+}
+else
+{
+	FlushBatch();
+	PushBatch(sprite);
+}
 }
 
 void SpriteRenderer::PushBatch(Sprite* sprite)

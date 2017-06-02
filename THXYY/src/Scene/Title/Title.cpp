@@ -4,18 +4,25 @@
 
 Title::Title()
 {
-	titleTex = AssetManager::GetInstance()->CreateTextureFromFile("res/title/title.jpg");
-	titleTex->Retain();
 }
 
 Title::~Title()
 {
 	TH_SAFE_RELEASE(titleTex);
+	TH_SAFE_RELEASE(texLogo);
 }
 
 void Title::OnLoad(AsyncInfo* info)
 {
 	Scene::OnLoad(info);
+
+	auto assetManager = AssetManager::GetInstance();
+
+	titleTex = assetManager->CreateTextureFromFile("res/title/title.jpg");
+	titleTex->Retain();
+
+	this->texLogo = assetManager->CreateTextureFromFile("res/title/logo.png");
+	this->texLogo->Retain();
 }
 
 void Title::OnStart()
@@ -27,6 +34,7 @@ void Title::OnStart()
 
 	Sprite* background = new Sprite();
 	background->SetTexture(titleTex);
+	background->SetPosition(Vector3f(0.0f, 0.0f, 100.0f));
 	background->SetPivot(Vector2f(0.0f, 0.0f));
 	bgrLayer->AddChild(background);
 	this->AddLayer(bgrLayer);
@@ -43,6 +51,8 @@ void Title::OnStart()
 	blackLayer->SetOrder(0);
 	AddLayer(blackLayer);
 
+	CreateLogo();
+
 	if (needFadeIn)
 	{
 		black = new Sprite();
@@ -54,7 +64,7 @@ void Title::OnStart()
 
 		titleMenu->Pause();
 		FrameTimer* timer = new FrameTimer();
-		timer->SetFrame(30);
+		timer->SetFrame(60);
 		timer->run = [titleMenu]() {
 			titleMenu->Resume();
 		};
@@ -66,4 +76,23 @@ void Title::OnStart()
 			bgm->Play();
 		}
 	}
+}
+
+void Title::CreateLogo()
+{
+	Sprite* logo = new Sprite();
+	logo->SetTexture(this->texLogo);
+	logo->SetPosition(Vector3f(228, 355, 5));
+
+	if (needFadeIn)
+	{
+		logo->SetAlpha(0.0f);
+		logo->SetScale(1.5f, 1.5f);
+		logo->GetScheduler()->AddFrameTimer(20, [logo]() {
+			logo->AddTween(new FadeTo(1.0f, 30, Tweener::SIMPLE));
+			logo->AddTween(new ScaleTo(Vector3f(1.0f, 1.0f, 1.0f), 30, Tweener::SIMPLE));
+		});
+	}
+
+	this->bgrLayer->AddChild(logo);
 }
