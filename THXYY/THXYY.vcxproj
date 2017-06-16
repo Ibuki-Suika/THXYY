@@ -183,6 +183,7 @@
     <ClCompile Include="src\THEngine\Math\THRandomGenerator.cpp" />
     <ClCompile Include="src\THEngine\Math\THVector.cpp" />
     <ClCompile Include="src\THEngine\Platform\External\CWaveFile.cpp" />
+    <ClCompile Include="src\THEngine\Platform\THDevice.cpp" />
     <ClCompile Include="src\THEngine\Platform\THSystemClock.cpp" />
     <ClCompile Include="src\THEngine\Platform\THSurface.cpp" />
     <ClCompile Include="src\THEngine\Platform\THAudio.cpp" />
@@ -315,6 +316,7 @@
     <ClInclude Include="src\THEngine\Math\THRandomGenerator.h" />
     <ClInclude Include="src\THEngine\Math\THVector.h" />
     <ClInclude Include="src\THEngine\Platform\External\CWaveFile.h" />
+    <ClInclude Include="src\THEngine\Platform\THDevice.h" />
     <ClInclude Include="src\THEngine\Platform\THSystemClock.h" />
     <ClInclude Include="src\THEngine\Platform\THSurface.h" />
     <ClInclude Include="src\THEngine\Platform\THAudio.h" />

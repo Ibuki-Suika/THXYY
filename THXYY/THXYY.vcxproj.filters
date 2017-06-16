@@ -564,6 +564,9 @@
     <ClCompile Include="src\THEngine\Scheduling\THTimer.cpp">
       <Filter>源文件\THEngine\Scheduling</Filter>
     </ClCompile>
+    <ClCompile Include="src\THEngine\Platform\THDevice.cpp">
+      <Filter>源文件\THEngine\Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\THEngine\Common\THCommon.h">
@@ -961,6 +964,9 @@
     </ClInclude>
     <ClInclude Include="src\THEngine\Scheduling\THTimer.h">
       <Filter>头文件\THEngine\Scheduling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Platform\THDevice.h">
+      <Filter>头文件\THEngine\Platform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

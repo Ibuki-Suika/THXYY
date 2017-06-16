@@ -62,8 +62,8 @@ void GameScene::Update()
 void GameScene::Draw()
 {
 	Scene::Draw();
-	Application::GetInstance()->SetOrtho(0, 0, Game::GetInstance()->GetWidth(), Game::GetInstance()->GetHeight(), 0, 100);
-	Application::GetInstance()->SetViewport(0, 0, Game::GetInstance()->GetWidth(), Game::GetInstance()->GetHeight());
+	Device::GetInstance()->SetOrtho(0, 0, Game::GetInstance()->GetWidth(), Game::GetInstance()->GetHeight(), 0, 100);
+	Device::GetInstance()->SetViewport(0, 0, Game::GetInstance()->GetWidth(), Game::GetInstance()->GetHeight());
 	DrawMaxPoint();
 	DrawGraze();
 }

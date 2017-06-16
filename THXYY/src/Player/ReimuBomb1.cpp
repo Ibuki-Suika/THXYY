@@ -240,8 +240,7 @@ void ReimuBomb1::ClearBullet()
 
 void ReimuBomb1::Draw()
 {
-	auto app = Application::GetInstance();
-	auto renderState = app->GetRenderState();
+	auto renderState = Device::GetInstance()->GetRenderState();
 
 	Sprite::Draw();
 }
