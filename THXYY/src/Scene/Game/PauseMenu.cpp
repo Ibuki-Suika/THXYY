@@ -45,7 +45,7 @@ void PauseMenu::DoPause()
 	title = new PauseMenuItem(PauseMenuItem::PAUSE);
 	title->SetPosition(Vector3f(-140, 440, 5));
 	title->SetAlpha(0);
-	title->AddTween(new MoveBy(Vector3f(140, -235, 5), FADE_TIME, Tweener::EASE_OUT));
+	title->AddTween(new MoveBy(Vector3f(140, -235, 0), FADE_TIME, Tweener::EASE_OUT));
 	title->AddTween(new FadeTo(1.0f, FADE_TIME, Tweener::EASE_OUT));
 	AddChild(title);
 
@@ -81,7 +81,7 @@ void PauseMenu::DoGameOver()
 	title = new PauseMenuItem(PauseMenuItem::GAME_OVER);
 	title->SetPosition(Vector3f(-140, 440, 5));
 	title->SetAlpha(0);
-	title->AddTween(new MoveBy(Vector3f(140, -235, 5), FADE_TIME, Tweener::EASE_OUT));
+	title->AddTween(new MoveBy(Vector3f(140, -235, 0), FADE_TIME, Tweener::EASE_OUT));
 	title->AddTween(new FadeTo(1.0f, FADE_TIME, Tweener::EASE_OUT));
 	AddChild(title);
 
@@ -104,7 +104,8 @@ void PauseMenu::DoGameOver()
 
 void PauseMenu::DoResume()
 {
-	black->AddTween(new FadeOut(FADE_TIME, Tweener::EASE_OUT));
+	if (black)
+		black->AddTween(new FadeOut(FADE_TIME, Tweener::EASE_OUT));
 
 	black = nullptr;
 

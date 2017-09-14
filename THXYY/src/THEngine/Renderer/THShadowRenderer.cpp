@@ -28,6 +28,7 @@ namespace THEngine
 	ShadowRenderer::~ShadowRenderer()
 	{
 		TH_SAFE_RELEASE(this->depthBuffer);
+		TH_SAFE_RELEASE(this->depthBufferPrev);
 	}
 
 	void ShadowRenderer::Render(GameObject* obj)
@@ -59,8 +60,8 @@ namespace THEngine
 		this->renderTargetPrev = renderState->GetRenderTarget();
 		this->viewportPrev = renderState->GetViewport();
 		this->depthTestEnabledPrev = renderState->IsDepthTestEnabled();
-		this->depthBufferPrev = renderState->GetDepthBuffer();
 		this->blendModePrev = renderState->GetBlendMode();
+		TH_SET(this->depthBufferPrev, renderState->GetDepthBuffer());
 
 		device->GetD3DDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
 		device->GetD3DDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
