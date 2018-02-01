@@ -8,46 +8,41 @@ Title::Title()
 
 Title::~Title()
 {
-	TH_SAFE_RELEASE(titleTex);
-	TH_SAFE_RELEASE(texLogo);
 }
 
-void Title::OnLoad(AsyncInfo* info)
+void Title::OnLoad(Ptr<AsyncInfo> info)
 {
 	Scene::OnLoad(info);
 
 	auto assetManager = AssetManager::GetInstance();
 
 	titleTex = assetManager->CreateTextureFromFile("res/title/title.jpg");
-	titleTex->Retain();
-
 	this->texLogo = assetManager->CreateTextureFromFile("res/title/logo.png");
-	this->texLogo->Retain();
 }
 
 void Title::OnStart()
 {
 	Scene::OnStart();
 
-	bgrLayer = new Layer();
+	bgrLayer = Ptr<Layer>::New();
 	bgrLayer->SetOrder(100);
 
-	Sprite* background = new Sprite();
+	Ptr<Sprite> background = Ptr<Sprite>::New();
 	background->SetTexture(titleTex);
 	background->SetPosition(Vector3f(0.0f, 0.0f, 100.0f));
 	background->SetPivot(Vector2f(0.0f, 0.0f));
-	bgrLayer->AddChild(background);
+	bgrLayer->AddChild(background.Get());
 	this->AddLayer(bgrLayer);
 
-	TitleMenu* titleMenu = new TitleMenu();
+	Ptr<TitleMenu> titleMenu = Ptr<TitleMenu>::New();
 	titleMenu->SetOrder(50);
-	this->AddLayer(titleMenu);
+	this->AddLayer(titleMenu.Get());
 
-	particleLayer = new ParticleLayer();
+	particleLayer = Ptr<ParticleLayer>::New();
 	particleLayer->SetOrder(20);
-	AddLayer(particleLayer);
+	AddLayer(particleLayer.Get());
 
-	blackLayer = new Layer();
+	blackLayer = Ptr<Layer>::New();
 	blackLayer->SetOrder(0);
 	AddLayer(blackLayer);
 
@@ -55,22 +50,22 @@ void Title::OnStart()
 
 	if (needFadeIn)
 	{
-		black = new Sprite();
+		black = Ptr<Sprite>::New();
 		black->SetTexture(Global::GetInstance()->texBlack);
 		black->SetPosition(Vector3f(0.0f, 0.0f, 1.0f));
 		black->SetPivot(Vector2f(0.0f, 0.0f));
-		black->AddTween(new FadeTo(0.0f, 80, Tweener::SIMPLE));
-		blackLayer->AddChild(black);
+		black->AddTween(Ptr<FadeTo>::New(0.0f, 80, Tweener::SIMPLE).Get());
+		blackLayer->AddChild(black.Get());
 
 		titleMenu->Pause();
-		FrameTimer* timer = new FrameTimer();
+		Ptr<FrameTimer> timer = Ptr<FrameTimer>::New();
 		timer->SetFrame(60);
 		timer->run = [titleMenu]() {
 			titleMenu->Resume();
 		};
 		GetScheduler()->AddFrameTimer(timer);
 
-		Music* bgm = Global::GetInstance()->titleMusic;
+		Ptr<Music> bgm = Global::GetInstance()->titleMusic;
 		if (bgm)
 		{
 			bgm->Play();
@@ -80,7 +75,7 @@ void Title::OnStart()
 
 void Title::CreateLogo()
 {
-	Sprite* logo = new Sprite();
+	Ptr<Sprite> logo = Ptr<Sprite>::New();
 	logo->SetTexture(this->texLogo);
 	logo->SetPosition(Vector3f(228, 355, 5));
 
@@ -89,10 +84,10 @@ void Title::CreateLogo()
 		logo->SetAlpha(0.0f);
 		logo->SetScale(1.5f, 1.5f);
 		logo->GetScheduler()->AddFrameTimer(20, [logo]() {
-			logo->AddTween(new FadeTo(1.0f, 30, Tweener::SIMPLE));
-			logo->AddTween(new ScaleTo(Vector3f(1.0f, 1.0f, 1.0f), 30, Tweener::SIMPLE));
+			logo->AddTween(Ptr<FadeTo>::New(1.0f, 30, Tweener::SIMPLE).Get());
+			logo->AddTween(Ptr<ScaleTo>::New(Vector3f(1.0f, 1.0f, 1.0f), 30, Tweener::SIMPLE).Get());
 		});
 	}
 
-	this->bgrLayer->AddChild(logo);
+	this->bgrLayer->AddChild(logo.Get());
 }

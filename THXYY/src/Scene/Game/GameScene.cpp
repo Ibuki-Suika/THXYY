@@ -7,47 +7,44 @@ using namespace THEngine;
 
 GameScene::GameScene()
 {
-	STGEngine* engine = STGEngine::GetInstance();
+	auto engine = STGEngine::GetInstance();
 	engine->SetGameScene(this);
 
-	baseLayer = new Layer();
+	baseLayer = Ptr<Layer>::New();
 	baseLayer->SetOrder(100);
 	AddLayer(baseLayer);
 
-	stgLayer = new STGLayer();
+	stgLayer = Ptr<STGLayer>::New();
 	stgLayer->SetOrder(10);
-	AddLayer(stgLayer);
+	AddLayer(stgLayer.Get());
 
-	stgParticleLayer = new STGParticleLayer();
+	stgParticleLayer = Ptr<STGParticleLayer>::New();
 	stgParticleLayer->SetOrder(15);
-	AddLayer(stgParticleLayer);
+	AddLayer(stgParticleLayer.Get());
 
-	blackLayer = new Layer();
+	blackLayer = Ptr<Layer>::New();
 	blackLayer->SetOrder(0);
 	AddLayer(blackLayer);
 
-	blackSTGLayer = new Layer(32, 16, 384, 448);
+	blackSTGLayer = Ptr<Layer>::New(32, 16, 384, 448);
 	blackLayer->SetOrder(1);
 	AddLayer(blackSTGLayer);
 
-	backgroundLayer = new Layer(32, 16, 384, 448);
+	backgroundLayer = Ptr<Layer>::New(32, 16, 384, 448);
 	backgroundLayer->SetOrder(50);
 	AddLayer(backgroundLayer);
 
-	pauseMenu = new PauseMenu();
+	pauseMenu = Ptr<PauseMenu>::New();
 	pauseMenu->SetOrder(5);
-	AddLayer(pauseMenu);
+	AddLayer(pauseMenu.Get());
 
-	yesNoMenu = new YesNoMenu();
+	yesNoMenu = Ptr<YesNoMenu>::New();
 	yesNoMenu->SetOrder(4);
-	AddLayer(yesNoMenu);
+	AddLayer(yesNoMenu.Get());
 }
 
 GameScene::~GameScene()
 {
-	TH_SAFE_RELEASE(texGameBg);
-	TH_SAFE_RELEASE(texGameBg2);
-	TH_SAFE_RELEASE(texFront);
 }
 
 void GameScene::Update()
@@ -72,14 +69,14 @@ void GameScene::CreateFront()
 {
 	auto engine = STGEngine::GetInstance();
 
-	Sprite* background = new Sprite();
+	Ptr<Sprite> background = Ptr<Sprite>::New();
 	background->SetTexture(texGameBg);
 	background->SetPivot(Vector2f(0.0f, 0.0f));
 	background->SetPosition(Vector3f(0.0f, 0.0f, 100.0f));
-	baseLayer->AddChild(background);
+	baseLayer->AddChild(background.Get());
 
 	//创建难度栏
-	this->difficulty = new Sprite();
+	this->difficulty = Ptr<Sprite>::New();
 	this->difficulty->SetTexture(texGameBg2);
 	this->difficulty->SetPosition(Vector3f(528.0f, 448.0f, 1.0f));
 	switch (engine->GetDifficulty())
@@ -102,14 +99,14 @@ void GameScene::CreateFront()
 	default:
 		break;
 	}
-	baseLayer->AddChild(this->difficulty);
+	baseLayer->AddChild(this->difficulty.Get());
 	if (IsNewGame())
 	{
 		this->difficulty->SetAlpha(0);
-		TweenSequence* sequence = new TweenSequence();
-		sequence->AddTween(new Delay(120));
-		sequence->AddTween(new FadeTo(1.0f, 30, Tweener::SIMPLE));
-		this->difficulty->AddTween(sequence);
+		Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+		sequence->AddTween(Ptr<Delay>::New(120).Get());
+		sequence->AddTween(Ptr<FadeTo>::New(1.0f, 30, Tweener::SIMPLE).Get());
+		this->difficulty->AddTween(sequence.Get());
 	}
 
 	//创建分数栏
@@ -118,34 +115,31 @@ void GameScene::CreateFront()
 	//创建残机和符卡栏
 	for (int i = 0; i < 8; i++)
 	{
-		lifeSprite[i] = new Sprite();
+		lifeSprite[i] = Ptr<Sprite>::New();
 		lifeSprite[i]->SetTexture(texGameBg2);
 		lifeSprite[i]->SetPivot(Vector2f(0.0f, 0.0f));
 		lifeSprite[i]->SetPosition(Vector3f(SCORE_LEFT - 5 + 18 * i, 340.0f, 1.0f));
-		baseLayer->AddChild(lifeSprite[i]);
+		baseLayer->AddChild(lifeSprite[i].Get());
 
-		bombSprite[i] = new Sprite();
+		bombSprite[i] = Ptr<Sprite>::New();
 		bombSprite[i]->SetTexture(texGameBg2);
 		bombSprite[i]->SetPivot(Vector2f(0.0f, 0.0f));
 		bombSprite[i]->SetPosition(Vector3f(SCORE_LEFT - 5 + 18 * i, 314.0f, 1.0f));
-		baseLayer->AddChild(bombSprite[i]);
+		baseLayer->AddChild(bombSprite[i].Get());
 	}
 
 	//创建灵力栏
 	CreatePowerPanel();
 }
 
-void GameScene::OnLoad(AsyncInfo* info)
+void GameScene::OnLoad(Ptr<AsyncInfo> info)
 {
 	Scene::OnLoad(info);
 
-	AssetManager* manager = AssetManager::GetInstance();
+	auto manager = AssetManager::GetInstance();
 	texGameBg = manager->CreateTextureFromFile("res/front/gamebg.jpg");
-	texGameBg->Retain();
 	texGameBg2 = manager->CreateTextureFromFile("res/front/gamebg2.png");
-	texGameBg2->Retain();
 	texFront = manager->CreateTextureFromFile("res/front/front.png");
-	texFront->Retain();
 
 	auto engine = STGEngine::GetInstance();
 	engine->OnLoad();
@@ -161,13 +155,13 @@ void GameScene::OnStart()
 	CreateFront();
 	StartStage();
 
-	Sprite* black = new Sprite();
+	Ptr<Sprite> black = Ptr<Sprite>::New();
 	black->SetTexture(Global::GetInstance()->texBlack);
 	black->SetPosition(Vector3f(0.0f, 0.0f, 1.0f));
 	black->SetPivot(Vector2f(0.0f, 0.0f));
 	black->SetAlpha(1.0f);
-	black->AddTween(new FadeOut(30, Tweener::EASE_OUT));
-	blackLayer->AddChild(black);
+	black->AddTween(Ptr<FadeOut>::New(30, Tweener::EASE_OUT).Get());
+	blackLayer->AddChild(black.Get());
 
 	auto eventSystem = EventSystem::GetInstance();
 	eventSystem->RegisterKeyDownListener(this);
@@ -188,16 +182,16 @@ void GameScene::CreateScorePanel()
 {
 	for (int i = 0; i < 10; i++)
 	{
-		hiScore[i] = new ScoreNumber();
+		hiScore[i] = Ptr<ScoreNumber>::New();
 		hiScore[i]->SetTexture(texGameBg2);
 		hiScore[i]->SetPivot(Vector2f(0.0f, 0.0f));
-		baseLayer->AddChild(hiScore[i]);
+		baseLayer->AddChild(hiScore[i].Get());
 
-		score[i] = new ScoreNumber();
+		score[i] = Ptr<ScoreNumber>::New();
 		score[i]->SetTexture(texGameBg2);
 		score[i]->SetPosition(Vector3f(SCORE_LEFT + 13 * i, 382.0f, 1.0f));
 		score[i]->SetPivot(Vector2f(0.0f, 0.0f));
-		baseLayer->AddChild(score[i]);
+		baseLayer->AddChild(score[i].Get());
 	}
 
 	hiScore[0]->SetPosition(Vector3f(SCORE_LEFT, 410.0f, 1.0f));
@@ -228,14 +222,14 @@ void GameScene::CreateScorePanel()
 		score[j]->SetPosition(Vector3f(SCORE_LEFT + 106 + 13 * (j - 7), 382.0f, 1.0f));
 	}
 
-	Sprite* comma[6];
+	Ptr<Sprite> comma[6];
 	for (int i = 0; i < 6; i++)
 	{
-		comma[i] = new Sprite();
+		comma[i] = Ptr<Sprite>::New();
 		comma[i]->SetTexture(texGameBg2);
 		comma[i]->SetPivot(Vector2f(0.0f, 0.0f));
 		comma[i]->SetTexRect(Rect(226, 231, 8, 24));
-		baseLayer->AddChild(comma[i]);
+		baseLayer->AddChild(comma[i].Get());
 	}
 	for (int i = 0; i < 3; i++)
 	{
@@ -249,61 +243,61 @@ void GameScene::CreateScorePanel()
 
 void GameScene::CreatePowerPanel()
 {
-	powerSprite[0] = new PowerNumber();
+	powerSprite[0] = Ptr<PowerNumber>::New();
 	powerSprite[0]->SetTexture(texGameBg2);
 	powerSprite[0]->SetPivot(Vector2f(0.0f, 0.0f));
 	powerSprite[0]->SetPosition(Vector3f(POWER_LEFT, 276.0f, 1.0f));
-	baseLayer->AddChild(powerSprite[0]);
+	baseLayer->AddChild(powerSprite[0].Get());
 
-	Sprite* point1 = new Sprite();
+	Ptr<Sprite> point1 = Ptr<Sprite>::New();
 	point1->SetTexture(texGameBg2);
 	point1->SetTexRect(Rect(242.0f, 248.0f, 40.0f, 56.0f));
 	point1->SetPivot(Vector2f(0.0f, 0.0f));
 	point1->SetPosition(Vector3f(POWER_LEFT + 13, 276.0f, 1.0f));
-	baseLayer->AddChild(point1);
+	baseLayer->AddChild(point1.Get());
 
 	for (int i = 1; i < 3; i++)
 	{
-		powerSprite[i] = new PowerNumber();
+		powerSprite[i] = Ptr<PowerNumber>::New();
 		powerSprite[i]->SetTexture(texGameBg2);
 		powerSprite[i]->SetPivot(Vector2f(0.0f, 0.0f));
 		powerSprite[i]->SetPosition(Vector3f(POWER_LEFT + 13 * i + 6, 276.0f, 1.0f));
-		baseLayer->AddChild(powerSprite[i]);
+		baseLayer->AddChild(powerSprite[i].Get());
 	}
 
-	Sprite* gang = new Sprite();
+	Ptr<Sprite> gang = Ptr<Sprite>::New();
 	gang->SetTexture(texGameBg2);
 	gang->SetTexRect(Rect(232.0f, 242.0f, 40.0f, 56.0f));
 	gang->SetPivot(Vector2f(0.0f, 0.0f));
 	gang->SetPosition(Vector3f(POWER_LEFT + 45, 276.0f, 1.0f));
-	baseLayer->AddChild(gang);
+	baseLayer->AddChild(gang.Get());
 
-	powerSprite[3] = new PowerNumber();
+	powerSprite[3] = Ptr<PowerNumber>::New();
 	powerSprite[3]->SetTexture(texGameBg2);
 	powerSprite[3]->SetPivot(Vector2f(0.0f, 0.0f));
 	powerSprite[3]->SetPosition(Vector3f(POWER_LEFT + 55, 276.0f, 1.0f));
-	baseLayer->AddChild(powerSprite[3]);
+	baseLayer->AddChild(powerSprite[3].Get());
 
-	Sprite* point2 = new Sprite();
+	Ptr<Sprite> point2 = Ptr<Sprite>::New();
 	point2->SetTexture(texGameBg2);
 	point2->SetTexRect(Rect(242.0f, 248.0f, 40.0f, 56.0f));
 	point2->SetPivot(Vector2f(0.0f, 0.0f));
 	point2->SetPosition(Vector3f(POWER_LEFT + 68, 276.0f, 1.0f));
-	baseLayer->AddChild(point2);
+	baseLayer->AddChild(point2.Get());
 
 	for (int i = 4; i < 6; i++)
 	{
-		powerSprite[i] = new PowerNumber();
+		powerSprite[i] = Ptr<PowerNumber>::New();
 		powerSprite[i]->SetTexture(texGameBg2);
 		powerSprite[i]->SetPivot(Vector2f(0.0f, 0.0f));
 		powerSprite[i]->SetPosition(Vector3f(POWER_LEFT + 13 * i + 22, 276.0f, 1.0f));
-		baseLayer->AddChild(powerSprite[i]);
+		baseLayer->AddChild(powerSprite[i].Get());
 	}
 }
 
 void GameScene::UpdateScore()
 {
-	STGEngine* engine = STGEngine::GetInstance();
+	auto engine = STGEngine::GetInstance();
 
 	long long temp1 = engine->GetScore(), temp2 = engine->GetHiScore();
 	for (int i = 0; i < 10; i++)
@@ -317,7 +311,7 @@ void GameScene::UpdateScore()
 
 void GameScene::UpdateLifeAndBomb()
 {
-	STGEngine* engine = STGEngine::GetInstance();
+	auto engine = STGEngine::GetInstance();
 	int life = engine->GetLife();
 	int bomb = engine->GetBomb();
 
@@ -346,7 +340,7 @@ void GameScene::UpdateLifeAndBomb()
 
 void GameScene::UpdatePower()
 {
-	STGEngine* engine = STGEngine::GetInstance();
+	auto engine = STGEngine::GetInstance();
 	int power = engine->GetPower();
 	int maxPower = engine->GetMaxPower();
 	int temp1 = power;
@@ -363,7 +357,7 @@ void GameScene::UpdatePower()
 
 void GameScene::DrawMaxPoint()
 {
-	STGEngine* engine = STGEngine::GetInstance();
+	auto engine = STGEngine::GetInstance();
 	int maxPoint = engine->GetMaxPoint();
 
 	auto iter = pointSpriteList.GetIterator();
@@ -377,20 +371,20 @@ void GameScene::DrawMaxPoint()
 	int temp = maxPoint;
 	for (int i = 0; temp > 0; i++)
 	{
-		PointNumber* pointSprite = new PointNumber();
+		Ptr<PointNumber> pointSprite = Ptr<PointNumber>::New();
 		pointSprite->SetTexture(texGameBg2);
 		pointSprite->SetPivot(Vector2f(0.0f, 0.0f));
 		pointSprite->SetNumber(temp % 10);
 		pointSprite->SetPosition(Vector3f(POWER_LEFT + 87.0f - 13.0f * i, 252.0f, 1.0f));
-		baseLayer->AddChild(pointSprite);
-		pointSpriteList.Add(pointSprite);
+		baseLayer->AddChild(pointSprite.Get());
+		pointSpriteList.Add(pointSprite.Get());
 		temp /= 10;
 	}
 }
 
 void GameScene::DrawGraze()
 {
-	STGEngine* engine = STGEngine::GetInstance();
+	auto engine = STGEngine::GetInstance();
 	int graze = engine->GetGraze();
 
 	auto iter = grazeSpriteList.GetIterator();
@@ -404,22 +398,22 @@ void GameScene::DrawGraze()
 	int temp = graze;
 	if (temp == 0)
 	{
-		GrazeNumber* grazeSprite = new GrazeNumber();
+		Ptr<GrazeNumber> grazeSprite = Ptr<GrazeNumber>::New();
 		grazeSprite->SetTexture(texGameBg2);
 		grazeSprite->SetPivot(Vector2f(0.0f, 0.0f));
 		grazeSprite->SetNumber(0);
 		grazeSprite->SetPosition(Vector3f(POWER_LEFT + 87.0f, 228.0f, 1.0f));
-		baseLayer->AddChild(grazeSprite);
+		baseLayer->AddChild(grazeSprite.Get());
 		grazeSpriteList.Add(grazeSprite);
 	}
 	else for (int i = 0; temp > 0; i++)
 	{
-		GrazeNumber* grazeSprite = new GrazeNumber();
+		Ptr<GrazeNumber> grazeSprite = Ptr<GrazeNumber>::New();
 		grazeSprite->SetTexture(texGameBg2);
 		grazeSprite->SetPivot(Vector2f(0.0f, 0.0f));
 		grazeSprite->SetNumber(temp % 10);
 		grazeSprite->SetPosition(Vector3f(POWER_LEFT + 87.0f - 13.0f * i, 228.0f, 1.0f));
-		baseLayer->AddChild(grazeSprite);
+		baseLayer->AddChild(grazeSprite.Get());
 		grazeSpriteList.Add(grazeSprite);
 		temp /= 10;
 	}
@@ -427,18 +421,18 @@ void GameScene::DrawGraze()
 
 void GameScene::ReturnToTitle()
 {
-	Sprite* black = new Sprite();
+	Ptr<Sprite> black = Ptr<Sprite>::New();
 	black->SetTexture(Global::GetInstance()->texBlack);
 	black->SetPosition(Vector3f(0.0f, 0.0f, 1.0f));
 	black->SetPivot(Vector2f(0.0f, 0.0f));
 	black->SetAlpha(0.0f);
-	black->AddTween(new FadeTo(1.0f, 60, Tweener::EASE_OUT));
-	blackLayer->AddChild(black);
+	black->AddTween(Ptr<FadeTo>::New(1.0f, 60, Tweener::EASE_OUT).Get());
+	blackLayer->AddChild(black.Get());
 
-	Scheduler* scheduler = GetScheduler();
-	FrameTimer* timer = new FrameTimer();
+	Ptr<Scheduler> scheduler = GetScheduler();
+	Ptr<FrameTimer> timer = Ptr<FrameTimer>::New();
 	timer->SetFrame(60);
-	timer->run = []() {Game::GetInstance()->LoadScene(new Title()); };
+	timer->run = []() {Game::GetInstance()->LoadScene(Ptr<Title>::New().Get()); };
 	scheduler->AddFrameTimer(timer);
 }
 
@@ -461,27 +455,27 @@ void GameScene::DrawNewGameItems()
 	//draw item get border line
 	float lineHeight = STGEngine::GetInstance()->GetPlayer()->GetItemGetHeight();
 
-	ItemLine* itemLineText = new ItemLine();
+	Ptr<ItemLine> itemLineText = Ptr<ItemLine>::New();
 	itemLineText->SetTexture(this->texFront);
 	itemLineText->SetTexRect(Rect(0, 172, 0, 24));
 	itemLineText->SetPosition(Vector3f(192, lineHeight, 25));
 
-	ItemLine* itemLine = new ItemLine();
+	Ptr<ItemLine> itemLine = Ptr<ItemLine>::New();
 	itemLine->SetTexture(this->texFront);
 	itemLine->SetTexRect(Rect(0, 172, 24, 32));
 	itemLine->SetPosition(Vector3f(28, lineHeight, 25));
 
-	ItemLine* itemLine2 = new ItemLine();
+	Ptr<ItemLine> itemLine2 = Ptr<ItemLine>::New();
 	itemLine2->SetTexture(this->texFront);
 	itemLine2->SetTexRect(Rect(0, 172, 24, 32));
 	itemLine2->SetPosition(Vector3f(356, lineHeight, 25));
 
-	GetSTGLayer()->AddChild(itemLine);
-	GetSTGLayer()->AddChild(itemLine2);
-	GetSTGLayer()->AddChild(itemLineText);
+	GetSTGLayer()->AddChild(itemLine.Get());
+	GetSTGLayer()->AddChild(itemLine2.Get());
+	GetSTGLayer()->AddChild(itemLineText.Get());
 
 	//draw blinking difficulty on top of the shooting region
-	Sprite* diff = new Sprite();
+	Ptr<Sprite> diff = Ptr<Sprite>::New();
 	diff->SetTexture(texGameBg2);
 	switch (engine->GetDifficulty())
 	{
@@ -503,24 +497,27 @@ void GameScene::DrawNewGameItems()
 	default:
 		break;
 	}
-	TweenSequence* sequence = new TweenSequence();
-	sequence->AddTween(new Delay(7));
-	sequence->AddTween(new ColorTo(Vector3f(0.5f, 0.5f, 0.5f), 1, Tweener::SIMPLE));
-	sequence->AddTween(new Delay(7));
-	sequence->AddTween(new ColorTo(Vector3f(1.0f, 1.0f, 1.0f), 1, Tweener::SIMPLE));
+	Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+	sequence->AddTween(Ptr<Delay>::New(7).Get());
+	sequence->AddTween(Ptr<ColorTo>::New(Vector3f(0.5f, 0.5f, 0.5f), 1, Tweener::SIMPLE).Get());
+	sequence->AddTween(Ptr<Delay>::New(7).Get());
+	sequence->AddTween(Ptr<ColorTo>::New(Vector3f(1.0f, 1.0f, 1.0f), 1, Tweener::SIMPLE).Get());
 	sequence->SetLooped(true);
-	diff->AddTween(sequence);
+	diff->AddTween(sequence.Get());
 
-	FrameTimer* timer = new FrameTimer();
+	Ptr<FrameTimer> timer = Ptr<FrameTimer>::New();
 	timer->SetFrame(120);
-	timer->run = [diff]() {
-		diff->ClearTweens();
-		diff->AddTween(new FadeOut(30, Tweener::SIMPLE));
+
+	//do not capture smart pointer here, which will cause cycling reference
+	Sprite* raw_diff = diff.Get();
+	timer->run = [raw_diff]() {
+		raw_diff->ClearTweens();
+		raw_diff->AddTween(Ptr<FadeOut>::New(30, Tweener::SIMPLE).Get());
 	};
 	diff->GetScheduler()->AddFrameTimer(timer);
 
 	diff->SetPosition(Vector3f(192.0f, 432.0f, 1.0f));
-	GetSTGLayer()->AddChild(diff);
+	GetSTGLayer()->AddChild(diff.Get());
 }
 
 void GameScene::StartStage()
@@ -530,10 +527,10 @@ void GameScene::StartStage()
 		DrawNewGameItems();
 
 		this->difficulty->SetAlpha(0);
-		TweenSequence* sequence = new TweenSequence();
-		sequence->AddTween(new Delay(120));
-		sequence->AddTween(new FadeTo(1.0f, 30, Tweener::SIMPLE));
-		this->difficulty->AddTween(sequence);
+		Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+		sequence->AddTween(Ptr<Delay>::New(120).Get());
+		sequence->AddTween(Ptr<FadeTo>::New(1.0f, 30, Tweener::SIMPLE).Get());
+		this->difficulty->AddTween(sequence.Get());
 	}
 }
 
@@ -554,23 +551,23 @@ void GameScene::STGFadeIn(int time)
 {
 	if (blackSTG)
 	{
-		blackSTG->AddTween(new FadeOut(time, Tweener::EASE_OUT));
+		blackSTG->AddTween(Ptr<FadeOut>::New(time, Tweener::EASE_OUT).Get());
 		blackSTG = nullptr;
 	}
 }
 
 void GameScene::STGFadeOut(int time)
 {
-	blackSTG = new Sprite();
+	blackSTG = Ptr<Sprite>::New();
 	blackSTG->SetTexture(Global::GetInstance()->texBlack);
 	blackSTG->SetPosition(Vector3f(0.0f, 0.0f, 1.0f));
 	blackSTG->SetPivot(Vector2f(0.0f, 0.0f));
 	blackSTG->SetAlpha(0.0f);
-	blackSTG->AddTween(new FadeTo(1.0f, time, Tweener::EASE_OUT));
-	blackSTGLayer->AddChild(blackSTG);
+	blackSTG->AddTween(Ptr<FadeTo>::New(1.0f, time, Tweener::EASE_OUT).Get());
+	blackSTGLayer->AddChild(blackSTG.Get());
 }
 
-bool GameScene::OnKeyDown(EngineObject* sender, int key)
+bool GameScene::OnKeyDown(Ptr<EngineObject> sender, int key)
 {
 	if (key == VK_ESCAPE)
 	{

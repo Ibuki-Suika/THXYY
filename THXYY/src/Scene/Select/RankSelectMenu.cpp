@@ -8,23 +8,22 @@ RankSelectMenu::RankSelectMenu()
 {
 	auto assetManager = AssetManager::GetInstance();
 	RankSelectMenuItem::texRank = assetManager->CreateTextureFromFile("res/menu/rank.png");
-	RankSelectMenuItem::texRank->Retain();
 
-	this->easy = new RankSelectMenuItem();
+	this->easy = Ptr<RankSelectMenuItem>::New();
 	this->easy->SetType(RankSelectMenuItem::EASY);
-	AddMenuItem(this->easy);
+	AddMenuItem(this->easy.Get());
 
-	this->normal = new RankSelectMenuItem();
+	this->normal = Ptr<RankSelectMenuItem>::New();
 	this->normal->SetType(RankSelectMenuItem::NORMAL);
-	AddMenuItem(this->normal);
+	AddMenuItem(this->normal.Get());
 
-	this->hard = new RankSelectMenuItem();
+	this->hard = Ptr<RankSelectMenuItem>::New();
 	this->hard->SetType(RankSelectMenuItem::HARD);
-	AddMenuItem(this->hard);
+	AddMenuItem(this->hard.Get());
 
-	this->lunatic = new RankSelectMenuItem();
+	this->lunatic = Ptr<RankSelectMenuItem>::New();
 	this->lunatic->SetType(RankSelectMenuItem::LUNATIC);
-	AddMenuItem(this->lunatic);
+	AddMenuItem(this->lunatic.Get());
 
 	auto stgResources = STGResources::GetInstance();
 
@@ -34,7 +33,7 @@ RankSelectMenu::RankSelectMenu()
 
 RankSelectMenu::~RankSelectMenu()
 {
-	TH_SAFE_RELEASE(RankSelectMenuItem::texRank);
+	RankSelectMenuItem::texRank = nullptr;
 }
 
 void RankSelectMenu::OnMenuItemClicked(int item)
@@ -61,26 +60,26 @@ void RankSelectMenu::OnMenuItemClicked(int item)
 	}
 
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
-	((SelectScene*)Game::GetInstance()->GetScene())->StartGame();
+	((SelectScene*)Game::GetInstance()->GetScene().Get())->StartGame();
 }
 
-bool RankSelectMenu::OnKeyDown(EngineObject* sender, int key)
+bool RankSelectMenu::OnKeyDown(Ptr<EngineObject> sender, int key)
 {
 	if (key == 'x' || key == 'X' || key == VK_ESCAPE)
 	{
-		if (this->easy)
+		if (this->easy != nullptr)
 		{
 			this->easy->Exit();
 		}
-		if (this->normal)
+		if (this->normal != nullptr)
 		{
 			this->normal->Exit();
 		}
-		if (this->hard)
+		if (this->hard != nullptr)
 		{
 			this->hard->Exit();
 		}
-		if (this->lunatic)
+		if (this->lunatic != nullptr)
 		{
 			this->lunatic->Exit();
 		}
@@ -91,7 +90,7 @@ bool RankSelectMenu::OnKeyDown(EngineObject* sender, int key)
 		this->lunatic = nullptr;
 
 		EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
-		((SelectScene*)Game::GetInstance()->GetScene())->Back();
+		((SelectScene*)Game::GetInstance()->GetScene().Get())->Back();
 
 		return true;
 	}

@@ -21,6 +21,6 @@ void ItemLine::Update()
 
 	if (frame == 120)
 	{
-		AddTween(new FadeOut(30, Tweener::SIMPLE));
+		AddTween(Ptr<FadeOut>::New(30, Tweener::SIMPLE).Get());
 	}
 }

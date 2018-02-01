@@ -24,7 +24,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	app_count++;
 
 	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(2149);
+	//_CrtSetBreakAlloc(24584);
 
 	GameConfig config;
 	if (config.Load() == false)
@@ -43,16 +43,16 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	config.Save();
 
-	THXYY game;
-	if (game.CreateGame(config) == false)
+	Ptr<THXYY> game = Ptr<THXYY>::New();
+	if (game->CreateGame(config) == false)
 	{
 		String error = ExceptionManager::GetInstance()->GetException()->GetInfo();
 		String message = (String)"糟糕，游戏好像被隙间了。原因是：\n" + error;
 		THMessageBox(message);
-		game.Shutdown();
+		game->Shutdown();
 		return 0;
 	}
-	return game.Run();
+	return game->Run();
 }
 // THXYY-modified.cpp : 定义应用程序的入口点。
 //

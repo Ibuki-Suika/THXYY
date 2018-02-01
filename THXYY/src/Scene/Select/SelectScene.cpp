@@ -15,36 +15,32 @@ SelectScene::SelectScene()
 {
 	auto assetManager = AssetManager::GetInstance();
 	this->texBackground = assetManager->CreateTextureFromFile("res/menu/background.jpg");
-	this->texBackground->Retain();
 
 	this->texLoading = assetManager->CreateTextureFromFile("res/loading/loading.png");
-	this->texLoading->Retain();
 	StarParticle::tex = this->texLoading;
 
 	SelectTitle::tex = assetManager->CreateTextureFromFile("res/menu/select.png");
-	SelectTitle::tex->Retain();
 
-	this->bgrLayer = new Layer();
+	this->bgrLayer = Ptr<Layer>::New();
 	AddLayer(this->bgrLayer);
 
-	Sprite* background = new Sprite();
+	Ptr<Sprite> background = Ptr<Sprite>::New();
 	background->SetTexture(this->texBackground);
 	background->SetPosition(Vector3f(320, 240, 100));
-	TweenSequence* sequence = new TweenSequence();
-	sequence->AddTween(new Delay(DELAY_TIME));
-	sequence->AddTween(new ColorTo(Vector3f(0.6f, 0.6f, 0.6f), 100, Tweener::SIMPLE));
-	sequence->AddTween(new Delay(DELAY_TIME));
-	sequence->AddTween(new ColorTo(Vector3f(1.0f, 1.0f, 1.0f), 100, Tweener::SIMPLE));
+	Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+	sequence->AddTween(Ptr<Delay>::New(DELAY_TIME).Get());
+	sequence->AddTween(Ptr<ColorTo>::New(Vector3f(0.6f, 0.6f, 0.6f), 100, Tweener::SIMPLE).Get());
+	sequence->AddTween(Ptr<Delay>::New(DELAY_TIME).Get());
+	sequence->AddTween(Ptr<ColorTo>::New(Vector3f(1.0f, 1.0f, 1.0f), 100, Tweener::SIMPLE).Get());
 	sequence->SetLooped(true);
-	background->AddTween(sequence);
-	bgrLayer->AddChild(background);
+	background->AddTween(sequence.Get());
+	bgrLayer->AddChild(background.Get());
 }
 
 SelectScene::~SelectScene()
 {
-	TH_SAFE_RELEASE(this->texBackground);
-	TH_SAFE_RELEASE(this->texLoading);
-	TH_SAFE_RELEASE(SelectTitle::tex);
+	SelectTitle::tex = nullptr;
+	StarParticle::tex = nullptr;
 }
 
 void SelectScene::OnStart()
@@ -55,8 +51,8 @@ void SelectScene::OnStart()
 
 	for (int i = 0; i < 10; i++)
 	{
-		StarParticle* particle = new StarParticle();
-		this->bgrLayer->AddChild(particle);
+		Ptr<StarParticle> particle = Ptr<StarParticle>::New();
+		this->bgrLayer->AddChild(particle.Get());
 	}
 }
 
@@ -68,8 +64,8 @@ void SelectScene::Update()
 	if (frame == 8)
 	{
 		frame = 0;
-		StarParticle* particle = new StarParticle();
-		this->bgrLayer->AddChild(particle);
+		Ptr<StarParticle> particle = Ptr<StarParticle>::New();
+		this->bgrLayer->AddChild(particle.Get());
 	}
 
 	if (nowLoading)
@@ -78,7 +74,7 @@ void SelectScene::Update()
 		if (frame_nowLoading == 4)
 		{
 			frame_nowLoading = 0;
-			Particle3D* particle = new Particle3D();
+			Ptr<Particle3D> particle = Ptr<Particle3D>::New();
 			particle->SetTexture(this->texLoading);
 			particle->SetTexRect(Rect(32, 64, 96, 128));
 			particle->SetPosition(Vector3f(Math::Random(416, 640), 128, 50));
@@ -93,77 +89,77 @@ void SelectScene::Update()
 			float rad = Math::ToRad(Math::Random(0, 90) + 225);
 			particle->SetDirection(Vector3f(cos(rad), sin(rad), 0));
 
-			TweenSequence* sequence = new TweenSequence();
-			sequence->AddTween(new FadeTo(0.8f, 10, Tweener::EASE_OUT));
-			sequence->AddTween(new Delay(10));
-			sequence->AddTween(new FadeOut(10, Tweener::EASE_OUT));
-			particle->AddTween(sequence);
+			Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+			sequence->AddTween(Ptr<FadeTo>::New(0.8f, 10, Tweener::EASE_OUT).Get());
+			sequence->AddTween(Ptr<Delay>::New(10).Get());
+			sequence->AddTween(Ptr<FadeOut>::New(10, Tweener::EASE_OUT).Get());
+			particle->AddTween(sequence.Get());
 
-			this->blackLayer->AddChild(particle);
+			this->blackLayer->AddChild(particle.Get());
 		}
 	}
 }
 
 void SelectScene::ShowRank()
 {
-	this->title = new SelectTitle();
+	this->title = Ptr<SelectTitle>::New();
 	this->title->SetType(SelectTitle::RANK_SELECT);
 	this->title->SetPosition(Vector3f(480 + OFFSET, 416, 25));
 	title->SetAlpha(0.0f);
-	this->title->AddTween(new MoveTo(Vector3f(480, 416, 25), FADE_TIME, Tweener::SIMPLE));
-	this->title->AddTween(new FadeTo(1.0f, FADE_TIME, Tweener::SIMPLE));
-	this->bgrLayer->AddChild(this->title);
+	this->title->AddTween(Ptr<MoveTo>::New(Vector3f(480, 416, 25), FADE_TIME, Tweener::SIMPLE).Get());
+	this->title->AddTween(Ptr<FadeTo>::New(1.0f, FADE_TIME, Tweener::SIMPLE).Get());
+	this->bgrLayer->AddChild(this->title.Get());
 
-	this->rankSelectMenu = new RankSelectMenu();
-	AddLayer(this->rankSelectMenu);
+	this->rankSelectMenu = Ptr<RankSelectMenu>::New();
+	AddLayer(this->rankSelectMenu.Get());
 }
 
 void SelectScene::Back()
 {
-	this->title->AddTween(new MoveTo(Vector3f(480 + OFFSET, 416, 25), FADE_TIME, Tweener::SIMPLE));
-	this->title->AddTween(new FadeOut(FADE_TIME, Tweener::SIMPLE));
+	this->title->AddTween(Ptr<MoveTo>::New(Vector3f(480 + OFFSET, 416, 25), FADE_TIME, Tweener::SIMPLE).Get());
+	this->title->AddTween(Ptr<FadeOut>::New(FADE_TIME, Tweener::SIMPLE).Get());
 
-	FrameTimer* timer = new FrameTimer();
+	Ptr<FrameTimer> timer = Ptr<FrameTimer>::New();
 	timer->SetFrame(FADE_TIME);
 	timer->run = []() {
 		auto game = Game::GetInstance();
-		Title* titleScene = new Title();
+		Ptr<Title> titleScene = Ptr<Title>::New();
 		titleScene->SetNeedFadeIn(false);
-		game->LoadScene(titleScene);
+		game->LoadScene(titleScene.Get());
 	};
 	GetScheduler()->AddFrameTimer(timer);
 }
 
 void SelectScene::StartGame()
 {
-	this->blackLayer = new Layer();
+	this->blackLayer = Ptr<Layer>::New();
 	AddLayer(this->blackLayer);
 
 	Audio::GetInstance()->GetCurrentMusic()->FadeOut(2000);
 
-	Sprite* black = new Sprite();
+	Ptr<Sprite> black = Ptr<Sprite>::New();
 	black->SetPosition(Vector3f(320, 240, 100));
 	black->SetTexture(Global::GetInstance()->texBlack);
 	black->SetAlpha(0);
-	black->AddTween(new FadeTo(1.0f, GO_TO_NEXT_SCENE_TIME, Tweener::SIMPLE));
-	blackLayer->AddChild(black);
+	black->AddTween(Ptr<FadeTo>::New(1.0f, GO_TO_NEXT_SCENE_TIME, Tweener::SIMPLE).Get());
+	blackLayer->AddChild(black.Get());
 
-	Sprite* loading = new Sprite();
+	Ptr<Sprite> loading = Ptr<Sprite>::New();
 	loading->SetPosition(Vector3f(544, 80, 20));
 	loading->SetTexture(this->texLoading);
 	loading->SetTexRect(Rect(0, 256, 0, 96));
 	loading->SetAlpha(0.0f);
-	TweenSequence* sequence = new TweenSequence();
-	sequence->AddTween(new ColorTo(Vector3f(0.5f, 0.5f, 0.5f), 18, Tweener::SIMPLE));
-	sequence->AddTween(new ColorTo(Vector3f(1.0f, 1.0f, 1.0f), 18, Tweener::SIMPLE));
+	Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+	sequence->AddTween(Ptr<ColorTo>::New(Vector3f(0.5f, 0.5f, 0.5f), 18, Tweener::SIMPLE).Get());
+	sequence->AddTween(Ptr<ColorTo>::New(Vector3f(1.0f, 1.0f, 1.0f), 18, Tweener::SIMPLE).Get());
 	sequence->SetLooped(true);
-	loading->AddTween(sequence);
-	loading->AddTween(new FadeTo(1.0f, 18, Tweener::SIMPLE));
-	blackLayer->AddChild(loading);
+	loading->AddTween(sequence.Get());
+	loading->AddTween(Ptr<FadeTo>::New(1.0f, 18, Tweener::SIMPLE).Get());
+	blackLayer->AddChild(loading.Get());
 
 	this->nowLoading = true;
 
-	FrameTimer* timer = new FrameTimer();
+	Ptr<FrameTimer> timer = Ptr<FrameTimer>::New();
 	timer->SetFrame(GO_TO_NEXT_SCENE_TIME);
 	timer->run = [this]() {
 		auto engine = STGEngine::GetInstance();
@@ -173,14 +169,14 @@ void SelectScene::StartGame()
 		engine->SetGameType(STGEngine::NEW_GAME);
 		global->stageEnum = Global::STAGE_01;
 		global->playerEnum = Global::REIMU;
-		GameScene* scene = new GameScene();
-		Game::GetInstance()->LoadSceneAsync(scene, 18, [this]() {
-			Sprite* black2 = new Sprite();
+		Ptr<GameScene> scene = Ptr<GameScene>::New();
+		Game::GetInstance()->LoadSceneAsync(scene.Get(), 18, [this]() {
+			Ptr<Sprite> black2 = Ptr<Sprite>::New();
 			black2->SetPosition(Vector3f(320, 240, 0));
 			black2->SetTexture(Global::GetInstance()->texBlack);
 			black2->SetAlpha(0);
-			black2->AddTween(new FadeTo(1.0f, 18, Tweener::SIMPLE));
-			this->blackLayer->AddChild(black2);
+			black2->AddTween(Ptr<FadeTo>::New(1.0f, 18, Tweener::SIMPLE).Get());
+			this->blackLayer->AddChild(black2.Get());
 		});
 	};
 	GetScheduler()->AddFrameTimer(timer);

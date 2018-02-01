@@ -12,7 +12,6 @@ THXYY::THXYY()
 
 THXYY::~THXYY()
 {
-	TH_SAFE_RELEASE(engine);
 }
 
 bool THXYY::CreateGame(const GameConfig& config)
@@ -43,12 +42,11 @@ bool THXYY::CreateGame(const GameConfig& config)
 		}
 	}
 
-	engine = STGEngine::Create();
+	engine = STGEngine::GetInstance();
 	if (engine == nullptr)
 	{
 		return false;
 	}
-	engine->Retain();
 
 	auto stgResources = STGResources::GetInstance();
 	if (!stgResources->LoadSounds())
@@ -66,17 +64,18 @@ bool THXYY::CreateGame(const GameConfig& config)
 		return false;
 	}
 
-	Title* title = new Title();
-	LoadScene(title);
+	Ptr<Title> title = Ptr<Title>::New();
+	LoadScene(title.Get());
 
 	return true;
 }
 
 void THXYY::OnShutdown()
 {
-	TH_SAFE_RELEASE(engine);
-
-	delete Global::GetInstance();
-
 	Game::OnShutdown();
+
+	Global::DestroyInstance();
+
+	engine = nullptr;
+	engine->DestroyInstance();
 }

@@ -1,6 +1,6 @@
 #include "TitleMenuItem.h"
 
-Texture* TitleMenuItem::texTitleMenu = nullptr;
+Ptr<Texture> TitleMenuItem::texTitleMenu;
 
 TitleMenuItem::TitleMenuItem(Type type)
 {

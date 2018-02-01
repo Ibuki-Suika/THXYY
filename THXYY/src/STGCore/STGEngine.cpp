@@ -6,48 +6,9 @@
 
 using namespace THEngine;
 
-STGEngine* STGEngine::instance = nullptr;
-
-STGEngine::STGEngine()
-{
-	ASSERT(instance == nullptr);
-
-	score = hiScore = 0;
-
-	stgResources = STGResources::GetInstance();
-	stgResources->Retain();
-
-	this->randomGenerator = new RandomGenerator(time(NULL));
-	this->randomGenerator->Retain();
-
-	player = nullptr;
-	gameScene = nullptr;
-	stage = nullptr;
-}
-
 STGEngine::~STGEngine()
 {
-	TH_SAFE_RELEASE(stgResources);
-	TH_SAFE_RELEASE(randomGenerator);
-	TH_SAFE_RELEASE(player);
-	TH_SAFE_RELEASE(stage);
-}
-
-STGEngine* STGEngine::GetInstance()
-{
-	return instance;
-}
-
-STGEngine* STGEngine::Create()
-{
-	if (instance)
-	{
-		return nullptr;
-	}
-	STGEngine* engine = new STGEngine();
-	engine->SetDifficulty(NORMAL);
-	instance = engine;
-	return engine;
+	STGResources::DestroyInstance();
 }
 
 void STGEngine::ResetRandomSeed(int seed)
@@ -65,10 +26,11 @@ int STGEngine::Random(int a, int b)
 	return this->randomGenerator->Next(a, b);
 }
 
-void STGEngine::Init()
+bool STGEngine::Init()
 {
 	gameOver = false;
 	this->randomGenerator->Reset(time(NULL));
+	return true;
 }
 
 void STGEngine::Start()
@@ -86,11 +48,11 @@ void STGEngine::Start()
 	switch (global->playerEnum)
 	{
 	case Global::REIMU:
-		player = new Reimu();
+		player = Ptr<Reimu>::New().Get();
+		break;
 	}
-	player->Retain();
 
-	((GameScene*)Game::GetInstance()->GetScene())->GetSTGLayer()->AddChild(player);
+	((GameScene*)Game::GetInstance()->GetScene().Get())->GetSTGLayer()->AddChild(player.Get());
 
 	StartStage(this->stage);
 }
@@ -108,9 +70,6 @@ void STGEngine::Clear()
 	itemList.Clear();
 	particleList.Clear();
 	backgroundList.Clear();
-
-	TH_SAFE_RELEASE(player);
-	TH_SAFE_RELEASE(stage);
 }
 
 void STGEngine::Restart()
@@ -129,7 +88,7 @@ void STGEngine::Update()
 {
 	UpdateList();
 
-	if (stage)
+	if (stage != nullptr)
 	{
 		stage->Update();
 	}
@@ -201,14 +160,13 @@ void STGEngine::UpdateList()
 	}
 }
 
-void STGEngine::LoadStage(Stage* stage)
+void STGEngine::LoadStage(Ptr<Stage> stage)
 {
 	this->stage = stage;
-	this->stage->Retain();
 	this->stage->OnLoad();
 }
 
-void STGEngine::StartStage(Stage* stage)
+void STGEngine::StartStage(Ptr<Stage> stage)
 {
 	stage->OnStart();
 
@@ -224,66 +182,66 @@ void STGEngine::OnLoad()
 {
 	auto global = Global::GetInstance();
 
-	Stage* stage = nullptr;
+	Ptr<Stage> stage = nullptr;
 	switch (global->stageEnum)
 	{
 	case Global::STAGE_01:
-		stage = new Stage01();
+		stage = Ptr<Stage01>::New().Get();
 	}
 
 	LoadStage(stage);
 }
 
-void STGEngine::AddEnemy(Enemy* enemy)
+void STGEngine::AddEnemy(Ptr<Enemy> enemy)
 {
 	enemyList.Add(enemy);
-	gameScene->GetSTGLayer()->AddChild(enemy);
+	gameScene->GetSTGLayer()->AddChild(enemy.Get());
 }
 
-void STGEngine::AddBullet(Bullet* bullet)
+void STGEngine::AddBullet(Ptr<Bullet> bullet)
 {
 	bulletList.Add(bullet);
-	gameScene->GetSTGLayer()->AddChild(bullet);
+	gameScene->GetSTGLayer()->AddChild(bullet.Get());
 }
 
-void STGEngine::AddEffect(Sprite* effect)
+void STGEngine::AddEffect(Ptr<Sprite> effect)
 {
 	effectList.Add(effect);
-	gameScene->GetSTGLayer()->AddChild(effect);
+	gameScene->GetSTGLayer()->AddChild(effect.Get());
 }
 
-void STGEngine::AddItem(Item* item)
+void STGEngine::AddItem(Ptr<Item> item)
 {
 	itemList.Add(item);
-	gameScene->GetSTGLayer()->AddChild(item);
+	gameScene->GetSTGLayer()->AddChild(item.Get());
 }
 
-void STGEngine::AddParticle(Particle3D* particle)
+void STGEngine::AddParticle(Ptr<Particle3D> particle)
 {
 	particleList.Add(particle);
-	gameScene->GetSTGParticleLayer()->AddChild(particle);
+	gameScene->GetSTGParticleLayer()->AddChild(particle.Get());
 }
 
-void STGEngine::AddBackgroundObject(GameObject* object)
+void STGEngine::AddBackgroundObject(Ptr<GameObject> object)
 {
 	backgroundList.Add(object);
 	gameScene->GetBackgroundLayer()->AddChild(object);
 }
 
-void STGEngine::ShootPlayerBullet(PlayerBullet* playerBullet)
+void STGEngine::ShootPlayerBullet(Ptr<PlayerBullet> playerBullet)
 {
 	playerBulletList.Add(playerBullet);
-	gameScene->GetSTGLayer()->AddChild(playerBullet);
+	gameScene->GetSTGLayer()->AddChild(playerBullet.Get());
 }
 
-void STGEngine::ShootBullet(Bullet* bullet, bool hasFog, int sound)
+void STGEngine::ShootBullet(Ptr<Bullet> bullet, bool hasFog, int sound)
 {
 	auto stgResources = STGResources::GetInstance();
 
 	if (hasFog)
 	{
-		BulletFog* fog = new BulletFog(bullet);
-		AddEffect(fog);
+		Ptr<BulletFog> fog = Ptr<BulletFog>::New(bullet);
+		AddEffect(fog.Get());
 	}
 	else
 	{
@@ -309,19 +267,19 @@ void STGEngine::ShootBullet(Bullet* bullet, bool hasFog, int sound)
 	}
 }
 
-void STGEngine::SetBackgroundCamera(Camera* camera)
+void STGEngine::SetBackgroundCamera(Ptr<Camera> camera)
 {
 	gameScene->GetBackgroundLayer()->SetFirstCamera(camera);
 }
 
-Camera* STGEngine::GetBackgroundCamera()
+Ptr<Camera> STGEngine::GetBackgroundCamera()
 {
 	return gameScene->GetBackgroundLayer()->GetFirstCamera();
 }
 
 void STGEngine::GameOver()
 {
-	auto scene = (GameScene*)Game::GetInstance()->GetScene();
+	auto scene = (GameScene*)Game::GetInstance()->GetScene().Get();
 	scene->GetPauseMenu()->DoGameOver();
 	scene->GetSTGLayer()->Pause();
 	scene->GetBackgroundLayer()->Pause();

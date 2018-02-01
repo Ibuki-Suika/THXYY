@@ -9,7 +9,6 @@ Bullet::Bullet()
 
 Bullet::~Bullet()
 {
-	TH_SAFE_RELEASE(this->bulletType);
 }
 
 void Bullet::Update()
@@ -56,12 +55,12 @@ void Bullet::OnDie()
 	auto engine = STGEngine::GetInstance();
 	auto stgResources = STGResources::GetInstance();
 
-	Particle3D* effect[1];
+	Ptr<Particle3D> effect[1];
 	for (int i = 0; i < 1; i++)
 	{
 		int effectLife = 40;
 
-		effect[i] = new Particle3D();
+		effect[i] = Ptr<Particle3D>::New();
 		effect[i]->SetTexture(stgResources->texFourAngleStar);
 		effect[i]->SetPosition(position);
 		effect[i]->SetLife(effectLife);
@@ -104,13 +103,13 @@ void Bullet::OnDie()
 		effect[i]->SetRotatingSpeed(engine->Random(50, 100) / 10.0f);
 		effect[i]->SetAlpha(0.6f);
 
-		TweenSequence* sequence = new TweenSequence();
-		sequence->AddTween(new Delay(effectLife / 2));
-		sequence->AddTween(new ScaleTo(Vector3f(0, 0, 1), 30, Tweener::SIMPLE));
-		effect[i]->AddTween(sequence);
+		Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+		sequence->AddTween(Ptr<Delay>::New(effectLife / 2).Get());
+		sequence->AddTween(Ptr<ScaleTo>::New(Vector3f(0, 0, 1), 30, Tweener::SIMPLE).Get());
+		effect[i]->AddTween(sequence.Get());
 
-		effect[i]->AddTween(new MoveBy(Vector3f(dist*cos(effectAngle), dist*sin(effectAngle), 0),
-			effectLife, Tweener::EASE_OUT));
+		effect[i]->AddTween(Ptr<MoveBy>::New(Vector3f(dist*cos(effectAngle), dist*sin(effectAngle), 0),
+			effectLife, Tweener::EASE_OUT).Get());
 
 		engine->AddParticle(effect[i]);
 	}
@@ -121,11 +120,11 @@ bool Bullet::Hit(float playerX, float playerY, float playerRadius)
 	return this->bulletType->Hit(playerX, playerY, playerRadius);
 }
 
-void Bullet::SetType(BulletType* type)
+void Bullet::SetType(Ptr<BulletType> type)
 {
 	auto stgResources = STGResources::GetInstance();
 
-	TH_SET(this->bulletType, type);
+	this->bulletType = type;
 	type->SetBullet(this);
 	SetTexture(type->GetTexture());
 	SetTexRect(type->GetTexRect());

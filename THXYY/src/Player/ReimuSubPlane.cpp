@@ -30,9 +30,9 @@ void ReimuSubPlane::Fire()
 		auto engine = STGEngine::GetInstance();
 		auto player = engine->GetPlayer();
 
-		ReimuSubPlaneBullet* bullet = new ReimuSubPlaneBullet();
+		Ptr<ReimuSubPlaneBullet> bullet = Ptr<ReimuSubPlaneBullet>::New();
 		bullet->SetPosition(player->GetPosition().x + this->GetPosition().x, player->GetPosition().y + this->GetPosition().y);
-		engine->ShootPlayerBullet(bullet);
+		engine->ShootPlayerBullet(bullet.Get());
 	}
 	this->frame_shoot++;
 	if (this->frame_shoot == 4)

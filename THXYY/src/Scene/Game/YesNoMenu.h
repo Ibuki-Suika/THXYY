@@ -5,7 +5,7 @@
 class YesNoMenu : public Menu
 {
 private:
-	PauseMenuItem* title = nullptr;
+	Ptr<PauseMenuItem> title;
 
 public:
 	YesNoMenu();
@@ -13,7 +13,7 @@ public:
 
 	virtual void OnStart() override;
 
-	virtual bool OnKeyDown(EngineObject* sender, int key) override;
+	virtual bool OnKeyDown(Ptr<EngineObject> sender, int key) override;
 
 	virtual void OnMenuItemClicked(int index) override;
 

@@ -1,6 +1,6 @@
 #include "StarParticle.h"
 
-Texture* StarParticle::tex = nullptr;
+Ptr<Texture> StarParticle::tex;
 
 StarParticle::StarParticle()
 {
@@ -23,9 +23,9 @@ StarParticle::StarParticle()
 	float scale = Math::Random(50, 100) / 100.0f;
 	SetScale(Vector3f(scale, scale, 1));
 
-	TweenSequence* sequence = new TweenSequence();
-	sequence->AddTween(new FadeTo(0.35f, 100, Tweener::EASE_OUT));
-	sequence->AddTween(new Delay(100));
-	sequence->AddTween(new FadeOut(100, Tweener::EASE_OUT));
-	AddTween(sequence);
+	Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+	sequence->AddTween(Ptr<FadeTo>::New(0.35f, 100, Tweener::EASE_OUT).Get());
+	sequence->AddTween(Ptr<Delay>::New(100).Get());
+	sequence->AddTween(Ptr<FadeOut>::New(100, Tweener::EASE_OUT).Get());
+	AddTween(sequence.Get());
 }

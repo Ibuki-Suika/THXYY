@@ -5,31 +5,12 @@
 	if (texture == nullptr) \
 	{   \
 		return false;  \
-	}  \
-	texture->Retain();
-
-STGResources* STGResources::instance = nullptr;
-
-STGResources::STGResources()
-{
-	texPlayerCenter = nullptr;
-	texEnemy01 = nullptr;
-	texBullet01 = nullptr;
-}
+	} 
 
 STGResources::~STGResources()
 {
 	UnloadTextures();
 	UnloadSounds();
-}
-
-STGResources* STGResources::GetInstance()
-{
-	if (instance == nullptr)
-	{
-		instance = new STGResources();
-	}
-	return instance;
 }
 
 bool STGResources::LoadTexTures()
@@ -59,17 +40,6 @@ void STGResources::UnloadTextures()
 	auto manager = AssetManager::GetInstance();
 
 	THLog(" Õ∑≈STGŒ∆¿Ì°£");
-
-	TH_SAFE_RELEASE(texPlayerCenter);
-	TH_SAFE_RELEASE(texEnemy01);
-	TH_SAFE_RELEASE(texBullet01);
-	TH_SAFE_RELEASE(texBullet02);
-	TH_SAFE_RELEASE(texBullet03);
-	TH_SAFE_RELEASE(texBullet04);
-	TH_SAFE_RELEASE(texReimu);
-	TH_SAFE_RELEASE(texEffBase);
-	TH_SAFE_RELEASE(texPointLight);
-	TH_SAFE_RELEASE(texFourAngleStar);
 
 	texPlayerCenter = nullptr;
 	texEnemy01 = nullptr;

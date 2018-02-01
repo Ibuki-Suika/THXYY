@@ -1,6 +1,6 @@
 #include "SelectTitle.h"
 
-Texture* SelectTitle::tex = nullptr;
+Ptr<Texture> SelectTitle::tex;
 
 SelectTitle::SelectTitle()
 {

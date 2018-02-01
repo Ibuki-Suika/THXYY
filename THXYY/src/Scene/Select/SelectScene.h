@@ -11,14 +11,14 @@ class RankSelectMenu;
 class SelectScene : public Scene
 {
 private:
-	Texture* texBackground = nullptr;
-	Texture* texLoading = nullptr;
+	Ptr<Texture> texBackground;
+	Ptr<Texture> texLoading;
 
-	Layer* bgrLayer = nullptr;
-	Layer* blackLayer = nullptr;
-	RankSelectMenu* rankSelectMenu = nullptr;
+	Ptr<Layer> bgrLayer;
+	Ptr<Layer> blackLayer;
+	Ptr<RankSelectMenu> rankSelectMenu;
 
-	SelectTitle* title = nullptr;
+	Ptr<SelectTitle> title;
 
 	int frame = 0;
 	int frame_nowLoading = 0;

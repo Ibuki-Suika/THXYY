@@ -29,12 +29,12 @@ void Enemy01_001::Update()
 
 		for (int i = 0; i < 12; i++)
 		{
-			Bullet* bullet = new Bullet();
-			bullet->SetType(new SmallJadeBlue());
+			Ptr<Bullet> bullet = Ptr<Bullet>::New();
+			bullet->SetType(Ptr<SmallJadeBlue>::New().Get());
 			bullet->SetPosition(position.x, position.y);
 			bullet->SetSpeed(8);
 			bullet->SetAngle(30 * i + STGUtil::GetAngleToPlayer(this->position.x, this->position.y));
-			bullet->AddTween(new SpeedTo(5, 30, Tweener::SIMPLE));
+			bullet->AddTween(Ptr<SpeedTo>::New(5, 30, Tweener::SIMPLE).Get());
 
 			engine->ShootBullet(bullet, true, 2);
 		}

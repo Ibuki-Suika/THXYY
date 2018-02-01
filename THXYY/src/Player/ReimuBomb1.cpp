@@ -9,17 +9,17 @@ ReimuBomb1::ReimuBomb1()
 
 	position.z = 5.0f;
 
-	subRed = new SubSprite();
+	subRed = Ptr<SubSprite>::New();
 	subRed->SetColor(Vector3f(1.0f, 0.0f, 0.0f));
-	AddChild(subRed);
+	AddChild(subRed.Get());
 
-	subGreen = new SubSprite();
+	subGreen = Ptr<SubSprite>::New();
 	subGreen->SetColor(Vector3f(0.0f, 1.0f, 0.0f));
-	AddChild(subGreen);
+	AddChild(subGreen.Get());
 
-	subBlue = new SubSprite();
+	subBlue = Ptr<SubSprite>::New();
 	subBlue->SetColor(Vector3f(0.0f, 0.0f, 1.0f));
-	AddChild(subBlue);
+	AddChild(subBlue.Get());
 
 	int angle = STGEngine::GetInstance()->Random(0, 359);
 
@@ -108,7 +108,7 @@ void ReimuBomb1::Attack()
 	auto engine = STGEngine::GetInstance();
 	auto enemyList = engine->GetEnemyList();
 
-	Enemy* nearestEnemy = nullptr;
+	Ptr<Enemy> nearestEnemy = nullptr;
 	float minDist = 999999.0f;
 	auto iter = enemyList->GetIterator();
 	while (iter->HasNext())
@@ -213,7 +213,7 @@ void ReimuBomb1::Explode()
 {
 	auto stgResources = STGResources::GetInstance();
 
-	AddTween(new FadeOut(16, Tweener::EASE_OUT));
+	AddTween(Ptr<FadeOut>::New(16, Tweener::EASE_OUT).Get());
 
 	stgResources->soundShoot1->Play();
 }
@@ -275,8 +275,8 @@ void ReimuBomb1::SubSprite::Update()
 
 	if (frame == 200)
 	{
-		AddTween(new ScaleTo(Vector3f(8.0f, 8.0f, 1.0f), 16, Tweener::EASE_OUT));
-		AddTween(new FadeOut(16, Tweener::EASE_OUT));
+		AddTween(Ptr<ScaleTo>::New(Vector3f(8.0f, 8.0f, 1.0f), 16, Tweener::EASE_OUT).Get());
+		AddTween(Ptr<FadeOut>::New(16, Tweener::EASE_OUT).Get());
 		SetSpeed(0);
 		SetAcSpeed(0);
 	}

@@ -35,7 +35,7 @@ public:
 	static const int TURN_INTERVAL = 2;
 
 private:
-	PlayerCenter* center;
+	Ptr<PlayerCenter> center;
 	int frame_counter;              //决死帧计数器
 	int frame_invincible = 0;       //无敌帧计数器
 	int invincible_shrink_counter = 0;         //无敌闪烁计数器
@@ -63,7 +63,7 @@ protected:
 	MotionState motionState;
 	State state;
 
-	LinkedList<SubPlane*> subPlaneList;
+	LinkedList<Ptr<SubPlane>> subPlaneList;
 
 private:
 	void ProcessInvincible();

@@ -11,12 +11,12 @@ ParticleLayer::~ParticleLayer()
 
 void ParticleLayer::SetupCamera()
 {
-	Camera3D* camera = new Camera3D();
+	Ptr<Camera3D> camera = Ptr<Camera3D>::New();
 	camera->SetPosition(Vector3f(320, 240, -300));
 	camera->SetLookAt(Vector3f(320, 240, 0));
 	camera->SetUp(Vector3f(0, 1, 0));
 
-	SetFirstCamera(camera);
+	SetFirstCamera(camera.Get());
 }
 
 void ParticleLayer::OnStart()
@@ -41,7 +41,7 @@ void ParticleLayer::Update()
 
 void ParticleLayer::AddParticle()
 {
-	SakuraParticle* particle = new SakuraParticle(0);
+	Ptr<SakuraParticle> particle = Ptr<SakuraParticle>::New(0);
 
 	particle->SetLife(300);
 
@@ -58,11 +58,11 @@ void ParticleLayer::AddParticle()
 	particle->SetSpeed(0.5f + Math::Random(0, 100) / 100.0f);
 	particle->SetAlpha(0);
 
-	TweenSequence* sequence = new TweenSequence();
-	sequence->AddTween(new FadeTo(0.6f, 100, Tweener::EASE_OUT));
-	sequence->AddTween(new Delay(100));
-	sequence->AddTween(new FadeOut(100, Tweener::EASE_OUT));
-	particle->AddTween(sequence);
+	Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+	sequence->AddTween(Ptr<FadeTo>::New(0.6f, 100, Tweener::EASE_OUT).Get());
+	sequence->AddTween(Ptr<Delay>::New(100).Get());
+	sequence->AddTween(Ptr<FadeOut>::New(100, Tweener::EASE_OUT).Get());
+	particle->AddTween(sequence.Get());
 
-	AddChild(particle);
+	AddChild(particle.Get());
 }

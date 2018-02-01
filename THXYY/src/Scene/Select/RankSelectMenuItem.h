@@ -8,7 +8,7 @@ using namespace THEngine;
 class RankSelectMenuItem : public MenuItem
 {
 public:
-	static Texture* texRank;
+	static Ptr<Texture> texRank;
 
 	enum Type
 	{

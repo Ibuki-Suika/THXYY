@@ -13,8 +13,9 @@
 
 using namespace THEngine;
 
-class STGEngine : public Object
+class STGEngine : public Object, public Singleton<STGEngine>
 {
+	friend class Singleton<STGEngine>;
 public:
 	enum Difficulty
 	{
@@ -44,14 +45,15 @@ public:
 	};
 
 private:
-	static STGEngine* instance;
+	STGEngine() = default;
 
-	RandomGenerator* randomGenerator = nullptr;
+private:
+	Ptr<RandomGenerator> randomGenerator = Ptr<RandomGenerator>::New(time(NULL));
 
 	Difficulty difficulty;
 	GameType gameType;
-	long long score;
-	long long hiScore;
+	long long score = 0;
+	long long hiScore = 0;
 	int life;
 	int bomb;
 	int power;
@@ -61,31 +63,27 @@ private:
 
 	bool gameOver = false;
 
-	LinkedList<Enemy*> enemyList;
-	LinkedList<Bullet*> bulletList;
-	LinkedList<Sprite*> effectList;
-	LinkedList<PlayerBullet*> playerBulletList;
-	LinkedList<Item*> itemList;
-	LinkedList<Particle3D*> particleList;
-	LinkedList<GameObject*> backgroundList;
+	LinkedList<Ptr<Enemy>> enemyList;
+	LinkedList<Ptr<Bullet>> bulletList;
+	LinkedList<Ptr<Sprite>> effectList;
+	LinkedList<Ptr<PlayerBullet>> playerBulletList;
+	LinkedList<Ptr<Item>> itemList;
+	LinkedList<Ptr<Particle3D>> particleList;
+	LinkedList<Ptr<GameObject>> backgroundList;
 
-	STGResources* stgResources;
+	Ptr<STGResources> stgResources = STGResources::GetInstance();
 
-	Player* player;
+	Ptr<Player> player;
 
-	GameScene* gameScene;
+	Ptr<GameScene> gameScene;
 
-	Stage* stage = nullptr;
+	Ptr<Stage> stage;
 
 	StageEnum stageEnum;
 
-private:
-	STGEngine();
-
 public:
 	virtual ~STGEngine();
-	static STGEngine* GetInstance();
-	static STGEngine* Create();
+	bool Init();
 
 	inline void SetDifficulty(Difficulty diff) { this->difficulty = diff; }
 	inline Difficulty GetDifficulty() { return difficulty; }
@@ -117,51 +115,51 @@ public:
 	inline void SetGraze(int graze) { this->graze = graze; }
 	inline int GetGraze() { return graze; }
 
-	inline Player* GetPlayer() { return player; }
+	inline Ptr<Player> GetPlayer() { return player; }
 
-	inline void SetGameScene(GameScene* scene)
+	inline void SetGameScene(Ptr<GameScene> scene)
 	{
 		this->gameScene = scene;
 	}
-	inline GameScene* GetGameScene() { return gameScene; }
+	inline Ptr<GameScene> GetGameScene() { return gameScene; }
 
 	inline void SetStageEnum(StageEnum stageEnum) { this->stageEnum = stageEnum; }
 	inline StageEnum GetStageEnum() { return stageEnum; }
 
-	inline LinkedList<Enemy*>* GetEnemyList() { return &enemyList; }
-	inline LinkedList<Bullet*>* GetBulletList() { return &bulletList; }
-	inline LinkedList<PlayerBullet*>* GetPlayerBulletList() { return &playerBulletList; }
+	inline LinkedList<Ptr<Enemy>>* GetEnemyList() { return &enemyList; }
+	inline LinkedList<Ptr<Bullet>>* GetBulletList() { return &bulletList; }
+	inline LinkedList<Ptr<PlayerBullet>>* GetPlayerBulletList() { return &playerBulletList; }
 
 	inline bool IsGameOver() { return gameOver; }
 
-	void AddEnemy(Enemy* enemy);
-	void AddBullet(Bullet* bullet);
-	void AddEffect(Sprite* effect);
-	void AddItem(Item* item);
-	void AddParticle(Particle3D* particle);
-	void AddBackgroundObject(GameObject* object);
+	void AddEnemy(Ptr<Enemy> enemy);
+	void AddBullet(Ptr<Bullet> bullet);
+	void AddEffect(Ptr<Sprite> effect);
+	void AddItem(Ptr<Item> item);
+	void AddParticle(Ptr<Particle3D> particle);
+	void AddBackgroundObject(Ptr<GameObject> object);
 
-	void ShootPlayerBullet(PlayerBullet* playerBullet);
+	void ShootPlayerBullet(Ptr<PlayerBullet> playerBullet);
 
-	inline void AddObject(Sprite* object)
+	inline void AddObject(Ptr<Sprite> object)
 	{
-		gameScene->GetSTGLayer()->AddChild(object);
+		gameScene->GetSTGLayer()->AddChild(object.Get());
 	}
 
-	inline void ShootBullet(Bullet* bullet)
+	inline void ShootBullet(Ptr<Bullet> bullet)
 	{
 		ShootBullet(bullet, true, 1);
 	}
 
-	inline void ShootBullet(Bullet* bullet, bool hasFog)
+	inline void ShootBullet(Ptr<Bullet> bullet, bool hasFog)
 	{
 		ShootBullet(bullet, hasFog, 1);
 	}
 
-	void ShootBullet(Bullet* bullet, bool hasFog, int sound);
+	void ShootBullet(Ptr<Bullet> bullet, bool hasFog, int sound);
 
-	void SetBackgroundCamera(Camera* camera);
-	Camera* GetBackgroundCamera();
+	void SetBackgroundCamera(Ptr<Camera> camera);
+	Ptr<Camera> GetBackgroundCamera();
 
 	void GetAllItems();
 
@@ -173,8 +171,6 @@ public:
 	void ResetRandomSeed(int seed);
 	int GetRandomSeed();
 
-	void Init();
-
 	void Start();
 
 	void Clear();
@@ -183,8 +179,8 @@ public:
 
 	void Shutdown();
 
-	void LoadStage(Stage* stage);
-	void StartStage(Stage* stage);
+	void LoadStage(Ptr<Stage> stage);
+	void StartStage(Ptr<Stage> stage);
 
 	void OnStart();
 

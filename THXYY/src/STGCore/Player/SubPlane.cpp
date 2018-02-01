@@ -19,9 +19,9 @@ void SubPlane::Disappear()
 {
 	ClearTweens();
 
-	ScaleTo* scaleTo = new ScaleTo(Vector3f(0, 0, 1), 16, Tweener::SIMPLE);
+	Ptr<ScaleTo> scaleTo = Ptr<ScaleTo>::New(Vector3f(0, 0, 1), 16, Tweener::SIMPLE);
 	scaleTo->onFinished = [this](){
 		this->MarkDestroy();
 	};
-	AddTween(scaleTo);
+	AddTween(scaleTo.Get());
 }

@@ -11,8 +11,8 @@ class GameConfig;
 class THXYY : public Game
 {
 private:
-	STGEngine* engine;
-	Music* titleMusic = nullptr;
+	Ptr<STGEngine> engine;
+	Ptr<Music> titleMusic;
 
 public:
 	THXYY();

@@ -6,7 +6,7 @@
 class ReimuSubPlaneBullet : public PlayerBullet
 {
 private:
-	Enemy* target = nullptr;
+	Ptr<Enemy> target;
 
 public:
 	ReimuSubPlaneBullet();

@@ -6,8 +6,8 @@
 class PauseMenu : public Menu
 {
 private:
-	Sprite* black = nullptr;
-	PauseMenuItem* title = nullptr;
+	Ptr<Sprite> black;
+	Ptr<PauseMenuItem> title;
 
 	enum State
 	{
@@ -22,8 +22,8 @@ public:
 	PauseMenu();
 	virtual ~PauseMenu();
 
-	virtual bool OnKeyDown(EngineObject* sender, int key) override;
-	virtual void OnLoad(AsyncInfo* info) override;
+	virtual bool OnKeyDown(Ptr<EngineObject> sender, int key) override;
+	virtual void OnLoad(Ptr<AsyncInfo> info) override;
 	virtual void OnStart() override;
 	virtual void OnMenuItemClicked(int index) override;
 

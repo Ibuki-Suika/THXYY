@@ -22,7 +22,7 @@ public:
 	};
 
 public:
-	static Texture* texTitleMenu;
+	static Ptr<Texture> texTitleMenu;
 
 private:
 	Type type;

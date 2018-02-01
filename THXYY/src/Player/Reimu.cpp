@@ -114,13 +114,13 @@ void Reimu::Fire()
 	{
 		STGResources::GetInstance()->soundPlayerShoot->Play();
 
-		ReimuBullet* bullet1 = new ReimuBullet();
+		Ptr<ReimuBullet> bullet1 = Ptr<ReimuBullet>::New();
 		bullet1->SetPosition(position.x - 7.0f, position.y);
-		engine->ShootPlayerBullet(bullet1);
+		engine->ShootPlayerBullet(bullet1.Get());
 
-		ReimuBullet* bullet2 = new ReimuBullet();
+		Ptr<ReimuBullet> bullet2 = Ptr<ReimuBullet>::New();
 		bullet2->SetPosition(position.x + 7.0f, position.y);
-		engine->ShootPlayerBullet(bullet2);
+		engine->ShootPlayerBullet(bullet2.Get());
 	}
 
 	frame_fire++;
@@ -141,10 +141,10 @@ void Reimu::Bomb()
 
 	for (int i = 0; i < 8; i++)
 	{
-		ReimuBomb1* bomb = new ReimuBomb1();
+		Ptr<ReimuBomb1> bomb = Ptr<ReimuBomb1>::New();
 		bomb->SetInitialAngle(-45 * i + 7.5);
 		bomb->SetAttackFrame(10 * i + 90);
-		engine->AddObject(bomb);
+		engine->AddObject(bomb.Get());
 	}
 
 	stgResources->soundBomb->Play();
@@ -162,8 +162,8 @@ void Reimu::OnEnterLowSpeed()
 	{
 		auto subPlane = iter->Next();
 		subPlane->ClearTweens();
-		subPlane->AddTween(new MoveTo(Vector3f(subPlaneOffsetLow[powerLevel - 1][i].x, subPlaneOffsetLow[powerLevel - 1][i].y, 0.0f),
-			8, Tweener::EASE_OUT));
+		subPlane->AddTween(Ptr<MoveTo>::New(Vector3f(subPlaneOffsetLow[powerLevel - 1][i].x, subPlaneOffsetLow[powerLevel - 1][i].y, 0.0f),
+			8, Tweener::EASE_OUT).Get());
 		i++;
 	}
 }
@@ -179,8 +179,8 @@ void Reimu::OnEnterHighSpeed()
 	{
 		auto subPlane = iter->Next();
 		subPlane->ClearTweens();
-		subPlane->AddTween(new MoveTo(Vector3f(subPlaneOffsetHigh[powerLevel - 1][i].x, subPlaneOffsetHigh[powerLevel - 1][i].y, 0.0f),
-			8, Tweener::EASE_OUT));
+		subPlane->AddTween(Ptr<MoveTo>::New(Vector3f(subPlaneOffsetHigh[powerLevel - 1][i].x, subPlaneOffsetHigh[powerLevel - 1][i].y, 0.0f),
+			8, Tweener::EASE_OUT).Get());
 		i++;
 	}
 }
@@ -194,18 +194,18 @@ void Reimu::SetupSubPlanes()
 	{
 		for (int i = 0; i < powerLevel; i++)
 		{
-			ReimuSubPlane* subPlane = new ReimuSubPlane();
+			Ptr<ReimuSubPlane> subPlane = Ptr<ReimuSubPlane>::New();
 			subPlane->SetPosition(Vector3f(subPlaneOffsetHigh[powerLevel - 1][i].x, subPlaneOffsetHigh[powerLevel - 1][i].y, 0.0f));
-			AddSubPlane(subPlane);
+			AddSubPlane(subPlane.Get());
 		}
 	}
 	else
 	{
 		for (int i = 0; i < powerLevel; i++)
 		{
-			ReimuSubPlane* subPlane = new ReimuSubPlane();
+			Ptr<ReimuSubPlane> subPlane = Ptr<ReimuSubPlane>::New();
 			subPlane->SetPosition(Vector3f(subPlaneOffsetLow[powerLevel - 1][i].x, subPlaneOffsetLow[powerLevel - 1][i].y, 0.0f));
-			AddSubPlane(subPlane);
+			AddSubPlane(subPlane.Get());
 		}
 	}
 }

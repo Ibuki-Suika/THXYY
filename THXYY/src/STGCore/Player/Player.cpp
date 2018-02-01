@@ -53,16 +53,16 @@ void Player::ProcessInvincible()
 void Player::ProcessCenterPoint()
 {
 	auto input = Input::GetInstance();
-	GameScene* scene = (GameScene*)Game::GetInstance()->GetScene();
+	GameScene* scene = (GameScene*)Game::GetInstance()->GetScene().Get();
 
 	if (input->KeyDown(DIK_LSHIFT) || input->KeyDown(DIK_RSHIFT))
 	{
 		if (isHiSpeed)
 		{
-			center = new PlayerCenter();
+			center = Ptr<PlayerCenter>::New();
 			float centerScale = GetRadius() / 3.0f;
 			center->SetScale(centerScale, centerScale);
-			scene->GetSTGLayer()->AddChild(center);
+			scene->GetSTGLayer()->AddChild(center.Get());
 			OnEnterLowSpeed();
 		}
 		isHiSpeed = false;
@@ -302,30 +302,30 @@ void Player::Biu()
 
 	for (int i = 0; i < 30; i++)
 	{
-		Sprite* light = new Sprite();
+		Ptr<Sprite> light = Ptr<Sprite>::New();
 		light->SetTexture(stgResources->texPointLight);
 		light->SetTexRect(Rect(96, 128, 0, 32));
 		light->SetPosition(position);
 
 		float scale = engine->Random(25, 75) / 100.0f;
 		light->SetScale(scale, scale);
-		light->AddTween(new ScaleTo(Vector3f(0, 0, 1), 40, Tweener::SIMPLE));
+		light->AddTween(Ptr<ScaleTo>::New(Vector3f(0, 0, 1), 40, Tweener::SIMPLE).Get());
 
 		float lightAngle = Math::ToRad(engine->Random(0, 359));
 		float distance = engine->Random(0, 120);
-		light->AddTween(new MoveTo(Vector3f(position.x + cos(lightAngle)*distance,
-			position.y + sin(lightAngle)*distance, position.z), 40, Tweener::EASE_OUT));
-		light->AddTween(new FadeOut(40, Tweener::EASE_OUT));
+		light->AddTween(Ptr<MoveTo>::New(Vector3f(position.x + cos(lightAngle)*distance,
+			position.y + sin(lightAngle)*distance, position.z), 40, Tweener::EASE_OUT).Get());
+		light->AddTween(Ptr<FadeOut>::New(40, Tweener::EASE_OUT).Get());
 
 		engine->AddEffect(light);
 	}
 
-	Sprite* dieEffect = new Sprite();
+	Ptr<Sprite> dieEffect = Ptr<Sprite>::New();
 	dieEffect->SetPosition(position);
 	dieEffect->SetTexture(stgResources->texEffBase);
 	dieEffect->SetTexRect(Rect(128, 192, 16, 80));
-	dieEffect->AddTween(new ScaleTo(Vector3f(2.0f, 2.0f, 1.0f), 10, Tweener::SIMPLE));
-	dieEffect->AddTween(new FadeOut(10, Tweener::SIMPLE));
+	dieEffect->AddTween(Ptr<ScaleTo>::New(Vector3f(2.0f, 2.0f, 1.0f), 10, Tweener::SIMPLE).Get());
+	dieEffect->AddTween(Ptr<FadeOut>::New(10, Tweener::SIMPLE).Get());
 	engine->AddEffect(dieEffect);
 
 	for (int i = 0; i < 9; i++)
@@ -333,12 +333,12 @@ void Player::Biu()
 		float itemAngle = Math::ToRad(30 + 15 * i);
 		float distance = 80;
 
-		PowerItemSmall* item = new PowerItemSmall();
+		Ptr<PowerItemSmall> item = Ptr<PowerItemSmall>::New();
 		item->SetPosition(position.x, position.y);
-		item->AddTween(new MoveBy(Vector3f(distance*cos(itemAngle),
-			distance*sin(itemAngle), 0), 40, Tweener::EASE_OUT));
-		item->AddTween(new Rotate2D(720.0f, 40, Tweener::EASE_OUT));
-		engine->AddItem(item);
+		item->AddTween(Ptr<MoveBy>::New(Vector3f(distance*cos(itemAngle),
+			distance*sin(itemAngle), 0), 40, Tweener::EASE_OUT).Get());
+		item->AddTween(Ptr<Rotate2D>::New(720.0f, 40, Tweener::EASE_OUT).Get());
+		engine->AddItem(item.Get());
 	}
 
 	if (engine->GetPower() < 50)
@@ -409,7 +409,7 @@ void Player::AddSubPlane(SubPlane* subPlane)
 
 void Player::RemoveSubPlane(int index)
 {
-	SubPlane* subPlane = this->subPlaneList.Get(index);
+	Ptr<SubPlane> subPlane = this->subPlaneList.Get(index);
 	this->subPlaneList.RemoveAt(index);
 	subPlane->Disappear();
 }

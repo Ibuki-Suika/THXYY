@@ -153,12 +153,12 @@ void Enemy::OnDie()
 
 	stgResources->soundEnemyDie00->Play();
 
-	Particle3D* effect[10];
+	Ptr<Particle3D> effect[10];
 	for (int i = 0; i < 10; i++)
 	{
 		int effectLife = 40;
 
-		effect[i] = new Particle3D();
+		effect[i] = Ptr<Particle3D>::New();
 		effect[i]->SetTexture(stgResources->texFourAngleStar);
 		effect[i]->SetPosition(position);
 		effect[i]->SetLife(effectLife);
@@ -174,85 +174,59 @@ void Enemy::OnDie()
 		effect[i]->SetRotatingSpeed(engine->Random(50, 100) / 10.0f);
 		effect[i]->SetAlpha(0.6f);
 
-		TweenSequence* sequence = new TweenSequence();
-		sequence->AddTween(new Delay(effectLife / 2));
-		sequence->AddTween(new ScaleTo(Vector3f(0, 0, 1), 30, Tweener::SIMPLE));
-		effect[i]->AddTween(sequence);
+		Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+		sequence->AddTween(Ptr<Delay>::New(effectLife / 2).Get());
+		sequence->AddTween(Ptr<ScaleTo>::New(Vector3f(0, 0, 1), 30, Tweener::SIMPLE).Get());
+		effect[i]->AddTween(sequence.Get());
 
-		effect[i]->AddTween(new MoveBy(Vector3f(dist*cos(effectAngle), dist*sin(effectAngle), 0),
-			effectLife, Tweener::EASE_OUT));
+		effect[i]->AddTween(Ptr<MoveBy>::New(Vector3f(dist*cos(effectAngle), dist*sin(effectAngle), 0),
+			effectLife, Tweener::EASE_OUT).Get());
 
 		engine->AddParticle(effect[i]);
 	}
 
+	Ptr<Sprite> dieEffect = Ptr<Sprite>::New();
+	dieEffect->SetPosition(position);
+	dieEffect->SetTexture(stgResources->texEffBase);	
+	dieEffect->AddTween(Ptr<ScaleTo>::New(Vector3f(2.0f, 2.0f, 1.0f), 10, Tweener::SIMPLE).Get());
+	dieEffect->AddTween(Ptr<FadeOut>::New(10, Tweener::SIMPLE).Get());
+	engine->AddEffect(dieEffect);
 	switch (enemyColor)
 	{
 	case BLUE:
 	{
-		Sprite* dieEffect = new Sprite();
-		dieEffect->SetPosition(position);
-		dieEffect->SetTexture(stgResources->texEffBase);
 		dieEffect->SetTexRect(Rect(192, 256, 16, 80));
-		dieEffect->AddTween(new ScaleTo(Vector3f(2.0f, 2.0f, 1.0f), 12, Tweener::SIMPLE));
-		dieEffect->AddTween(new FadeOut(12, Tweener::SIMPLE));
-		engine->AddEffect(dieEffect);
-
 		for (int i = 0; i < 10; i++)
 		{
 			effect[i]->SetTexRect(Rect(64, 96, 0, 32));
 		}
-
 		break;
 	}
 	case RED:
 	{
-		Sprite* dieEffect = new Sprite();
-		dieEffect->SetPosition(position);
-		dieEffect->SetTexture(stgResources->texEffBase);
 		dieEffect->SetTexRect(Rect(128, 192, 16, 80));
-		dieEffect->AddTween(new ScaleTo(Vector3f(2.0f, 2.0f, 1.0f), 10, Tweener::SIMPLE));
-		dieEffect->AddTween(new FadeOut(10, Tweener::SIMPLE));
-		engine->AddEffect(dieEffect);
-
 		for (int i = 0; i < 10; i++)
 		{
 			effect[i]->SetTexRect(Rect(0, 32, 0, 32));
 		}
-
 		break;
 	}
 	case GREEN:
 	{
-		Sprite* dieEffect = new Sprite();
-		dieEffect->SetPosition(position);
-		dieEffect->SetTexture(stgResources->texEffBase);
 		dieEffect->SetTexRect(Rect(64, 128, 80, 144));
-		dieEffect->AddTween(new ScaleTo(Vector3f(2.0f, 2.0f, 1.0f), 10, Tweener::SIMPLE));
-		dieEffect->AddTween(new FadeOut(10, Tweener::SIMPLE));
-		engine->AddEffect(dieEffect);
-
 		for (int i = 0; i < 10; i++)
 		{
 			effect[i]->SetTexRect(Rect(0, 32, 32, 64));
 		}
-
 		break;
 	}
 	case YELLOW:
 	{
-		Sprite* dieEffect = new Sprite();
-		dieEffect->SetPosition(position);
-		dieEffect->SetTexture(stgResources->texEffBase);
 		dieEffect->SetTexRect(Rect(0, 64, 80, 144));
-		dieEffect->AddTween(new ScaleTo(Vector3f(2.0f, 2.0f, 1.0f), 10, Tweener::SIMPLE));
-		dieEffect->AddTween(new FadeOut(10, Tweener::SIMPLE));
-		engine->AddEffect(dieEffect);
-
 		for (int i = 0; i < 10; i++)
 		{
 			effect[i]->SetTexRect(Rect(32, 64, 32, 64));
 		}
-
 		break;
 	}
 	}
@@ -294,11 +268,11 @@ void Enemy::DropItems()
 		float posX = engine->Random(-maxOffset, maxOffset);
 		float posY = engine->Random(-maxOffset, maxOffset);
 
-		PowerItemSmall* item = new PowerItemSmall();
+		Ptr<PowerItemSmall> item = Ptr<PowerItemSmall>::New();
 		item->SetPosition(position.x + posX, position.y + posY);
-		item->AddTween(new MoveBy(Vector3f(0, 20, 0), 40, Tweener::EASE_OUT));
-		item->AddTween(new Rotate2D(720.0f, 40, Tweener::EASE_OUT));
-		engine->AddItem(item);
+		item->AddTween(Ptr<MoveBy>::New(Vector3f(0, 20, 0), 40, Tweener::EASE_OUT).Get());
+		item->AddTween(Ptr<Rotate2D>::New(720.0f, 40, Tweener::EASE_OUT).Get());
+		engine->AddItem(item.Get());
 	}
 
 	for (int i = 0; i < scoreItemNum; i++)
@@ -311,11 +285,11 @@ void Enemy::DropItems()
 		float posX = engine->Random(-maxOffset, maxOffset);
 		float posY = engine->Random(-maxOffset, maxOffset);
 
-		ScoreItem* item = new ScoreItem();
+		Ptr<ScoreItem> item = Ptr<ScoreItem>::New();
 		item->SetPosition(position.x + posX, position.y + posY);
-		item->AddTween(new MoveBy(Vector3f(0, 20, 0), 40, Tweener::EASE_OUT));
-		item->AddTween(new Rotate2D(720.0f, 40, Tweener::EASE_OUT));
-		engine->AddItem(item);
+		item->AddTween(Ptr<MoveBy>::New(Vector3f(0, 20, 0), 40, Tweener::EASE_OUT).Get());
+		item->AddTween(Ptr<Rotate2D>::New(720.0f, 40, Tweener::EASE_OUT).Get());
+		engine->AddItem(item.Get());
 	}
 }
 

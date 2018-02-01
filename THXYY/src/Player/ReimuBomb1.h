@@ -19,9 +19,9 @@ private:
 
 	Vector2f offset = Vector2f(0.0f, 0.0f);
 
-	SubSprite* subRed = nullptr;
-	SubSprite* subGreen = nullptr;
-	SubSprite* subBlue = nullptr;
+	Ptr<SubSprite> subRed = nullptr;
+	Ptr<SubSprite> subGreen = nullptr;
+	Ptr<SubSprite> subBlue = nullptr;
 
 private:
 	void Attack();

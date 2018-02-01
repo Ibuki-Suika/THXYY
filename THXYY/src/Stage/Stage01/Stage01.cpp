@@ -3,8 +3,6 @@
 #include "../Enemy/Stage01/Enemy01_002.h"
 #include "../Enemy/Stage01/Enemy01_003.h"
 
-Texture* Stage01::texRoad = nullptr;
-
 const int Stage01::BPM = 120;
 const float Stage01::SPB = 60.0f / BPM;
 const float Stage01::FPB = 60.0f * SPB;
@@ -16,12 +14,6 @@ Stage01::Stage01()
 Stage01::~Stage01()
 {
 	auto assetManager = AssetManager::GetInstance();
-
-	TH_SAFE_RELEASE(texRoad);
-	TH_SAFE_RELEASE(texLogo);
-	TH_SAFE_RELEASE(sky);
-
-	TH_SAFE_RELEASE(house);
 }
 
 void Stage01::Update()
@@ -46,15 +38,15 @@ void Stage01::ShowLogo(int startFrame)
 
 	if (frame == startFrame)
 	{
-		Sprite* logo = new Sprite();
+		Ptr<Sprite> logo = Ptr<Sprite>::New();
 		logo->SetTexture(this->texLogo);
 		logo->SetPosition(Vector3f(192, 280, 10));
 		logo->SetAlpha(0.0f);
-		TweenSequence* sequence = new TweenSequence();
-		sequence->AddTween(new FadeTo(1.0f, 80, Tweener::SIMPLE));
-		sequence->AddTween(new Delay(240));
-		sequence->AddTween(new FadeOut(80, Tweener::SIMPLE));
-		logo->AddTween(sequence);
+		Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+		sequence->AddTween(Ptr<FadeTo>::New(1.0f, 80, Tweener::SIMPLE).Get());
+		sequence->AddTween(Ptr<Delay>::New(240).Get());
+		sequence->AddTween(Ptr<FadeOut>::New(80, Tweener::SIMPLE).Get());
+		logo->AddTween(sequence.Get());
 		engine->AddObject(logo);
 	}
 }
@@ -67,14 +59,15 @@ void Stage01::AddEnemy001(int startFrame)
 	if (frame2 < 80 && frame2 % 10 == 1)   //frame == 1,11,21,...71
 	{
 		int i = frame2 / 10;
-		Enemy01_001* enemy = new Enemy01_001();
+		Ptr<Enemy01_001> enemy = Ptr<Enemy01_001>::New();
 		enemy->SetPosition(-30, 420);
-		TweenSequence* sequence = new TweenSequence();
-		sequence->AddTween(new MoveTo(Vector3f(192 + interval * (3.5f - i), 280, enemy->GetPosition().z), 120, Tweener::EASE_OUT));
-		sequence->AddTween(new Delay(60));
-		sequence->AddTween(new MoveTo(Vector3f(420, 140, enemy->GetPosition().z), 120, Tweener::EASE_IN));
-		enemy->AddTween(sequence);
-		engine->AddEnemy(enemy);
+		Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+		sequence->AddTween(Ptr<MoveTo>::New(Vector3f(192 + interval * (3.5f - i), 280, 
+			enemy->GetPosition().z), 120, Tweener::EASE_OUT).Get());
+		sequence->AddTween(Ptr<Delay>::New(60).Get());
+		sequence->AddTween(Ptr<MoveTo>::New(Vector3f(420, 140, enemy->GetPosition().z), 120, Tweener::EASE_IN).Get());
+		enemy->AddTween(sequence.Get());
+		engine->AddEnemy(enemy.Get());
 	}
 }
 
@@ -86,14 +79,15 @@ void Stage01::AddEnemy002(int startFrame)
 	if (frame2 < 80 && frame2 % 10 == 1)   //frame == 1,11,21,...71
 	{
 		int i = frame2 / 10;
-		Enemy01_002* enemy = new Enemy01_002();
+		Ptr<Enemy01_002> enemy = Ptr<Enemy01_002>::New();
 		enemy->SetPosition(414, 420);
-		TweenSequence* sequence = new TweenSequence();
-		sequence->AddTween(new MoveTo(Vector3f(192 + interval * (i - 3.5), 280, enemy->GetPosition().z), 120, Tweener::EASE_OUT));
-		sequence->AddTween(new Delay(60));
-		sequence->AddTween(new MoveTo(Vector3f(-36, 140, enemy->GetPosition().z), 120, Tweener::EASE_IN));
-		enemy->AddTween(sequence);
-		engine->AddEnemy(enemy);
+		Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+		sequence->AddTween(Ptr<MoveTo>::New(Vector3f(192 + interval * (i - 3.5), 280, 
+			enemy->GetPosition().z), 120, Tweener::EASE_OUT).Get());
+		sequence->AddTween(Ptr<Delay>::New(60).Get());
+		sequence->AddTween(Ptr<MoveTo>::New(Vector3f(-36, 140, enemy->GetPosition().z), 120, Tweener::EASE_IN).Get());
+		enemy->AddTween(sequence.Get());
+		engine->AddEnemy(enemy.Get());
 	}
 }
 
@@ -102,14 +96,14 @@ void Stage01::AddEnemy003(int startFrame)
 	auto engine = STGEngine::GetInstance();
 	if (frame == startFrame)
 	{
-		Enemy01_003* enemy = new Enemy01_003();
+		Ptr<Enemy01_003> enemy = Ptr<Enemy01_003>::New();
 		enemy->SetPosition(192, 500);
-		TweenSequence* sequence = new TweenSequence();
-		sequence->AddTween(new MoveTo(Vector3f(192, 320, enemy->GetPosition().z), 120, Tweener::SIMPLE));
-		sequence->AddTween(new Delay(500));
-		sequence->AddTween(new MoveTo(Vector3f(192, 500, enemy->GetPosition().z), 180, Tweener::SIMPLE));
-		enemy->AddTween(sequence);
-		engine->AddEnemy(enemy);
+		Ptr<TweenSequence> sequence = Ptr<TweenSequence>::New();
+		sequence->AddTween(Ptr<MoveTo>::New(Vector3f(192, 320, enemy->GetPosition().z), 120, Tweener::SIMPLE).Get());
+		sequence->AddTween(Ptr<Delay>::New(500).Get());
+		sequence->AddTween(Ptr<MoveTo>::New(Vector3f(192, 500, enemy->GetPosition().z), 180, Tweener::SIMPLE).Get());
+		enemy->AddTween(sequence.Get());
+		engine->AddEnemy(enemy.Get());
 	}
 }
 
@@ -130,14 +124,12 @@ void Stage01::OnLoad()
 	{
 		THMessageBox(ExceptionManager::GetInstance()->GetException()->GetInfo());
 	}
-	texRoad->Retain();
 
 	texLogo = assetManager->CreateTextureFromFile("res/front/logo/stage01_logo.png");
 	if (texLogo == nullptr)
 	{
 		THMessageBox(ExceptionManager::GetInstance()->GetException()->GetInfo());
 	}
-	texLogo->Retain();
 
 	sky = assetManager->CreateCubeMapFromFile("res/background/stage01/skybox/BluePinkNebular_front.jpg",
 		"res/background/stage01/skybox/BluePinkNebular_back.jpg",
@@ -149,14 +141,12 @@ void Stage01::OnLoad()
 	{
 		THMessageBox(ExceptionManager::GetInstance()->GetException()->GetInfo());
 	}
-	sky->Retain();
 
 	house = Mesh::CreateMeshFromFile("res/model/house/house.x");
 	if (house == nullptr)
 	{
 		THMessageBox(ExceptionManager::GetInstance()->GetException()->GetInfo());
 	}
-	house->Retain();
 
 	this->SetBGM(Audio::GetInstance()->CreateMusic("bgm/stage01.wav"));
 }
@@ -172,7 +162,7 @@ void Stage01::InitBackground()
 	background->SetSkyBox(sky);
 	background->EnableLighting(true);
 	background->SetAmbientLight(Vector4f(0.3f, 0.3f, 0.3f, 1.0f));
-	background->AddLight(new DirectionalLight(Vector3f(1.8f, 1.8f, 1.8f), Vector3f(1.0f, -1.0f, 0.0f)));
+	background->AddLight(Ptr<DirectionalLight>::New(Vector3f(1.8f, 1.8f, 1.8f), Vector3f(1.0f, -1.0f, 0.0f)).Get());
 
 	InitBackgroundObjects();
 }
@@ -200,18 +190,18 @@ void Stage01::SetupCamera()
 {
 	auto engine = STGEngine::GetInstance();
 
-	Camera3D* camera = new Camera3D();
+	Ptr<Camera3D> camera = Ptr<Camera3D>::New();
 	camera->SetPosition(Vector3f(0, 500, 0));
 	camera->SetUp(Vector3f(0, 1, 0));
 	camera->SetLookAt(Vector3f(0, 500, 10000));
 	camera->SetFov(65.0f);
 	camera->SetZFar(9000);
-	engine->SetBackgroundCamera(camera);
+	engine->SetBackgroundCamera(camera.Get());
 }
 
 void Stage01::SetupFog()
 {
-	auto scene = (GameScene*)(Game::GetInstance()->GetScene());
+	auto scene = (GameScene*)(Game::GetInstance()->GetScene().Get());
 	auto backgroundLayer = scene->GetBackgroundLayer();
 
 	backgroundLayer->EnableFog(true);
@@ -227,7 +217,7 @@ void Stage01::InitBackgroundObjects()
 {
 	auto engine = STGEngine::GetInstance();
 
-	Mesh* road = new Mesh();
+	Ptr<Mesh> road = Ptr<Mesh>::New();
 	road->InitVertexBuffer(4);
 
 	MeshVertex meshVertices[4] = {
@@ -245,7 +235,7 @@ void Stage01::InitBackgroundObjects()
 
 	road->SetMaterial(roadMaterial);
 
-	engine->AddBackgroundObject(road);
+	engine->AddBackgroundObject(road.Get());
 
 	CreateHouses();
 }
@@ -254,23 +244,23 @@ void Stage01::CreateHouses()
 {
 	auto engine = STGEngine::GetInstance();
 
-	Mesh* houseLeft1 = (Mesh*)house->Clone();
+	Ptr<Mesh> houseLeft1 = (Mesh*)house->Clone().Get();
 	houseLeft1->SetPosition(Vector3f(-800, 395, 1000));
-	engine->AddBackgroundObject(houseLeft1);
+	engine->AddBackgroundObject(houseLeft1.Get());
 
-	Mesh* houseRight1 = (Mesh*)house->Clone();
+	Ptr<Mesh> houseRight1 = (Mesh*)house->Clone().Get();
 	houseRight1->SetPosition(Vector3f(800, 395, 1000));
 	houseRight1->SetRotationByAxis(Vector3f(0, 1, 0), 180);
-	engine->AddBackgroundObject(houseRight1);
+	engine->AddBackgroundObject(houseRight1.Get());
 
 	for (int i = 1; i < 5; i++)
 	{
-		Mesh* houseLeft2 = (Mesh*)houseLeft1->Clone();
+		Ptr<Mesh> houseLeft2 = (Mesh*)houseLeft1->Clone().Get();
 		houseLeft2->SetPosition(Vector3f(-800, 395, 1000 + 1500 * i));
-		engine->AddBackgroundObject(houseLeft2);
+		engine->AddBackgroundObject(houseLeft2.Get());
 
-		Mesh* houseRight2 = (Mesh*)houseRight1->Clone();
+		Ptr<Mesh> houseRight2 = (Mesh*)houseRight1->Clone().Get();
 		houseRight2->SetPosition(Vector3f(800, 395, 1000 + 1500 * i));
-		engine->AddBackgroundObject(houseRight2);
+		engine->AddBackgroundObject(houseRight2.Get());
 	}
 }

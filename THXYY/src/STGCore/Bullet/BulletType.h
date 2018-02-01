@@ -10,18 +10,20 @@ class Bullet;
 class BulletType : public Object
 {
 protected:
-	Bullet* bullet = nullptr;
+	Bullet* bullet = nullptr;  //don't use smart pointer here
+
+	inline void SetBullet(Bullet* bullet) { this->bullet = bullet; }
 
 public:
 	BulletType() = default;
 	virtual ~BulletType() = default;
 
-	inline void SetBullet(Bullet* bullet) { this->bullet = bullet; }
-
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const = 0;
-	virtual Texture* GetTexture() const = 0;
+	virtual Ptr<Texture> GetTexture() const = 0;
 	virtual Rect GetTexRect() const = 0;
 	virtual BulletColor GetBulletColor() const = 0;
+
+	friend class Bullet;
 };
 
 #endif

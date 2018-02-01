@@ -10,10 +10,10 @@ class RankSelectMenuItem;
 class RankSelectMenu : public Menu
 {
 private:
-	RankSelectMenuItem* easy = nullptr;
-	RankSelectMenuItem* normal = nullptr;
-	RankSelectMenuItem* hard = nullptr;
-	RankSelectMenuItem* lunatic = nullptr;
+	Ptr<RankSelectMenuItem> easy;
+	Ptr<RankSelectMenuItem> normal;
+	Ptr<RankSelectMenuItem> hard;
+	Ptr<RankSelectMenuItem> lunatic;
 
 public:
 	RankSelectMenu();
@@ -21,7 +21,7 @@ public:
 
 	virtual void OnMenuItemClicked(int item) override;
 
-	virtual bool OnKeyDown(EngineObject* sender, int key) override;
+	virtual bool OnKeyDown(Ptr<EngineObject> sender, int key) override;
 };
 
 #endif

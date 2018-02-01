@@ -6,13 +6,13 @@
 class Stage01 : public Stage
 {
 private:
-	static Texture* texRoad;
-	Texture* texLogo = nullptr;
-	CubeMap* sky = nullptr;
+	Ptr<Texture> texRoad;
+	Ptr<Texture> texLogo;
+	Ptr<CubeMap> sky;
 
 	int frame = 0;
 
-	Mesh* house = nullptr;
+	Ptr<Mesh> house;
 
 public:
 	static const int BPM;

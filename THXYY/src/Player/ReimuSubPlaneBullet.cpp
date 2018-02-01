@@ -14,7 +14,6 @@ ReimuSubPlaneBullet::ReimuSubPlaneBullet()
 
 ReimuSubPlaneBullet::~ReimuSubPlaneBullet()
 {
-	TH_SAFE_RELEASE(this->target);
 }
 
 void ReimuSubPlaneBullet::Update()
@@ -32,7 +31,7 @@ void ReimuSubPlaneBullet::Update()
 	if (this->target == nullptr)
 	{
 		float minDist = 999999.0f;
-		Enemy* nearestEnemy = nullptr;
+		Ptr<Enemy> nearestEnemy = nullptr;
 		auto iter = enemyList->GetIterator();
 		while (iter->HasNext())
 		{
@@ -50,7 +49,6 @@ void ReimuSubPlaneBullet::Update()
 		if (nearestEnemy)
 		{
 			this->target = nearestEnemy;
-			this->target->Retain();
 		}
 	}
 
@@ -58,7 +56,7 @@ void ReimuSubPlaneBullet::Update()
 	{
 		if (this->target->GetLife() <= 0)
 		{
-			TH_SAFE_RELEASE(this->target);
+			this->target = nullptr;
 		}
 		else
 		{

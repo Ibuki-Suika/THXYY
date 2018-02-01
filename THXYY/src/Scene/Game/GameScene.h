@@ -19,33 +19,33 @@ private:
 	const float SCORE_LEFT = 492.0f;
 	const float POWER_LEFT = 530.0f;
 
-	PauseMenu* pauseMenu = nullptr;
-	YesNoMenu* yesNoMenu = nullptr;
+	Ptr<PauseMenu> pauseMenu;
+	Ptr<YesNoMenu> yesNoMenu;
 
-	STGLayer* stgLayer = nullptr;
-	STGParticleLayer* stgParticleLayer = nullptr;
-	Layer* baseLayer = nullptr;
-	Layer* blackLayer = nullptr;
-	Layer* blackSTGLayer = nullptr;
-	Layer* backgroundLayer = nullptr;
+	Ptr<STGLayer> stgLayer;
+	Ptr<STGParticleLayer> stgParticleLayer;
+	Ptr<Layer> baseLayer;
+	Ptr<Layer> blackLayer;
+	Ptr<Layer> blackSTGLayer;
+	Ptr<Layer> backgroundLayer;
 
-	Sprite* blackSTG = nullptr;
-	Sprite* difficulty = nullptr;
+	Ptr<Sprite> blackSTG;
+	Ptr<Sprite> difficulty;
 
-	Texture* texGameBg = nullptr;
-	Texture* texGameBg2 = nullptr;
-	Texture* texFront = nullptr;
+	Ptr<Texture> texGameBg;
+	Ptr<Texture> texGameBg2;
+	Ptr<Texture> texFront;
 
-	ScoreNumber* hiScore[10];
-	ScoreNumber* score[10];
+	Ptr<ScoreNumber> hiScore[10];
+	Ptr<ScoreNumber> score[10];
 
-	Sprite* lifeSprite[8];
-	Sprite* bombSprite[8];
+	Ptr<Sprite> lifeSprite[8];
+	Ptr<Sprite> bombSprite[8];
 
-	ArrayList<PointNumber*> pointSpriteList;
-	ArrayList<GrazeNumber*> grazeSpriteList;
+	ArrayList<Ptr<PointNumber>> pointSpriteList;
+	ArrayList<Ptr<GrazeNumber>> grazeSpriteList;
 
-	PowerNumber* powerSprite[6];
+	Ptr<PowerNumber> powerSprite[6];
 
 private:
 	void CreateFront();
@@ -67,11 +67,11 @@ public:
 	virtual void Update() override;
 	virtual void Draw() override;
 
-	virtual void OnLoad(AsyncInfo* info) override;
+	virtual void OnLoad(Ptr<AsyncInfo> info) override;
 	virtual void OnStart() override;
 	virtual void OnDestroy() override;
 
-	virtual bool OnKeyDown(EngineObject* sender, int key) override;
+	virtual bool OnKeyDown(Ptr<EngineObject> sender, int key) override;
 
 	void ReturnToTitle();
 	void Restart();
@@ -79,11 +79,11 @@ public:
 	void STGFadeOut(int time);
 	void STGFadeIn(int time);
 
-	inline STGLayer* GetSTGLayer() { return stgLayer; }
-	inline STGParticleLayer* GetSTGParticleLayer() { return stgParticleLayer; }
-	inline Layer* GetBackgroundLayer() { return backgroundLayer; }
-	inline PauseMenu* GetPauseMenu() { return pauseMenu; }
-	inline YesNoMenu* GetYesNoMenu() { return yesNoMenu; }
+	inline Ptr<STGLayer> GetSTGLayer() { return stgLayer; }
+	inline Ptr<STGParticleLayer> GetSTGParticleLayer() { return stgParticleLayer; }
+	inline Ptr<Layer> GetBackgroundLayer() { return backgroundLayer; }
+	inline Ptr<PauseMenu> GetPauseMenu() { return pauseMenu; }
+	inline Ptr<YesNoMenu> GetYesNoMenu() { return yesNoMenu; }
 };
 
 #endif

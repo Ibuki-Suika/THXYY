@@ -8,7 +8,7 @@ using namespace THEngine;
 class SelectTitle : public Sprite
 {
 public:
-	static Texture* tex;
+	static Ptr<Texture> tex;
 
 	enum Type
 	{

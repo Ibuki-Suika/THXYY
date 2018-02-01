@@ -5,8 +5,9 @@
 
 using namespace THEngine;
 
-class Global : public Object
+class Global : public Object, public Singleton<Global>
 {
+	friend class Singleton<Global>;
 public:
 	enum StageEnum
 	{
@@ -26,21 +27,17 @@ public:
 		AYA,
 		REISEN
 	};
-
-private:
-	static Global* instance;
-
 public:
 	StageEnum stageEnum;
 	PlayerEnum playerEnum;
-	Music* titleMusic = nullptr;
-	Texture* texBlack = nullptr;
+	Ptr<Music> titleMusic;
+	Ptr<Texture> texBlack;
+
+private:
+	Global() = default;
 
 public:
-	Global();
 	virtual ~Global();
-
-	static Global* GetInstance();
 
 	bool Load();
 };

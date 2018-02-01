@@ -21,7 +21,7 @@ void YesNoMenu::OnStart()
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
 }
 
-bool YesNoMenu::OnKeyDown(EngineObject* sender, int key)
+bool YesNoMenu::OnKeyDown(Ptr<EngineObject> sender, int key)
 {
 	bool ret = Menu::OnKeyDown(sender, key);
 
@@ -50,22 +50,22 @@ void YesNoMenu::OnMenuItemClicked(int index)
 
 void YesNoMenu::Enter()
 {
-	title = new PauseMenuItem(PauseMenuItem::REALLY);
+	title = Ptr<PauseMenuItem>::New(PauseMenuItem::REALLY);
 	title->SetPosition(Vector3f(250, 180, 5));
 	title->SetAlpha(0.0f);
-	title->AddTween(new MoveBy(Vector3f(-48.0f, 0.0f, 0.0f), 20, Tweener::EASE_OUT));
-	title->AddTween(new FadeTo(1.0f, 20, Tweener::EASE_OUT));
-	AddChild(title);
+	title->AddTween(Ptr<MoveBy>::New(Vector3f(-48.0f, 0.0f, 0.0f), 20, Tweener::EASE_OUT).Get());
+	title->AddTween(Ptr<FadeTo>::New(1.0f, 20, Tweener::EASE_OUT).Get());
+	AddChild(title.Get());
 
-	AddMenuItem(new PauseMenuItem(PauseMenuItem::YES));
-	AddMenuItem(new PauseMenuItem(PauseMenuItem::NO));
+	AddMenuItem(Ptr<PauseMenuItem>::New(PauseMenuItem::YES).Get());
+	AddMenuItem(Ptr<PauseMenuItem>::New(PauseMenuItem::NO).Get());
 
 	for (int i = 0; i < GetItemCount(); i++)
 	{
 		auto menuItem = GetMenuItem(i);
 		menuItem->SetPosition(Vector3f(250, 130 - 32 * i, 5));
-		menuItem->AddTween(new MoveBy(Vector3f(-45.0f, 0.0f, 0.0f), 20, Tweener::EASE_OUT));
-		menuItem->AddTween(new FadeTo(1.0f, 20, Tweener::EASE_OUT));
+		menuItem->AddTween(Ptr<MoveBy>::New(Vector3f(-45.0f, 0.0f, 0.0f), 20, Tweener::EASE_OUT).Get());
+		menuItem->AddTween(Ptr<FadeTo>::New(1.0f, 20, Tweener::EASE_OUT).Get());
 	}
 
 	EventSystem::GetInstance()->RegisterKeyDownListener(this);
@@ -73,14 +73,14 @@ void YesNoMenu::Enter()
 
 void YesNoMenu::Confirm()
 {
-	((GameScene*)Game::GetInstance()->GetScene())->GetPauseMenu()->Confirmed();
+	((GameScene*)Game::GetInstance()->GetScene().Get())->GetPauseMenu()->Confirmed();
 
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
 }
 
 void YesNoMenu::Clear()
 {
-	if (title)
+	if (title != nullptr)
 	{
 		title->MarkDestroy();
 	}
@@ -90,27 +90,27 @@ void YesNoMenu::Clear()
 		menuItem->MarkDestroy();
 	}
 	ClearItems();
-
+	title = nullptr;
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
 }
 
 void YesNoMenu::Cancel()
 {
-	title->AddTween(new MoveBy(Vector3f(48.0f, 0.0f, 0.0f), 20, Tweener::EASE_OUT));
-	title->AddTween(new FadeOut(20, Tweener::EASE_OUT));
+	title->AddTween(Ptr<MoveBy>::New(Vector3f(48.0f, 0.0f, 0.0f), 20, Tweener::EASE_OUT).Get());
+	title->AddTween(Ptr<FadeOut>::New(20, Tweener::EASE_OUT).Get());
 
 	title = nullptr;
 
 	for (int i = 0; i < GetItemCount(); i++)
 	{
 		auto menuItem = GetMenuItem(i);
-		menuItem->AddTween(new MoveBy(Vector3f(45.0f, 0.0f, 0.0f), 20, Tweener::EASE_OUT));
-		menuItem->AddTween(new FadeOut(20, Tweener::EASE_OUT));
+		menuItem->AddTween(Ptr<MoveBy>::New(Vector3f(45.0f, 0.0f, 0.0f), 20, Tweener::EASE_OUT).Get());
+		menuItem->AddTween(Ptr<FadeOut>::New(20, Tweener::EASE_OUT).Get());
 	}
 
 	ClearItems();
 
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
 
-	((GameScene*)Game::GetInstance()->GetScene())->GetPauseMenu()->ConfirmCanceled();
+	((GameScene*)Game::GetInstance()->GetScene().Get())->GetPauseMenu()->ConfirmCanceled();
 }

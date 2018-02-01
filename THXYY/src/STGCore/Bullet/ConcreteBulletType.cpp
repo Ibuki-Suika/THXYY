@@ -8,7 +8,7 @@ bool LinDan::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, -3.0f), 0, xPlayer, yPlayer, radius);
 }
 
-Texture* LinDan::GetTexture() const
+Ptr<Texture> LinDan::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -100,7 +100,7 @@ bool SmallJadeRound::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 1.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* SmallJadeRound::GetTexture() const
+Ptr<Texture> SmallJadeRound::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -192,7 +192,7 @@ bool SmallJade::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 1.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* SmallJade::GetTexture() const
+Ptr<Texture> SmallJade::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -284,7 +284,7 @@ bool Chain::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 3.0f), 0.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* Chain::GetTexture() const
+Ptr<Texture> Chain::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -376,7 +376,7 @@ bool Rice::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 0.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* Rice::GetTexture() const
+Ptr<Texture> Rice::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -468,7 +468,7 @@ bool ChongDan::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 1.0f), 0.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* ChongDan::GetTexture() const
+Ptr<Texture> ChongDan::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -560,7 +560,7 @@ bool ZhaDan::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitSquare(this->bullet, Vector2f(0.0f, 0.0f), Vector2f(0.0f, 0.0f), xPlayer, yPlayer, radius);
 }
 
-Texture* ZhaDan::GetTexture() const
+Ptr<Texture> ZhaDan::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -652,7 +652,7 @@ bool Bacilli::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 0.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* Bacilli::GetTexture() const
+Ptr<Texture> Bacilli::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -744,7 +744,7 @@ bool SmallStar::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 1.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* SmallStar::GetTexture() const
+Ptr<Texture> SmallStar::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -836,7 +836,7 @@ bool PointBullet::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 0.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* PointBullet::GetTexture() const
+Ptr<Texture> PointBullet::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -928,7 +928,7 @@ bool Needle::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 0.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* Needle::GetTexture() const
+Ptr<Texture> Needle::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -1020,7 +1020,7 @@ bool Bacteria::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 0.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* Bacteria::GetTexture() const
+Ptr<Texture> Bacteria::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet01;
 }
@@ -1112,7 +1112,7 @@ bool BigStar::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 3.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* BigStar::GetTexture() const
+Ptr<Texture> BigStar::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet02;
 }
@@ -1204,7 +1204,7 @@ bool MidJade::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 5.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* MidJade::GetTexture() const
+Ptr<Texture> MidJade::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet02;
 }
@@ -1296,7 +1296,7 @@ bool ButterflyBullet::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.5f, 0.5f), 1.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* ButterflyBullet::GetTexture() const
+Ptr<Texture> ButterflyBullet::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet02;
 }
@@ -1388,7 +1388,7 @@ bool Knife::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitSquare(this->bullet, Vector2f(0.0f, 2.0f), Vector2f(1.0f, 4.0f), xPlayer, yPlayer, radius);
 }
 
-Texture* Knife::GetTexture() const
+Ptr<Texture> Knife::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet02;
 }
@@ -1480,7 +1480,7 @@ bool EllipseBullet::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 2.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* EllipseBullet::GetTexture() const
+Ptr<Texture> EllipseBullet::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet02;
 }
@@ -1572,7 +1572,7 @@ bool DiDan::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 1.0f), 0.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* DiDan::GetTexture() const
+Ptr<Texture> DiDan::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet03;
 }
@@ -1664,7 +1664,7 @@ bool Heart::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 5.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* Heart::GetTexture() const
+Ptr<Texture> Heart::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet03;
 }
@@ -1756,7 +1756,7 @@ bool Arrow::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 8.0f), 0.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* Arrow::GetTexture() const
+Ptr<Texture> Arrow::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet03;
 }
@@ -1848,7 +1848,7 @@ bool BigJade::Hit(float xPlayer, float yPlayer, float radius) const
 	return HitChecker::HitRound(this->bullet, Vector2f(0.0f, 0.0f), 13.0f, xPlayer, yPlayer, radius);
 }
 
-Texture* BigJade::GetTexture() const
+Ptr<Texture> BigJade::GetTexture() const
 {
 	return STGResources::GetInstance()->texBullet04;
 }

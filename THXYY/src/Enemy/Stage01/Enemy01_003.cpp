@@ -46,23 +46,23 @@ void Enemy01_003::Shoot(float x, float y, ShootColor color)
 	{
 		for (int j = 0; j < 5; j++)
 		{
-			Bullet* bullet = new Bullet();
+			Ptr<Bullet> bullet = Ptr<Bullet>::New();
 			bullet->SetPosition(x, y);
 			bullet->SetSpeed(0.5 + j);
 			bullet->SetAngle(baseAngle + 15 * i + 2 * j);
-			bullet->AddTween(new SpeedTo(0.0f, 45, Tweener::SIMPLE));
+			bullet->AddTween(Ptr<SpeedTo>::New(0.0f, 45, Tweener::SIMPLE).Get());
 			bullet->GetScheduler()->AddFrameTimer(90, [bullet]() {
 				bullet->SetAngle(bullet->GetAngle() + 60);
-				bullet->AddTween(new SpeedTo(-1.5f, 45, Tweener::SIMPLE));
+				bullet->AddTween(Ptr<SpeedTo>::New(-1.5f, 45, Tweener::SIMPLE).Get());
 			});
 
 			switch (color)
 			{
 			case GREEN:
-				bullet->SetType(new LinDanGreen());
+				bullet->SetType(Ptr<LinDanGreen>::New().Get());
 				break;
 			case PURPLE:
-				bullet->SetType(new LinDanPurple());
+				bullet->SetType(Ptr<LinDanPurple>::New().Get());
 				break;
 			}
 

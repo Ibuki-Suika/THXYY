@@ -6,7 +6,7 @@ class LinDan : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class LinDanRed : public LinDan
@@ -71,7 +71,7 @@ class SmallJadeRound : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class SmallJadeRoundRed : public SmallJadeRound
@@ -136,7 +136,7 @@ class SmallJade : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class SmallJadeRed : public SmallJade
@@ -201,7 +201,7 @@ class Chain : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class ChainRed : public Chain
@@ -266,7 +266,7 @@ class Rice : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class RiceRed : public Rice
@@ -331,7 +331,7 @@ class ChongDan : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class ChongDanRed : public ChongDan
@@ -396,7 +396,7 @@ class ZhaDan : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class ZhaDanRed : public ZhaDan
@@ -461,7 +461,7 @@ class Bacilli : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class BacilliRed : public Bacilli
@@ -526,7 +526,7 @@ class SmallStar : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class SmallStarRed : public SmallStar
@@ -591,7 +591,7 @@ class PointBullet : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class PointBulletRed : public PointBullet
@@ -656,7 +656,7 @@ class Needle : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class NeedleRed : public Needle
@@ -721,7 +721,7 @@ class Bacteria : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class BacteriaRed : public Bacteria
@@ -786,7 +786,7 @@ class BigStar : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class BigStarRed : public BigStar
@@ -851,7 +851,7 @@ class MidJade : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class MidJadeRed : public MidJade
@@ -916,7 +916,7 @@ class ButterflyBullet : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class ButterflyBulletRed : public ButterflyBullet
@@ -981,7 +981,7 @@ class Knife : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class KnifeRed : public Knife
@@ -1046,7 +1046,7 @@ class EllipseBullet : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class EllipseBulletRed : public EllipseBullet
@@ -1111,7 +1111,7 @@ class DiDan : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class DiDanRed : public DiDan
@@ -1176,7 +1176,7 @@ class Heart : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class HeartRed : public Heart
@@ -1241,7 +1241,7 @@ class Arrow : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class ArrowRed : public Arrow
@@ -1306,7 +1306,7 @@ class BigJade : public BulletType
 {
 public:
 	virtual bool Hit(float xPlayer, float yPlayer, float radius) const override;
-	virtual Texture* GetTexture() const override;
+	virtual Ptr<Texture> GetTexture() const override;
 };
 
 class BigJadeRed : public BigJade

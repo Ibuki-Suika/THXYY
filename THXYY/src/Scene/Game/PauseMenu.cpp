@@ -14,13 +14,12 @@ PauseMenu::PauseMenu() : Menu(32, 16, 384, 448)
 
 PauseMenu::~PauseMenu()
 {
-	TH_SAFE_RELEASE(PauseMenuItem::texPauseMenu);
+	PauseMenuItem::texPauseMenu = nullptr;
 }
 
-void PauseMenu::OnLoad(AsyncInfo* info)
+void PauseMenu::OnLoad(Ptr<AsyncInfo> info)
 {
 	PauseMenuItem::texPauseMenu = AssetManager::GetInstance()->CreateTextureFromFile("res/menu/pause_menu.png");
-	PauseMenuItem::texPauseMenu->Retain();
 }
 
 void PauseMenu::OnStart()
@@ -35,32 +34,32 @@ void PauseMenu::DoPause()
 	state = PAUSE;
 
 	auto global = Global::GetInstance();
-	black = new Sprite();
+	black = Ptr<Sprite>::New();
 	black->SetTexture(global->texBlack);
 	black->SetPosition(Vector3f(192, 224, 10));
 	black->SetAlpha(0);
-	black->AddTween(new FadeTo(0.75f, FADE_TIME, Tweener::EASE_OUT));
-	AddChild(black);
+	black->AddTween(Ptr<FadeTo>::New(0.75f, FADE_TIME, Tweener::EASE_OUT).Get());
+	AddChild(black.Get());
 
-	title = new PauseMenuItem(PauseMenuItem::PAUSE);
+	title = Ptr<PauseMenuItem>::New(PauseMenuItem::PAUSE);
 	title->SetPosition(Vector3f(-140, 440, 5));
 	title->SetAlpha(0);
-	title->AddTween(new MoveBy(Vector3f(140, -235, 0), FADE_TIME, Tweener::EASE_OUT));
-	title->AddTween(new FadeTo(1.0f, FADE_TIME, Tweener::EASE_OUT));
-	AddChild(title);
+	title->AddTween(Ptr<MoveBy>::New(Vector3f(140, -235, 0), FADE_TIME, Tweener::EASE_OUT).Get());
+	title->AddTween(Ptr<FadeTo>::New(1.0f, FADE_TIME, Tweener::EASE_OUT).Get());
+	AddChild(title.Get());
 
-	AddMenuItem(new PauseMenuItem(PauseMenuItem::RESUME));
-	AddMenuItem(new PauseMenuItem(PauseMenuItem::RETURN_TO_TITLE));
-	AddMenuItem(new PauseMenuItem(PauseMenuItem::SAVE_REPLAY));
-	AddMenuItem(new PauseMenuItem(PauseMenuItem::RETRY));
+	AddMenuItem(Ptr<PauseMenuItem>::New(PauseMenuItem::RESUME).Get());
+	AddMenuItem(Ptr<PauseMenuItem>::New(PauseMenuItem::RETURN_TO_TITLE).Get());
+	AddMenuItem(Ptr<PauseMenuItem>::New(PauseMenuItem::SAVE_REPLAY).Get());
+	AddMenuItem(Ptr<PauseMenuItem>::New(PauseMenuItem::RETRY).Get());
 
 	for (int i = 0; i < GetItemCount(); i++)
 	{
 		auto menuItem = GetMenuItem(i);
 		menuItem->SetPosition(Vector3f(-140, 440, 5));
 		menuItem->SetAlpha(0);
-		menuItem->AddTween(new MoveBy(Vector3f(150, -285 - 32 * i, 0), FADE_TIME, Tweener::EASE_OUT));
-		menuItem->AddTween(new FadeTo(1.0f, FADE_TIME, Tweener::EASE_OUT));
+		menuItem->AddTween(Ptr<MoveBy>::New(Vector3f(150, -285 - 32 * i, 0), FADE_TIME, Tweener::EASE_OUT).Get());
+		menuItem->AddTween(Ptr<FadeTo>::New(1.0f, FADE_TIME, Tweener::EASE_OUT).Get());
 	}
 
 	EventSystem::GetInstance()->RegisterKeyDownListener(this);
@@ -71,32 +70,32 @@ void PauseMenu::DoGameOver()
 	state = GAME_OVER;
 
 	auto global = Global::GetInstance();
-	black = new Sprite();
+	black = Ptr<Sprite>::New();
 	black->SetTexture(global->texBlack);
 	black->SetPosition(Vector3f(192, 224, 10));
 	black->SetAlpha(0);
-	black->AddTween(new FadeTo(0.75f, FADE_TIME, Tweener::EASE_OUT));
-	AddChild(black);
+	black->AddTween(Ptr<FadeTo>::New(0.75f, FADE_TIME, Tweener::EASE_OUT).Get());
+	AddChild(black.Get());
 
-	title = new PauseMenuItem(PauseMenuItem::GAME_OVER);
+	title = Ptr<PauseMenuItem>::New(PauseMenuItem::GAME_OVER);
 	title->SetPosition(Vector3f(-140, 440, 5));
 	title->SetAlpha(0);
-	title->AddTween(new MoveBy(Vector3f(140, -235, 0), FADE_TIME, Tweener::EASE_OUT));
-	title->AddTween(new FadeTo(1.0f, FADE_TIME, Tweener::EASE_OUT));
-	AddChild(title);
+	title->AddTween(Ptr<MoveBy>::New(Vector3f(140, -235, 0), FADE_TIME, Tweener::EASE_OUT).Get());
+	title->AddTween(Ptr<FadeTo>::New(1.0f, FADE_TIME, Tweener::EASE_OUT).Get());
+	AddChild(title.Get());
 
-	AddMenuItem(new PauseMenuItem(PauseMenuItem::CONTINUE));
-	AddMenuItem(new PauseMenuItem(PauseMenuItem::RETURN_TO_TITLE));
-	AddMenuItem(new PauseMenuItem(PauseMenuItem::SAVE_REPLAY));
-	AddMenuItem(new PauseMenuItem(PauseMenuItem::RETRY));
+	AddMenuItem(Ptr<PauseMenuItem>::New(PauseMenuItem::CONTINUE).Get());
+	AddMenuItem(Ptr<PauseMenuItem>::New(PauseMenuItem::RETURN_TO_TITLE).Get());
+	AddMenuItem(Ptr<PauseMenuItem>::New(PauseMenuItem::SAVE_REPLAY).Get());
+	AddMenuItem(Ptr<PauseMenuItem>::New(PauseMenuItem::RETRY).Get());
 
 	for (int i = 0; i < GetItemCount(); i++)
 	{
 		auto menuItem = GetMenuItem(i);
 		menuItem->SetPosition(Vector3f(-140, 440, 5));
 		menuItem->SetAlpha(0);
-		menuItem->AddTween(new MoveBy(Vector3f(150, -285 - 32 * i, 0), FADE_TIME, Tweener::EASE_OUT));
-		menuItem->AddTween(new FadeTo(1.0f, FADE_TIME, Tweener::EASE_OUT));
+		menuItem->AddTween(Ptr<MoveBy>::New(Vector3f(150, -285 - 32 * i, 0), FADE_TIME, Tweener::EASE_OUT).Get());
+		menuItem->AddTween(Ptr<FadeTo>::New(1.0f, FADE_TIME, Tweener::EASE_OUT).Get());
 	}
 
 	EventSystem::GetInstance()->RegisterKeyDownListener(this);
@@ -105,12 +104,12 @@ void PauseMenu::DoGameOver()
 void PauseMenu::DoResume()
 {
 	if (black)
-		black->AddTween(new FadeOut(FADE_TIME, Tweener::EASE_OUT));
+		black->AddTween(Ptr<FadeOut>::New(FADE_TIME, Tweener::EASE_OUT).Get());
 
 	black = nullptr;
 
-	title->AddTween(new MoveTo(Vector3f(-140, 440, 5), FADE_TIME, Tweener::EASE_OUT));
-	title->AddTween(new FadeOut(FADE_TIME, Tweener::EASE_OUT));
+	title->AddTween(Ptr<MoveTo>::New(Vector3f(-140, 440, 5), FADE_TIME, Tweener::EASE_OUT).Get());
+	title->AddTween(Ptr<FadeOut>::New(FADE_TIME, Tweener::EASE_OUT).Get());
 
 	title = nullptr;
 
@@ -118,14 +117,14 @@ void PauseMenu::DoResume()
 	{
 		auto menuItem = GetMenuItem(i);
 
-		menuItem->AddTween(new MoveTo(Vector3f(-140, 440, 5), FADE_TIME, Tweener::EASE_OUT));
-		menuItem->AddTween(new FadeOut(FADE_TIME, Tweener::EASE_OUT));
+		menuItem->AddTween(Ptr<MoveTo>::New(Vector3f(-140, 440, 5), FADE_TIME, Tweener::EASE_OUT).Get());
+		menuItem->AddTween(Ptr<FadeOut>::New(FADE_TIME, Tweener::EASE_OUT).Get());
 	}
 
 	ClearItems();
 
-	((GameScene*)Game::GetInstance()->GetScene())->GetSTGLayer()->Resume();
-	((GameScene*)Game::GetInstance()->GetScene())->GetSTGParticleLayer()->Resume();
+	((GameScene*)Game::GetInstance()->GetScene().Get())->GetSTGLayer()->Resume();
+	((GameScene*)Game::GetInstance()->GetScene().Get())->GetSTGParticleLayer()->Resume();
 
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
 }
@@ -133,11 +132,11 @@ void PauseMenu::DoResume()
 void PauseMenu::DoRestart()
 {
 	auto engine = STGEngine::GetInstance();
-	auto scene = (GameScene*)Game::GetInstance()->GetScene();
+	auto scene = (GameScene*)Game::GetInstance()->GetScene().Get();
 	scene->STGFadeOut(30);
 
 	auto scheduler = scene->GetScheduler();
-	FrameTimer* timer = new FrameTimer();
+	Ptr<FrameTimer> timer = Ptr<FrameTimer>::New();
 	timer->SetFrame(30);
 	timer->run = [this, scene, engine]()
 	{
@@ -152,7 +151,7 @@ void PauseMenu::DoRestart()
 
 void PauseMenu::ReturnToTitle()
 {
-	((GameScene*)Game::GetInstance()->GetScene())->ReturnToTitle();
+	((GameScene*)Game::GetInstance()->GetScene().Get())->ReturnToTitle();
 }
 
 void PauseMenu::OnMenuItemClicked(int index)
@@ -190,17 +189,17 @@ void PauseMenu::OnMenuItemClicked(int index)
 
 void PauseMenu::AskForConfirm()
 {
-	auto scene = (GameScene*)Game::GetInstance()->GetScene();
+	auto scene = (GameScene*)Game::GetInstance()->GetScene().Get();
 
 	scene->GetYesNoMenu()->Enter();
 
-	Tween* tween = new FadeTo(0.2f, 20, Tweener::EASE_OUT);
+	Ptr<Tween> tween = Ptr<FadeTo>::New(0.2f, 20, Tweener::EASE_OUT).Get();
 	tween->onFinished = [this]() {this->Pause(); };
 	title->AddTween(tween);
 	for (int i = 0; i < GetItemCount(); i++)
 	{
 		auto menuItem = GetMenuItem(i);
-		menuItem->AddTween(new FadeTo(0.2f, 20, Tweener::EASE_OUT));
+		menuItem->AddTween(Ptr<FadeTo>::New(0.2f, 20, Tweener::EASE_OUT).Get());
 	}
 
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
@@ -208,11 +207,11 @@ void PauseMenu::AskForConfirm()
 
 void PauseMenu::ConfirmCanceled()
 {
-	title->AddTween(new FadeTo(1.0f, 20, Tweener::EASE_OUT));
+	title->AddTween(Ptr<FadeTo>::New(1.0f, 20, Tweener::EASE_OUT).Get());
 	for (int i = 0; i < GetItemCount(); i++)
 	{
 		auto menuItem = GetMenuItem(i);
-		menuItem->AddTween(new FadeTo(1.0f, 20, Tweener::EASE_OUT));
+		menuItem->AddTween(Ptr<FadeTo>::New(1.0f, 20, Tweener::EASE_OUT).Get());
 	}
 
 	Resume();
@@ -250,11 +249,12 @@ void PauseMenu::Clear()
 		menuItem->MarkDestroy();
 	}
 	ClearItems();
-
+	title = nullptr;
+	black = nullptr;
 	EventSystem::GetInstance()->UnRegisterKeyDownListener(this);
 }
 
-bool PauseMenu::OnKeyDown(EngineObject* sender, int key)
+bool PauseMenu::OnKeyDown(Ptr<EngineObject> sender, int key)
 {
 	bool ret = Menu::OnKeyDown(sender, key);
 

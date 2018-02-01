@@ -9,10 +9,10 @@ class BulletFog : public Sprite
 {
 protected:
 	int frame = 0;
-	Bullet* bullet = nullptr;
+	Ptr<Bullet> bullet;
 
 public:
-	BulletFog(Bullet* bullet);
+	BulletFog(Ptr<Bullet> bullet);
 	virtual ~BulletFog();
 
 	virtual void Update() override;

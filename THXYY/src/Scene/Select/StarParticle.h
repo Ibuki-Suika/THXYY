@@ -11,7 +11,7 @@ public:
 	StarParticle();
 	virtual ~StarParticle() = default;
 
-	static Texture* tex;
+	static Ptr<Texture> tex;
 };
 
 #endif

@@ -429,9 +429,6 @@
     <ClCompile Include="src\THEngine\Core\THDataStack.cpp">
       <Filter>源文件\THEngine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\THEngine\Asset\THRenderTexture.cpp">
-      <Filter>源文件\THEngine\Asset</Filter>
-    </ClCompile>
     <ClCompile Include="src\Player\ReimuSubPlane.cpp">
       <Filter>源文件\Player</Filter>
     </ClCompile>
@@ -474,9 +471,6 @@
     <ClCompile Include="src\THEngine\Asset\THCubeMap.cpp">
       <Filter>源文件\THEngine\Asset</Filter>
     </ClCompile>
-    <ClCompile Include="src\THEngine\Asset\THAssetImpl.cpp">
-      <Filter>源文件\THEngine\Asset</Filter>
-    </ClCompile>
     <ClCompile Include="src\THEngine\Asset\THShaderStock.cpp">
       <Filter>源文件\THEngine\Asset</Filter>
     </ClCompile>
@@ -491,9 +485,6 @@
     </ClCompile>
     <ClCompile Include="src\THEngine\Renderer\THRenderPipleline.cpp">
       <Filter>源文件\THEngine\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\THEngine\Asset\THFloatTexture.cpp">
-      <Filter>源文件\THEngine\Asset</Filter>
     </ClCompile>
     <ClCompile Include="src\THEngine\Platform\THSurface.cpp">
       <Filter>源文件\THEngine\Platform</Filter>
@@ -863,9 +854,6 @@
     <ClInclude Include="src\THEngine\Asset\THCubeMap.h">
       <Filter>头文件\THEngine\Asset</Filter>
     </ClInclude>
-    <ClInclude Include="src\THEngine\Asset\THAssetImpl.h">
-      <Filter>头文件\THEngine\Asset</Filter>
-    </ClInclude>
     <ClInclude Include="src\THEngine\Asset\THShaderStock.h">
       <Filter>头文件\THEngine\Asset</Filter>
     </ClInclude>
@@ -967,6 +955,15 @@
     </ClInclude>
     <ClInclude Include="src\THEngine\Platform\THDevice.h">
       <Filter>头文件\THEngine\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Common\THPtr.h">
+      <Filter>头文件\THEngine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Common\THTemplates.h">
+      <Filter>头文件\THEngine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\THEngine\Asset\THBaseAsset.h">
+      <Filter>头文件\THEngine\Asset</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

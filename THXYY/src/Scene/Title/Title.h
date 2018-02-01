@@ -9,14 +9,14 @@ using namespace THEngine;
 class Title : public Scene
 {
 private:
-	Layer* bgrLayer;
-	Texture* titleTex;
-	Texture* texLogo = nullptr;
+	Ptr<Layer> bgrLayer;
+	Ptr<Texture> titleTex;
+	Ptr<Texture> texLogo;
 
-	Layer* blackLayer = nullptr;
-	Sprite* black = nullptr;
+	Ptr<Layer> blackLayer;
+	Ptr<Sprite> black;
 
-	ParticleLayer* particleLayer = nullptr;
+	Ptr<ParticleLayer> particleLayer;
 
 	bool needFadeIn = true;
 
@@ -28,7 +28,7 @@ public:
 	virtual ~Title();
 
 	virtual void OnStart() override;
-	virtual void OnLoad(AsyncInfo* info) override;
+	virtual void OnLoad(Ptr<AsyncInfo> info) override;
 
 	inline void SetNeedFadeIn(bool needFadeIn) { this->needFadeIn = needFadeIn; }
 };

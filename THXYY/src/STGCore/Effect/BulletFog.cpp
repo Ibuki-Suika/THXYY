@@ -6,12 +6,11 @@ static const int LIFE_TIME = 15;
 static const int ARISE_TIME = 15;
 static const float INITIAL_ALPHA = 0.0f;
 
-BulletFog::BulletFog(Bullet* bullet)
+BulletFog::BulletFog(Ptr<Bullet> bullet)
 {
 	auto texManager = STGResources::GetInstance();
 
 	this->bullet = bullet;
-	this->bullet->Retain();
 
 	SetTexture(texManager->texBullet02);
 
@@ -54,7 +53,6 @@ BulletFog::BulletFog(Bullet* bullet)
 
 BulletFog::~BulletFog()
 {
-	TH_SAFE_RELEASE(bullet);
 }
 
 void BulletFog::Update()

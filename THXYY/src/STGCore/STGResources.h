@@ -5,41 +5,38 @@
 
 using namespace THEngine;
 
-class STGResources : public Object
+class STGResources : public Object, public Singleton<STGResources>
 {
+	friend class Singleton<STGResources>;
 public:
-	static STGResources* instance;
+	Ptr<Texture> texPlayerCenter;
+	Ptr<Texture> texEnemy01;
+	Ptr<Texture> texBullet01;
+	Ptr<Texture> texBullet02;
+	Ptr<Texture> texBullet03;
+	Ptr<Texture> texBullet04;
+	Ptr<Texture> texReimu;
+	Ptr<Texture> texEffBase;
+	Ptr<Texture> texPointLight;
+	Ptr<Texture> texFourAngleStar;
 
-	static STGResources* GetInstance();
-
-	Texture* texPlayerCenter = nullptr;
-	Texture* texEnemy01 = nullptr;
-	Texture* texBullet01 = nullptr;
-	Texture* texBullet02 = nullptr;
-	Texture* texBullet03 = nullptr;
-	Texture* texBullet04 = nullptr;
-	Texture* texReimu = nullptr;
-	Texture* texEffBase = nullptr;
-	Texture* texPointLight = nullptr;
-	Texture* texFourAngleStar = nullptr;
-
-	Sound* soundShoot1 = nullptr;
-	Sound* soundShoot2 = nullptr;
-	Sound* soundShoot3 = nullptr;
-	Sound* soundBiu = nullptr;
-	Sound* soundMenuOK = nullptr;
-	Sound* soundMenuSelect = nullptr;
-	Sound* soundItem = nullptr;
-	Sound* soundDamage00 = nullptr;
-	Sound* soundDamage01 = nullptr;
-	Sound* soundEnemyDie00 = nullptr;
-	Sound* soundEnemyDie01 = nullptr;
-	Sound* soundPlayerShoot = nullptr;
-	Sound* soundBomb = nullptr;
-	Sound* soundExplode = nullptr;
+	Ptr<Sound> soundShoot1;
+	Ptr<Sound> soundShoot2;
+	Ptr<Sound> soundShoot3;
+	Ptr<Sound> soundBiu;
+	Ptr<Sound> soundMenuOK;
+	Ptr<Sound> soundMenuSelect;
+	Ptr<Sound> soundItem;
+	Ptr<Sound> soundDamage00;
+	Ptr<Sound> soundDamage01;
+	Ptr<Sound> soundEnemyDie00;
+	Ptr<Sound> soundEnemyDie01;
+	Ptr<Sound> soundPlayerShoot;
+	Ptr<Sound> soundBomb;
+	Ptr<Sound> soundExplode;
 
 private:
-	STGResources();
+	STGResources() = default;
 
 public:
 	virtual ~STGResources();

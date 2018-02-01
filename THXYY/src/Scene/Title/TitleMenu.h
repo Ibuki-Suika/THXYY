@@ -10,11 +10,11 @@ class TitleMenu : public Menu
 protected:
 	int itemCount;
 	int currentItem;
-	Texture* texMenuItem;
+	Ptr<Texture> texMenuItem;
 	Rect spriteRect[10][3];
 
 protected:
-	virtual bool OnKeyDown(EngineObject* sender, int key) override;
+	virtual bool OnKeyDown(Ptr<EngineObject> sender, int key) override;
 
 public:
 	TitleMenu();

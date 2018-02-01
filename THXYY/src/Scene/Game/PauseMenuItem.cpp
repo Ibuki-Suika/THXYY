@@ -1,7 +1,7 @@
 #include "PauseMenuItem.h"
 #include "../../STGCore/STGCore.h"
 
-Texture* PauseMenuItem::texPauseMenu = nullptr;
+Ptr<Texture> PauseMenuItem::texPauseMenu;
 
 PauseMenuItem::PauseMenuItem(Type type)
 {
